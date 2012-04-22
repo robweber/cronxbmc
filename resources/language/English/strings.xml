@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<strings>
+  <string id="30000">Cron XBMC</string>
+  
+  <!-- 30001-30050 reserved for gui -->
+  
+  <!-- xbmc function help starts here -->
+	<string id="30051">RunScript(script[,args])</string>
+	<string id="30052">RunAddon(id)</string>
+	<string id="30053">RestartApp</string>
+	<string id="30054">PlayMedia(media[,isdir])</string>
+	<string id="30055">RefreshRSS</string>
+	<string id="30056">PlayerControl([Play|Stop|Next|Previous])</string>
+	<string id="30057">Notification(header,message,[,time,image]</string>
+	<string id="30058">SetVolume(percent)</string>
+	<string id="30059">UpdateLibrary([music|video][,path]</string>
+	<string id="30060">CleanLibrary([music|video])</string>
+	<string id="30061">WakeOnLan(mac)</string>
+	<string id="30062">UpdateAddonRepos</string>
+	<string id="30063">UpdateLocalAddons</string>
+	<string id="30064">TakeScreenshot</string>
+	<string id="30051">System.Exec(shellCommand)</string>
+</strings>
