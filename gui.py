@@ -2,27 +2,20 @@ import xbmc
 import xbmcgui
 import xbmcplugin
 import xbmcaddon
+from resources.lib.windowGUI import windowGUI
 from service import CronXbmc, CronJob
 
 __addon_id__ = "service.cronxbmc"
 __Addon__ = xbmcaddon.Addon(__addon_id__)
-    
-def updateJobs():
-    #read in the xml file
-    cronxbmc = CronXbmc()
-    cron_jobs = cronxbmc.readCronFile()
-    
-    array_count = 0
-    for job in cron_jobs:
-        itemListing = xbmcgui.ListItem(job.name,cronxbmc.nextRun(job))
-        rp = "XBMC.RunPlugin(%s?mode=%s)"
-        xbmc.log(rp % (sys.argv[0],1000))
-        itemListing.addContextMenuItems([("Edit Job",rp % (sys.argv[0],1000)),("Delete Job",rp %(sys.argv[0],1001)),("Create Job", rp % (sys.argv[0],1002))],replaceItems=True)
-        ok = xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=sys.argv[0] + "?mode=1003&job=" + str(array_count),listitem=itemListing,isFolder=False)
-        array_count = array_count + 1
-        
-    xbmcplugin.endOfDirectory(int(sys.argv[1]),cacheToDisc=False)
+__cwd__        = __Addon__.getAddonInfo('path')
 
+def updateJobs():
+    #print __cwd__
+    xbmcplugin.endOfDirectory(int(sys.argv[1]),cacheToDisc=False)
+    ui = windowGUI( "script-cron-main.xml" , __cwd__, "Default")
+    ui.doModal()
+    del ui
+    
 
 def runJob(jobNum):
     #get the current jobs
