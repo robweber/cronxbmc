@@ -2,7 +2,7 @@
 <addon id="service.cronxbmc"
     name="Cron XBMC" version="0.0.1" provider-name="robweber">
   <requires>
-    <import addon="xbmc.python" version="2.0"/>
+    <import addon="xbmc.python" version="2.1.0"/>
   </requires>
   <extension point="xbmc.python.pluginsource" library="gui.py"> 
      <provides>executable</provides> 
