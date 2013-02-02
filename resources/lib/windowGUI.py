@@ -2,14 +2,21 @@ import sys
 import os
 import xbmc
 import xbmcgui
+import xbmcaddon
 import traceback
 from service import CronXbmc, CronJob
+from resources.lib.cronStringBuilderDialog import cronBuildGUI
+
+__addon_id__ = "service.cronxbmc"
+__Addon__ = xbmcaddon.Addon(__addon_id__)
+__cwd__        = __Addon__.getAddonInfo('path')
 
 # Skin ID's
 # Main Control
 NAME_EDIT_BOX      = 51
 COMMAND_EDIT_BOX   = 52
 TIME_EDIT_BOX      = 53
+CRON_TIME_BUTTON   = 57
 NOTIFICATION_RADIO = 54
 ADDJOB_BUTTON      = 55
 CLEAR_BUTTON       = 56
@@ -48,17 +55,15 @@ class windowGUI( xbmcgui.WindowXMLDialog ):
       self.cronxbmc = CronXbmc()
       self.lastClickedControl  = 0
       self.modifyControlActive = False
-      print "Init"
+      self.updated = {}
       pass
 
     def onInit( self ):  
-      print "onInit"
       self.setup_all()
 
     def setup_all( self ):
       self.setInputsToDefault()
       self.getControl( MODIFY_CONTROL ).setVisible(False)
-      #self.getControl( STATUS_LABEL ).setLabel("Hey!")
       self.getControl( CRON_LIST ).reset()
       
       try:
@@ -77,15 +82,13 @@ class windowGUI( xbmcgui.WindowXMLDialog ):
               self.getControl( CRON_LIST ).addItem( listitem )
               iID = iID + 1
           except:
-            print "hicup"
             traceback.print_exc()
           self.setFocus( self.getControl( CRON_LIST ) )
           self.getControl( CRON_LIST ).selectItem( 0 )
       except:
-        print "some hiccuped"
+        pass
     
     def onClick( self, controlId ):
-      print "onClick: %s" % controlId
       self.lastClickedControl = controlId
       cntrl = self.getControl( controlId )
       if (controlId == NOTIFICATION_RADIO):
@@ -125,17 +128,26 @@ class windowGUI( xbmcgui.WindowXMLDialog ):
           iID = int(self.getControl( MODIFY_ID_LABEL ).getLabel())
           self.cronxbmc.deleteJob(iID)
           self.toggleModifyControl()
+      elif (controlId == CRON_TIME_BUTTON):
+          ui = cronBuildGUI( "cronStringBuilder.xml" , __cwd__, "Default")
+          obj = {'saveLbl' : 57}
+          if 'cron' in self.updated:
+            obj['cronString'] = self.updated['cron']
+          ui.setStuff(self, obj)
+          ui.doModal()
+          del ui
           
     def setInputsToDefault(self):
         self.getControl( NAME_EDIT_BOX ).setText("")
         self.getControl( COMMAND_EDIT_BOX ).setText("")
         self.getControl( TIME_EDIT_BOX ).setText("")
+        self.getControl( CRON_TIME_BUTTON ).setLabel("Enter Cron Time")
         self.getControl( NOTIFICATION_RADIO ).setSelected(True)
+        self.updated = {}
         
     def onFocus( self, controlId ):
-      print "onFocus: %s" % controlId
       self.controlId = controlId
-      
+          
     def toggleModifyControl(self):
       if (self.modifyControlActive):
         self.getControl( MODIFY_CONTROL ).setVisible(False)
@@ -149,20 +161,19 @@ class windowGUI( xbmcgui.WindowXMLDialog ):
     
     def onAction( self, action ):
       try:
-          print "onAction: %s" % action.getId()
-          if ( action.getId() in CANCEL_DIALOG):
-            if (self.modifyControlActive):
-              self.toggleModifyControl()
-            elif (self.controlId in TEXT_INPUTS):
-              pass
-            else:
-              self.close()
-          elif (action.getId() in (ACTION_SELECT_ITEM, ACTION_MOUSE_LEFT_CLICK)):
-            if (self.lastClickedControl == NOTIFICATION_RADIO):
-              cntrl = self.getControl( NOTIFICATION_RADIO )
-              cntrl.setSelected(not (cntrl.isSelected()))
-            self.lastClickedControl = 0
+        if ( action.getId() in CANCEL_DIALOG):
+          if (self.modifyControlActive):
+            self.toggleModifyControl()
+          elif (self.controlId in TEXT_INPUTS):
+            pass
+          else:
+            self.close()
+        elif (action.getId() in (ACTION_SELECT_ITEM, ACTION_MOUSE_LEFT_CLICK)):
+          if (self.lastClickedControl == NOTIFICATION_RADIO):
+            cntrl = self.getControl( NOTIFICATION_RADIO )
+            cntrl.setSelected(not (cntrl.isSelected()))
+          self.lastClickedControl = 0
       except:
-          print "except"
+        pass
       
     
