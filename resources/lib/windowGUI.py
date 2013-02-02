@@ -97,7 +97,8 @@ class windowGUI( xbmcgui.WindowXMLDialog ):
           newJob = CronJob()
           newJob.name = self.getControl( NAME_EDIT_BOX ).getText()
           newJob.command = self.getControl( COMMAND_EDIT_BOX ).getText()
-          newJob.expression = self.getControl( TIME_EDIT_BOX ).getText()
+          #newJob.expression = self.getControl( TIME_EDIT_BOX ).getText()
+          newJob.expression = self.getControl( CRON_TIME_BUTTON ).getLabel()
           newJob.show_notification = "True" if self.getControl( NOTIFICATION_RADIO ).isSelected() else "False"
           self.cronxbmc.writeCronFile(newJob)
           self.setInputsToDefault()
