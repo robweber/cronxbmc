@@ -69,14 +69,13 @@ class CronXbmc:
         adv_jobs = []
         try:
             doc = xml.dom.minidom.parse(xbmc.translatePath(self.datadir + "cron.xml"))
-
             for node in doc.getElementsByTagName("job"):
                 tempJob = CronJob()
                 tempJob.name = str(node.getAttribute("name"))
                 tempJob.command = str(node.getAttribute("command"))
                 tempJob.expression = str(node.getAttribute("expression"))
                 tempJob.show_notification = str(node.getAttribute("show_notification"))
-                
+                tempJob.id = str(len(adv_jobs))
                 adv_jobs.append(tempJob)
 
         except IOError:
