@@ -1,0 +1,71 @@
+<window id="106">
+	<defaultcontrol>996</defaultcontrol>
+	<coordinates>
+		<system>1</system>
+		<posx>400</posx>
+		<posy>150</posy>
+	</coordinates>
+	<controls>
+		<control type="image" id="999">
+			<description>background image</description>
+			<posx>0</posx>
+			<posy>0</posy>
+			<width>340</width>
+			<height>25</height>
+			<texture border="20">DialogBack.png</texture>
+		</control>
+		<control type="list" id="996">
+			<description>grouplist for context buttons</description>
+			<posx>20</posx>
+			<posy>30</posy>
+			<width>300</width>
+			<height max="670">auto</height>
+			<itemgap>2</itemgap>
+      <itemlayout height="38">
+        <control type="button" id="1000">
+          <description>button template</description>
+          <posx>0</posx><posy>0</posy>
+          <width>300</width><height>35</height>
+          <texturefocus border="5">button-focus.png</texturefocus>
+        </control>
+        <control type="label">
+          <posx>150</posx><posy>0</posy><width>300</width><height>35</height>
+          <font>font16</font><aligny>center</aligny>
+          <textcolor>white</textcolor><disabledcolor>grey2</disabledcolor>
+          <align>center</align><info>ListItem.Label</info>
+        </control>
+      </itemlayout>
+      <focusedlayout height="38">
+        <control type="button" id="1000">
+          <description>button template</description>
+          <posx>0</posx><posy>0</posy>
+          <width>300</width><height>35</height>
+          <texturefocus border="5">button-focus.png</texturefocus>
+        </control>
+        <control type="label">
+          <posx>150</posx><posy>0</posy><width>300</width><height>35</height>
+          <font>font16</font><aligny>center</aligny>
+          <textcolor>white</textcolor><disabledcolor>grey2</disabledcolor>
+          <align>center</align><info>ListItem.Label</info>
+        </control>
+      </focusedlayout>
+		</control>
+		<control type="button">
+			<description>Close Window button</description>
+			<posx>260</posx>
+			<posy>5</posy>
+			<width>64</width>
+			<height>32</height>
+			<label>-</label>
+			<font>-</font>
+			<onclick>PreviousMenu</onclick>
+			<texturefocus>DialogCloseButton-focus.png</texturefocus>
+			<texturenofocus>DialogCloseButton.png</texturenofocus>
+			<onleft>2</onleft>
+			<onright>2</onright>
+			<onup>2</onup>
+			<ondown>2</ondown>
+			<visible>system.getbool(input.enablemouse)</visible>
+		</control>
+	</controls>
+</window>
