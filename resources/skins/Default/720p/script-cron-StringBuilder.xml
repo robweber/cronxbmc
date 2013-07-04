@@ -1,0 +1,1809 @@
+<window id="60">
+  <coordinates>
+    <system>1</system>
+    <posx>200</posx>
+    <posy>100</posy>
+  </coordinates>
+  <defaultcontrol>1010</defaultcontrol>
+  <zorder>0</zorder>
+  <animation effect="fade" time="250">WindowOpen</animation>
+  <animation effect="fade" time="250">WindowClose</animation>
+  <controls>
+    <control type="image">
+      <posx>-25</posx>
+      <posy>-25</posy>
+      <width>800</width>
+      <height>480</height>
+      <texture border="40">ContentPanel.png</texture>
+    </control>
+    <control type="image">
+      <posx>0</posx>
+      <posy>0</posy>
+      <width>240</width>
+      <height>450</height>
+      <texture border="40">default-panel.png</texture>
+    </control>
+    <control type="image">
+      <posx>240</posx>
+      <posy>5</posy>
+      <width>520</width>
+      <height>420</height>
+      <!--<texture border="40">default-panel.png</texture>-->
+      <texture border="40">MediaBladeSub_Part1.png</texture>
+    </control>
+
+    
+    <!-- Main Buttons-->
+    <control type="group" id="1000">
+      <defaultcontrol>1002</defaultcontrol>
+      <posx>20</posx>
+      <posy>10</posy>
+      <control type="label" id="1001" >
+        <description>cron string</description>
+        <posx>0</posx><posy>0</posy>
+        <width>200</width><height>40</height>
+        <font>font18</font><textcolor>white</textcolor>
+        <aligny>center</aligny><align>center</align>
+        <label>* * * * *</label><scroll>true</scroll>
+        <visible>true</visible>
+      </control>
+      <control type="edit" id="1002">
+        <onup>0</onup><ondown>1010</ondown><onright>1900</onright>
+        <posx>0</posx><posy>0</posy>
+        <width>200</width><height>40</height>
+        <aligny>center</aligny><align>left</align>
+        <font>font18</font><textcolor>white</textcolor>
+        <textwidth>100</textwidth>
+        <visible>false</visible>
+      </control>
+       <control type="image">
+        <posx>0</posx>
+        <posy>0</posy>
+        <width>200</width>
+        <height>40</height>
+        <aligny>center</aligny>
+        <texture border="40">default-panel.png</texture>
+        <visible>false</visible>
+      </control> 
+      <control type="group">
+        <posx>25</posx>
+        <posy>50</posy>
+        <control type="button" id="1010">
+          <onright>1900</onright>
+          <onleft></onleft>
+          <onup>1002</onup>
+          <ondown>1020</ondown>
+          <posx>0</posx>
+          <posy>0</posy>
+          <width>150</width>
+          <aligny>center</aligny>
+          <label>Minutes</label>
+          <align>center</align>
+          <height>40</height>
+          <font>font18</font>
+          <textcolor>white</textcolor>
+          <colordiffuse>white</colordiffuse>
+          <pulseonselect>True</pulseonselect>
+          <onfocus>Skin.SetString(focusMenu,min)</onfocus>
+        </control>
+        <control type="button" id="1020">
+          <onright>1900</onright>
+          <onleft></onleft>
+          <onup>1010</onup>
+          <ondown>1030</ondown>
+          <onfocus></onfocus>
+          <posx>0</posx>
+          <posy>50</posy>
+          <width>150</width>
+          <aligny>center</aligny>
+          <label>Hours</label>
+          <align>center</align>
+          <height>40</height>
+          <font>font18</font>
+          <textcolor>white</textcolor>
+          <colordiffuse>white</colordiffuse>
+          <pulseonselect>True</pulseonselect>
+          <onfocus>Skin.SetString(focusMenu,hour)</onfocus>
+        </control>
+        <control type="button" id="1030">
+          <onright>1900</onright>
+          <onleft></onleft>
+          <onup>1020</onup>
+          <ondown>1040</ondown>
+          <onfocus></onfocus>
+          <posx>0</posx>
+          <posy>100</posy>
+          <width>150</width>
+          <aligny>center</aligny>
+          <label>Days</label>
+          <align>center</align>
+          <height>40</height>
+          <font>font18</font>
+          <textcolor>white</textcolor>
+          <colordiffuse>white</colordiffuse>
+          <pulseonselect>True</pulseonselect>
+          <onfocus>Skin.SetString(focusMenu,day)</onfocus>
+        </control>
+        <control type="button" id="1040">
+          <onright>1900</onright>
+          <onleft></onleft>
+          <onup>1030</onup>
+          <ondown>1050</ondown>
+          <onfocus></onfocus>
+          <posx>0</posx>
+          <posy>150</posy>
+          <width>150</width>
+          <aligny>center</aligny>
+          <label>Months</label>
+          <align>center</align>
+          <height>40</height>
+          <font>font18</font>
+          <textcolor>white</textcolor>
+          <colordiffuse>white</colordiffuse>
+          <pulseonselect>True</pulseonselect>
+          <onfocus>Skin.SetString(focusMenu,mon)</onfocus>
+        </control>
+        <control type="button" id="1050">
+          <onleft></onleft>
+          <onright>1900</onright>
+          <onup>1040</onup>
+          <ondown>1080</ondown>
+          <onfocus></onfocus>
+          <posx>0</posx>
+          <posy>200</posy>
+          <width>150</width>
+          <aligny>center</aligny>
+          <label>WeekDays</label>
+          <align>center</align>
+          <height>40</height>
+          <font>font18</font>
+          <textcolor>white</textcolor>
+          <colordiffuse>white</colordiffuse>
+          <pulseonselect>True</pulseonselect>
+          <onfocus>Skin.SetString(focusMenu,week)</onfocus>
+        </control>
+      </control>
+      <control type="image">
+        <posx>5</posx>
+        <posy>300</posy>
+        <width>200</width>
+        <height>2</height>
+        <texture>GMseparator.png</texture>
+        <visible></visible>
+      </control>
+      <control type="group">
+        <posx>0</posx>
+        <posy>310</posy>
+        <control type="button" id="1080">
+          <onright></onright>
+          <onleft></onleft>
+          <onup>1050</onup>
+          <ondown>1090</ondown>
+          <onfocus></onfocus>
+          <posx>0</posx>
+          <posy>0</posy>
+          <width>210</width>
+          <aligny>center</aligny>
+          <label>Save</label>
+          <align>center</align>
+          <height>40</height>
+          <font>font18</font>
+          <textcolor>white</textcolor>
+          <colordiffuse>white</colordiffuse>
+          <pulseonselect>True</pulseonselect>
+          <onfocus>Skin.SetString(focusMenu,save)</onfocus>
+        </control>
+        <control type="button" id="1090">
+          <onright></onright>
+          <onleft></onleft>
+          <onup>1080</onup>
+          <ondown></ondown>
+          <onfocus></onfocus>
+          <posx>0</posx>
+          <posy>50</posy>
+          <width>210</width>
+          <aligny>center</aligny>
+          <label>Dont Save</label>
+          <align>center</align>
+          <height>40</height>
+          <font>font18</font>
+          <textcolor>white</textcolor>
+          <colordiffuse>white</colordiffuse>
+          <pulseonselect>True</pulseonselect>
+          <onfocus>Skin.SetString(focusMenu,dont)</onfocus>
+        </control>
+      </control>
+    </control>
+    <!-- ## END ## Main Buttons-->
+    
+    <!-- Right Side Area -->
+    <control type="group" id="1900">
+      <description>Right Side</description>
+      <posx>250</posx>
+      <posy>0</posy>
+                    
+      
+      <!-- Minute Area -->
+      <control type="group" id="2000">
+        <description>Minute Group</description>
+        <posx>0</posx>
+        <posy>0</posy>
+        <visible>SubString(Skin.String(focusMenu),min)</visible>
+        <!-- <control type="image">
+          <posx>0</posx>
+          <posy>0</posy>
+          <width>650</width>
+          <height>100</height>
+          <aligny>center</aligny>
+          <texture border="40">small-default-panel-nb.png</texture>
+        </control> -->
+        
+        <!-- First Option -->
+        <control type="group">
+          <posx>0</posx>
+          <posy>0</posy>
+          <control type="radiobutton" id="2100">
+            <posx>0</posx>
+            <posy>0</posy>
+            <width>500</width>
+            <height>40</height>
+            <font>font13</font>
+            <label></label>
+            <textcolor>grey2</textcolor>
+            <focusedcolor>white</focusedcolor>
+            <texturefocus border="5">MenuItemFO.png</texturefocus>
+            <texturenofocus border="5">MenuItemNF.png</texturenofocus>
+            <onclick></onclick>
+            <selected></selected>
+            <onright></onright>
+            <onleft>1000</onleft>
+            <onup></onup>
+            <ondown>2200</ondown>
+          </control>
+          <control type="label">
+            <posx>25</posx>
+            <posy>0</posy>
+            <width>300</width>
+            <height>40</height>
+            <font>font18</font>
+            <textcolor>white</textcolor>
+            <disabledcolor>grey2</disabledcolor>
+            <aligny>center</aligny>
+            <align>left</align>
+            <label>Every Minute</label>
+            <enable>Control.HasFocus(2100) | SubString(Control.GetLabel(2100),*)</enable>
+          </control>
+          <control type="label">
+            <posx>300</posx>
+            <posy>0</posy>
+            <width>100</width>
+            <height>40</height>
+            <font>font18</font>
+            <textcolor>white</textcolor>
+            <aligny>center</aligny>
+            <align>left</align>
+            <label>*</label>
+            <visible>SubString(Control.GetLabel(2100),*)</visible>
+          </control>
+        </control>
+        
+        <!-- ##END## First Option -->
+        
+        <!-- Second Option -->
+        <control type="group">
+          <posx>0</posx>
+          <posy>50</posy>
+          <control type="radiobutton" id="2200">
+            <posx>0</posx>
+            <posy>0</posy>
+            <width>500</width>
+            <height>40</height>
+            <font>font13</font>
+            <label></label>
+            <textcolor>grey2</textcolor>
+            <focusedcolor>white</focusedcolor>
+            <texturefocus border="5">MenuItemFO.png</texturefocus>
+            <texturenofocus border="5">MenuItemNF.png</texturenofocus>
+            <onclick></onclick>
+            <selected></selected>
+            <onright>2210</onright>
+            <onleft>1000</onleft>
+            <onup>2100</onup>
+            <ondown>2300</ondown>
+          </control>
+          <control type="image">
+            <posx>0</posx><posy>0</posy>
+            <width>500</width><height>40</height>
+            <aligny>center</aligny>
+            <texture border="5">MenuItemFO.png</texture>
+            <visible>Control.HasFocus(2214) | Control.HasFocus(2215)</visible>
+          </control>
+          <control type="label">
+            <posx>25</posx>
+            <posy>0</posy>
+            <width>300</width>
+            <height>40</height>
+            <font>font18</font>
+            <textcolor>white</textcolor>
+            <disabledcolor>grey2</disabledcolor>
+            <aligny>center</aligny>
+            <align>left</align>
+            <label>Every 'number' of Minutes</label>
+            <enable>Control.HasFocus(2200) | SubString(Control.GetLabel(2200),*)</enable>
+          </control>
+          <control type="label">
+            <posx>300</posx>
+            <posy>0</posy>
+            <width>100</width>
+            <height>40</height>
+            <font>font18</font>
+            <textcolor>white</textcolor>
+            <aligny>center</aligny>
+            <align>left</align>
+            <label>*/</label>
+            <visible>SubString(Control.GetLabel(2200),*)</visible>
+          </control>
+          <control type="group" id="2210">
+            <description>Selection Box</description>
+            <posx>325</posx><posy>5</posy>
+            <defaultcontrol>2213</defaultcontrol>
+            
+            <!-- Faux SpinControl -->
+            <control type="group" id="2213">
+              <posx>55</posx><posy>3</posy>
+              <control type="group">
+                <description>Up Arrow button</description>
+                <posx>0</posx><posy>0</posy>
+                <control type="button" id="2214">
+                  <onup>2214</onup><ondown>2214</ondown><onright>2215</onright><onleft>2200</onleft>
+                  <enable>SubString(Control.GetLabel(2200),*)</enable>
+                  <posx>0</posx><posy>0</posy><width>33</width><height>22</height>
+                  <font>font18</font><pulseonselect>True</pulseonselect>
+                  <texturefocus>scroll-down-focus-2.png</texturefocus><texturenofocus>scroll-down-2.png</texturenofocus>
+                </control>
+              </control>
+              <control type="group">
+                <description>Down Arrow button</description>
+                <posx>33</posx><posy>0</posy>
+                <control type="button" id="2215">
+                  <onup>2215</onup><ondown>2215</ondown><onleft>2214</onleft><onright>2215</onright>
+                  <enable>SubString(Control.GetLabel(2200),*)</enable>
+                  <posx>0</posx><posy>0</posy><width>33</width><height>22</height>
+                  <texturefocus>scroll-up-focus-2.png</texturefocus><texturenofocus>scroll-up-2.png</texturenofocus>
+                  <font>font18</font><pulseonselect>True</pulseonselect>
+                </control>
+              </control>
+            </control>
+            <!-- ## END ## Faux SpinControl -->
+            
+            <!-- ## END ## Label for SpinControl -->
+            <control type="image">
+              <posx>0</posx>
+              <posy>0</posy>
+              <width>50</width>
+              <height>30</height>
+              <aligny>center</aligny>
+              <texture border="5">button-nofocus.png</texture>
+            </control>
+            <control type="label" id="2216">
+              <posx>0</posx><posy>0</posy>
+              <width>50</width><height>30</height>
+              <font>font18</font><textcolor>white</textcolor>
+              <aligny>center</aligny><align>center</align>
+              <label></label>
+              <number>59</number>
+              <texture border="5">button-nofocus.png</texture>
+              <enable>SubString(Control.GetLabel(2200),*)</enable>
+            </control>
+            <!-- ## END ## Label for SpinControl -->
+            
+          </control>
+          <!-- ## END ## Selection Box -->
+          
+        </control>
+        <!-- ##END## Second Option -->
+        
+        <!-- Third Option -->
+        <control type="group">
+          <posx>0</posx>
+          <posy>100</posy>
+          <control type="radiobutton" id="2300">
+            <posx>0</posx>
+            <posy>0</posy>
+            <width>500</width>
+            <height>40</height>
+            <font>font13</font>
+            <label></label>
+            <textcolor>grey2</textcolor>
+            <focusedcolor>white</focusedcolor>
+            <texturefocus border="5">MenuItemFO.png</texturefocus>
+            <texturenofocus border="5">MenuItemNF.png</texturenofocus>
+            <onclick></onclick>
+            <selected></selected>
+            <onright></onright>
+            <onleft>1000</onleft>
+            <onup>2200</onup>
+            <ondown>2310</ondown>
+          </control>
+          <control type="image">
+            <posx>0</posx><posy>0</posy>
+            <width>500</width><height>40</height>
+            <aligny>center</aligny>
+            <texture border="5">MenuItemFO.png</texture>
+            <visible>Control.HasFocus(2314) | Control.HasFocus(2315) | Control.HasFocus(2320) | Control.HasFocus(2321) | Control.HasFocus(2330)</visible>
+          </control>
+          <control type="label">
+            <posx>25</posx>
+            <posy>0</posy>
+            <width>300</width>
+            <height>40</height>
+            <font>font18</font>
+            <textcolor>white</textcolor>
+            <disabledcolor>grey2</disabledcolor>
+            <aligny>center</aligny>
+            <align>left</align>
+            <label>Only Selected Minutes</label>
+            <enable>Control.HasFocus(2300) | SubString(Control.GetLabel(2300),*)</enable>
+          </control>
+          <control type="label" id="2301">
+            <posx>300</posx>
+            <posy>0</posy>
+            <width>140</width>
+            <height>40</height>
+            <font>font18</font>
+            <textcolor>white</textcolor>
+            <aligny>center</aligny>
+            <align>left</align>
+            <scroll>true</scroll>
+            <scrollspeed>30</scrollspeed>
+            <label></label>
+            <visible>SubString(Control.GetLabel(2300),*)</visible>
+          </control>
+          
+          <control type="group" id="2310">
+            <description>Selection Box</description>
+            <posx>175</posx><posy>55</posy>
+            <defaultcontrol>2313</defaultcontrol>
+            <!-- Faux SpinControl -->
+            <control type="group" id="2313">
+              <posx>-8</posx><posy>40</posy>
+              <control type="button" id="2314">
+                <description>Down Arrow button</description>
+                <posx>0</posx><posy>0</posy>
+                <onup>2300</onup><ondown>2314</ondown><onright>2315</onright><onleft>2319</onleft>
+                <enable>SubString(Control.GetLabel(2300),*)</enable>
+                <posx>0</posx><posy>0</posy><width>33</width><height>22</height>
+                <font>font18</font><pulseonselect>True</pulseonselect>
+                <texturefocus>scroll-down-focus-2.png</texturefocus><texturenofocus>scroll-down-2.png</texturenofocus>
+              </control>
+              <control type="button" id="2315">
+                <description>Up Arrow button</description>
+                <posx>33</posx><posy>0</posy>
+                <onup>2300</onup><ondown>2315</ondown><onleft>2314</onleft><onright>2319</onright>
+                <enable>SubString(Control.GetLabel(2300),*)</enable>
+                <posx>0</posx><posy>0</posy><width>33</width><height>22</height>
+                <texturefocus>scroll-up-focus-2.png</texturefocus><texturenofocus>scroll-up-2.png</texturenofocus>
+                <font>font18</font><pulseonselect>True</pulseonselect>
+              </control>
+            </control>
+            <!-- ## END ## Faux SpinControl -->
+            
+            <!-- ## END ## Label for SpinControl -->
+            <control type="image">
+              <posx>0</posx>
+              <posy>0</posy>
+              <width>55</width>
+              <height>30</height>
+              <aligny>center</aligny>
+              <texture border="5">button-nofocus.png</texture>
+            </control>
+            <control type="label" id="2316">
+              <posx>0</posx><posy>0</posy>
+              <width>50</width><height>30</height>
+              <font>font18</font><textcolor>white</textcolor>
+              <aligny>center</aligny><align>center</align>
+              <label></label>
+              <number>59</number>
+              <enable>SubString(Control.GetLabel(2300),*)</enable>
+            </control>
+            <!-- ## END ## Label for SpinControl -->
+            
+            <control type="group" id="2319">
+              <posx>65</posx><posy>0</posy>
+              <control type="button" id="2320">
+                <onleft>2313</onleft><onright>2330</onright><onup>2300</onup><ondown>2321</ondown>
+                <posx>0</posx><posy>0</posy>
+                <width>75</width><height>30</height>
+                <label>Add</label><align>center</align>
+                <font>font14</font><textcolor>white</textcolor>
+                <colordiffuse>white</colordiffuse><pulseonselect>True</pulseonselect>
+                <enable>SubString(Control.GetLabel(2300),*)</enable>
+              </control>
+              <control type="button" id="2321">
+                <onleft>2313</onleft><onright>2330</onright><onup>2320</onup><ondown>2321</ondown>
+                <posx>0</posx><posy>35</posy><width>75</width><height>30</height>
+                <label>Del</label><align>center</align>
+                <font>font14</font><textcolor>white</textcolor>
+                <colordiffuse>white</colordiffuse><pulseonselect>True</pulseonselect>
+                <enable>SubString(Control.GetLabel(2300),*)</enable>
+              </control>
+              
+              <control type="group">
+                <posx>100</posx>
+                <posy>0</posy>
+                <control type="image">
+                  <posx>-5</posx><posy>-5</posy><width>160</width><height>210</height>
+                  <aligny>center</aligny><texture border="5">button-nofocus.png</texture>
+                </control>
+                <control type="scrollbar" id="2331">
+                  <description>scroll bar indicator for lists</description>
+                  <posx>145</posx>
+                  <posy>0</posy>
+                  <width>6</width>
+                  <height>200</height>
+                  <texturesliderbackground>default-scroll_back.png</texturesliderbackground>
+                  <texturesliderbar>default-scroll_mid.png</texturesliderbar>
+                  <texturesliderbarfocus>default-scroll_mid.png</texturesliderbarfocus>
+                  <textureslidernib>-</textureslidernib>
+                  <textureslidernibfocus>-</textureslidernibfocus>
+                  <orientation>vertical</orientation>
+                  <showonepage>false</showonepage>
+                  <visible>Control.IsVisible(2330)</visible>
+                  <enable>SubString(Control.GetLabel(2300),*)</enable>
+                </control>
+                <control type="list" id="2330">
+                  <posx>0</posx><posy>0</posy><width>150</width><height>200</height>
+                  <onleft>2320</onleft><onright>2330</onright><onup>2300</onup><ondown>2330</ondown>
+                  <viewtype label="535">list</viewtype>
+                  <pagecontrol>2331</pagecontrol>
+                  <scrolltime>200</scrolltime>
+                  <enable>SubString(Control.GetLabel(2300),*)</enable>
+                  <itemlayout height="38">
+                    <control type="image">
+                      <posx>0</posx><posy>36</posy><width>150</width><height>2</height>
+                      <texture border="5">MenuItemNF.png</texture>
+                    </control>
+                    <control type="label">
+                      <posx>75</posx><posy>0</posy><width>150</width><height>38</height>
+                      <font>font16</font><aligny>center</aligny>
+                      <textcolor>white</textcolor><selectedcolor>green</selectedcolor>
+                      <align>center</align><info>ListItem.Label</info>
+                      <visible>SubString(Control.GetLabel(2300),*)</visible>
+                    </control>
+                    <control type="label">
+                      <posx>75</posx><posy>0</posy><width>150</width><height>38</height>
+                      <font>font16</font><aligny>center</aligny>
+                      <textcolor>grey2</textcolor><selectedcolor>green</selectedcolor>
+                      <align>center</align><info>ListItem.Label</info>
+                      <visible>!SubString(Control.GetLabel(2300),*)</visible>
+                    </control>
+                  </itemlayout>
+                  <focusedlayout height="38">
+                    <control type="image">
+                      <posx>0</posx><posy>0</posy><width>150</width><height>38</height>
+                      <texture border="5">MenuItemFO.png</texture>
+                      <visible>Control.HasFocus(2330)</visible>
+                    </control>
+                    <control type="image">
+                      <posx>0</posx><posy>36</posy><width>150</width><height>2</height>
+                      <texture border="5">MenuItemNF.png</texture>
+                      <visible>!Control.HasFocus(2330)</visible>
+                    </control>
+                    <control type="label">
+                      <posx>75</posx><posy>0</posy><width>150</width><height>38</height>
+                      <font>font16</font><aligny>center</aligny>
+                      <textcolor>white</textcolor><selectedcolor>green</selectedcolor>
+                      <align>center</align><info>ListItem.Label</info>
+                      <visible>SubString(Control.GetLabel(2300),*)</visible>
+                    </control>
+                    <control type="label">
+                      <posx>75</posx><posy>0</posy><width>150</width><height>38</height>
+                      <font>font16</font><aligny>center</aligny>
+                      <textcolor>grey2</textcolor><selectedcolor>green</selectedcolor>
+                      <align>center</align><info>ListItem.Label</info>
+                      <visible>!SubString(Control.GetLabel(2300),*)</visible>
+                    </control>
+                  </focusedlayout>
+                </control>
+              </control>
+            </control>
+          </control>
+          <!-- ## END ## Selection Box -->
+        </control>
+        <!-- ##END## Third Option -->
+      </control>
+      <!-- ## END ## Minute Group -->
+      
+      <!-- Hour Group -->
+      <control type="group" id="3000">
+        <description>Hour Group</description>
+        <posx>0</posx>
+        <posy>0</posy>
+        <visible>SubString(Skin.String(focusMenu),hour)</visible>
+        
+        <!-- First Option -->
+        <control type="group">
+          <posx>0</posx>
+          <posy>0</posy>
+          <control type="radiobutton" id="3100">
+            <posx>0</posx>
+            <posy>0</posy>
+            <width>500</width>
+            <height>40</height>
+            <font>font13</font>
+            <label></label>
+            <textcolor>grey2</textcolor>
+            <focusedcolor>white</focusedcolor>
+            <texturefocus border="5">MenuItemFO.png</texturefocus>
+            <texturenofocus border="5">MenuItemNF.png</texturenofocus>
+            <onclick></onclick>
+            <selected></selected>
+            <onright></onright>
+            <onleft>1000</onleft>
+            <onup></onup>
+            <ondown>3200</ondown>
+          </control>
+          <control type="label">
+            <posx>25</posx>
+            <posy>0</posy>
+            <width>300</width>
+            <height>40</height>
+            <font>font18</font>
+            <textcolor>white</textcolor>
+            <disabledcolor>grey2</disabledcolor>
+            <aligny>center</aligny>
+            <align>left</align>
+            <label>Every Hour</label>
+            <enable>Control.HasFocus(3100) | SubString(Control.GetLabel(3100),*)</enable>
+          </control>
+          <control type="label">
+            <posx>300</posx>
+            <posy>0</posy>
+            <width>100</width>
+            <height>40</height>
+            <font>font18</font>
+            <textcolor>white</textcolor>
+            <aligny>center</aligny>
+            <align>left</align>
+            <label>*</label>
+            <visible>SubString(Control.GetLabel(3100),*)</visible>
+          </control>
+        </control>
+        
+        <!-- ##END## First Option -->
+        
+        <!-- Second Option -->
+        <control type="group">
+          <posx>0</posx>
+          <posy>50</posy>
+          <control type="radiobutton" id="3200">
+            <posx>0</posx>
+            <posy>0</posy>
+            <width>500</width>
+            <height>40</height>
+            <font>font13</font>
+            <label></label>
+            <textcolor>grey2</textcolor>
+            <focusedcolor>white</focusedcolor>
+            <texturefocus border="5">MenuItemFO.png</texturefocus>
+            <texturenofocus border="5">MenuItemNF.png</texturenofocus>
+            <onclick></onclick>
+            <selected></selected>
+            <onright>3210</onright>
+            <onleft>1000</onleft>
+            <onup>3100</onup>
+            <ondown>3300</ondown>
+          </control>
+          <control type="image">
+            <posx>0</posx><posy>0</posy>
+            <width>500</width><height>40</height>
+            <aligny>center</aligny>
+            <texture border="5">MenuItemFO.png</texture>
+            <visible>Control.HasFocus(3214) | Control.HasFocus(3215)</visible>
+          </control>
+          <control type="label">
+            <posx>25</posx>
+            <posy>0</posy>
+            <width>300</width>
+            <height>40</height>
+            <font>font18</font>
+            <textcolor>white</textcolor>
+            <disabledcolor>grey2</disabledcolor>
+            <aligny>center</aligny>
+            <align>left</align>
+            <label>Every 'number' of Hours</label>
+            <enable>Control.HasFocus(3200) | SubString(Control.GetLabel(3200),*)</enable>
+          </control>
+          <control type="label">
+            <posx>300</posx>
+            <posy>0</posy>
+            <width>100</width>
+            <height>40</height>
+            <font>font18</font>
+            <textcolor>white</textcolor>
+            <aligny>center</aligny>
+            <align>left</align>
+            <label>*/</label>
+            <visible>SubString(Control.GetLabel(3200),*)</visible>
+          </control>
+          <control type="group" id="3210">
+            <description>Selection Box</description>
+            <posx>325</posx><posy>5</posy>
+            <defaultcontrol>3213</defaultcontrol>
+            
+            <!-- Faux SpinControl -->
+            <control type="group" id="3213">
+              <posx>55</posx><posy>3</posy>
+              <control type="group">
+                <description>Up Arrow button</description>
+                <posx>0</posx><posy>0</posy>
+                <control type="button" id="3214">
+                  <onup>3214</onup><ondown>3214</ondown><onright>3215</onright><onleft>3200</onleft>
+                  <enable>SubString(Control.GetLabel(3200),*)</enable>
+                  <posx>0</posx><posy>0</posy><width>33</width><height>22</height>
+                  <font>font18</font><pulseonselect>True</pulseonselect>
+                  <texturefocus>scroll-down-focus-2.png</texturefocus><texturenofocus>scroll-down-2.png</texturenofocus>
+                </control>
+              </control>
+              <control type="group">
+                <description>Down Arrow button</description>
+                <posx>33</posx><posy>0</posy>
+                <control type="button" id="3215">
+                  <onup>3215</onup><ondown>3215</ondown><onleft>3214</onleft><onright>3215</onright>
+                  <enable>SubString(Control.GetLabel(3200),*)</enable>
+                  <posx>0</posx><posy>0</posy><width>33</width><height>22</height>
+                  <texturefocus>scroll-up-focus-2.png</texturefocus><texturenofocus>scroll-up-2.png</texturenofocus>
+                  <font>font18</font><pulseonselect>True</pulseonselect>
+                </control>
+              </control>
+            </control>
+            <!-- ## END ## Faux SpinControl -->
+            
+            <!-- ## END ## Label for SpinControl -->
+            <control type="image">
+              <posx>0</posx>
+              <posy>0</posy>
+              <width>50</width>
+              <height>30</height>
+              <aligny>center</aligny>
+              <texture border="5">button-nofocus.png</texture>
+            </control>
+            <control type="label" id="3216">
+              <posx>0</posx><posy>0</posy>
+              <width>50</width><height>30</height>
+              <font>font18</font><textcolor>white</textcolor>
+              <aligny>center</aligny><align>center</align>
+              <label></label>
+              <number>59</number>
+              <texture border="5">button-nofocus.png</texture>
+              <enable>SubString(Control.GetLabel(3200),*)</enable>
+            </control>
+            <!-- ## END ## Label for SpinControl -->
+            
+          </control>
+          <!-- ## END ## Selection Box -->
+          
+        </control>
+        <!-- ##END## Second Option -->
+        
+        <!-- Third Option -->
+        <control type="group">
+          <posx>0</posx>
+          <posy>100</posy>
+          <control type="radiobutton" id="3300">
+            <posx>0</posx>
+            <posy>0</posy>
+            <width>500</width>
+            <height>40</height>
+            <font>font13</font>
+            <label></label>
+            <textcolor>grey2</textcolor>
+            <focusedcolor>white</focusedcolor>
+            <texturefocus border="5">MenuItemFO.png</texturefocus>
+            <texturenofocus border="5">MenuItemNF.png</texturenofocus>
+            <onclick></onclick>
+            <selected></selected>
+            <onright></onright>
+            <onleft>1000</onleft>
+            <onup>3200</onup>
+            <ondown>3310</ondown>
+          </control>
+          <control type="image">
+            <posx>0</posx><posy>0</posy>
+            <width>500</width><height>40</height>
+            <aligny>center</aligny>
+            <texture border="5">MenuItemFO.png</texture>
+            <visible>Control.HasFocus(3314) | Control.HasFocus(3315) | Control.HasFocus(3320) | Control.HasFocus(3321) | Control.HasFocus(3330)</visible>
+          </control>
+          <control type="label">
+            <posx>25</posx>
+            <posy>0</posy>
+            <width>300</width>
+            <height>40</height>
+            <font>font18</font>
+            <textcolor>white</textcolor>
+            <disabledcolor>grey2</disabledcolor>
+            <aligny>center</aligny>
+            <align>left</align>
+            <label>Only Selected Hours</label>
+            <enable>Control.HasFocus(3300) | SubString(Control.GetLabel(3300),*)</enable>
+          </control>
+          <control type="label" id="3301">
+            <posx>300</posx>
+            <posy>0</posy>
+            <width>140</width>
+            <height>40</height>
+            <font>font18</font>
+            <textcolor>white</textcolor>
+            <aligny>center</aligny>
+            <align>left</align>
+            <scroll>true</scroll>
+            <scrollspeed>30</scrollspeed>
+            <label></label>
+            <visible>SubString(Control.GetLabel(3300),*)</visible>
+          </control>
+          
+          <control type="group" id="3310">
+            <description>Selection Box</description>
+            <posx>175</posx><posy>55</posy>
+            <defaultcontrol>3313</defaultcontrol>
+            <!-- Faux SpinControl -->
+            <control type="group" id="3313">
+              <posx>-8</posx><posy>40</posy>
+              <control type="button" id="3314">
+                <description>Down Arrow button</description>
+                <posx>0</posx><posy>0</posy>
+                <onup>3300</onup><ondown>3314</ondown><onright>3315</onright><onleft>3319</onleft>
+                <enable>SubString(Control.GetLabel(3300),*)</enable>
+                <posx>0</posx><posy>0</posy><width>33</width><height>22</height>
+                <font>font18</font><pulseonselect>True</pulseonselect>
+                <texturefocus>scroll-down-focus-2.png</texturefocus><texturenofocus>scroll-down-2.png</texturenofocus>
+              </control>
+              <control type="button" id="3315">
+                <description>Up Arrow button</description>
+                <posx>33</posx><posy>0</posy>
+                <onup>3300</onup><ondown>3315</ondown><onleft>3314</onleft><onright>3319</onright>
+                <enable>SubString(Control.GetLabel(3300),*)</enable>
+                <posx>0</posx><posy>0</posy><width>33</width><height>22</height>
+                <texturefocus>scroll-up-focus-2.png</texturefocus><texturenofocus>scroll-up-2.png</texturenofocus>
+                <font>font18</font><pulseonselect>True</pulseonselect>
+              </control>
+            </control>
+            <!-- ## END ## Faux SpinControl -->
+            
+            <!-- ## END ## Label for SpinControl -->
+            <control type="image">
+              <posx>-20</posx>
+              <posy>0</posy>
+              <width>75</width>
+              <height>30</height>
+              <aligny>center</aligny>
+              <texture border="5">button-nofocus.png</texture>
+            </control>
+            <control type="label" id="3316">
+              <posx>-25</posx><posy>0</posy>
+              <width>75</width><height>30</height>
+              <font>font18</font><textcolor>white</textcolor>
+              <aligny>center</aligny><align>center</align>
+              <label></label>
+              <number>59</number>
+              <enable>SubString(Control.GetLabel(3300),*)</enable>
+            </control>
+            <!-- ## END ## Label for SpinControl -->
+            
+            <control type="group" id="3319">
+              <posx>65</posx><posy>0</posy>
+              <control type="button" id="3320">
+                <onleft>3313</onleft><onright>3330</onright><onup>3300</onup><ondown>3321</ondown>
+                <posx>0</posx><posy>0</posy>
+                <width>75</width><height>30</height>
+                <label>Add</label><align>center</align>
+                <font>font14</font><textcolor>white</textcolor>
+                <colordiffuse>white</colordiffuse><pulseonselect>True</pulseonselect>
+                <enable>SubString(Control.GetLabel(3300),*)</enable>
+              </control>
+              <control type="button" id="3321">
+                <onleft>3313</onleft><onright>3330</onright><onup>3320</onup><ondown>3321</ondown>
+                <posx>0</posx><posy>35</posy><width>75</width><height>30</height>
+                <label>Del</label><align>center</align>
+                <font>font14</font><textcolor>white</textcolor>
+                <colordiffuse>white</colordiffuse><pulseonselect>True</pulseonselect>
+                <enable>SubString(Control.GetLabel(3300),*)</enable>
+              </control>
+              
+              <control type="group">
+                <posx>100</posx>
+                <posy>0</posy>
+                <control type="image">
+                  <posx>-5</posx><posy>-5</posy><width>160</width><height>210</height>
+                  <aligny>center</aligny><texture border="5">button-nofocus.png</texture>
+                </control>
+                <control type="scrollbar" id="3331">
+                  <description>scroll bar indicator for lists</description>
+                  <posx>145</posx>
+                  <posy>0</posy>
+                  <width>6</width>
+                  <height>200</height>
+                  <texturesliderbackground>default-scroll_back.png</texturesliderbackground>
+                  <texturesliderbar>default-scroll_mid.png</texturesliderbar>
+                  <texturesliderbarfocus>default-scroll_mid.png</texturesliderbarfocus>
+                  <textureslidernib>-</textureslidernib>
+                  <textureslidernibfocus>-</textureslidernibfocus>
+                  <orientation>vertical</orientation>
+                  <showonepage>false</showonepage>
+                  <visible>Control.IsVisible(3330)</visible>
+                  <enable>SubString(Control.GetLabel(3300),*)</enable>
+                </control>
+                <control type="list" id="3330">
+                  <posx>0</posx><posy>0</posy><width>150</width><height>200</height>
+                  <onleft>3320</onleft><onright>3330</onright><onup>3300</onup><ondown>3330</ondown>
+                  <viewtype label="535">list</viewtype>
+                  <pagecontrol>3331</pagecontrol>
+                  <scrolltime>200</scrolltime>
+                  <enable>SubString(Control.GetLabel(3300),*)</enable>
+                  <itemlayout height="38">
+                    <control type="image">
+                      <posx>0</posx><posy>36</posy><width>150</width><height>2</height>
+                      <texture border="5">MenuItemNF.png</texture>
+                    </control>
+                    <control type="label">
+                      <posx>75</posx><posy>0</posy><width>150</width><height>38</height>
+                      <font>font16</font><aligny>center</aligny>
+                      <textcolor>white</textcolor><selectedcolor>green</selectedcolor>
+                      <align>center</align><info>ListItem.Label</info>
+                      <visible>SubString(Control.GetLabel(3300),*)</visible>
+                    </control>
+                    <control type="label">
+                      <posx>75</posx><posy>0</posy><width>150</width><height>38</height>
+                      <font>font16</font><aligny>center</aligny>
+                      <textcolor>grey2</textcolor><selectedcolor>green</selectedcolor>
+                      <align>center</align><info>ListItem.Label</info>
+                      <visible>!SubString(Control.GetLabel(3300),*)</visible>
+                    </control>
+                  </itemlayout>
+                  <focusedlayout height="38">
+                    <control type="image">
+                      <posx>0</posx><posy>0</posy><width>150</width><height>38</height>
+                      <texture border="5">MenuItemFO.png</texture>
+                      <visible>Control.HasFocus(3330)</visible>
+                    </control>
+                    <control type="image">
+                      <posx>0</posx><posy>36</posy><width>150</width><height>2</height>
+                      <texture border="5">MenuItemNF.png</texture>
+                      <visible>!Control.HasFocus(3330)</visible>
+                    </control>
+                    <control type="label">
+                      <posx>75</posx><posy>0</posy><width>150</width><height>38</height>
+                      <font>font16</font><aligny>center</aligny>
+                      <textcolor>white</textcolor><selectedcolor>green</selectedcolor>
+                      <align>center</align><info>ListItem.Label</info>
+                      <visible>SubString(Control.GetLabel(3300),*)</visible>
+                    </control>
+                    <control type="label">
+                      <posx>75</posx><posy>0</posy><width>150</width><height>38</height>
+                      <font>font16</font><aligny>center</aligny>
+                      <textcolor>grey2</textcolor><selectedcolor>green</selectedcolor>
+                      <align>center</align><info>ListItem.Label</info>
+                      <visible>!SubString(Control.GetLabel(3300),*)</visible>
+                    </control>
+                  </focusedlayout>
+                </control>
+              </control>
+            </control>
+          </control>
+          <!-- ## END ## Selection Box -->
+        </control>
+        <!-- ##END## Third Option -->
+      </control>
+      <!-- ## END ## Hour Group -->
+      
+      <!-- Days Group -->
+      <control type="group" id="4000">
+        <description>Day of Month Group</description>
+        <posx>0</posx>
+        <posy>0</posy>
+        <visible>SubString(Skin.String(focusMenu),day)</visible>
+        <!-- First Option -->
+        <control type="group">
+          <posx>0</posx>
+          <posy>0</posy>
+          <control type="radiobutton" id="4100">
+            <posx>0</posx>
+            <posy>0</posy>
+            <width>500</width>
+            <height>40</height>
+            <font>font13</font>
+            <label></label>
+            <textcolor>grey2</textcolor>
+            <focusedcolor>white</focusedcolor>
+            <texturefocus border="5">MenuItemFO.png</texturefocus>
+            <texturenofocus border="5">MenuItemNF.png</texturenofocus>
+            <onclick></onclick>
+            <selected></selected>
+            <onright></onright>
+            <onleft>1000</onleft>
+            <onup></onup>
+            <ondown>4300</ondown>
+          </control>
+          <control type="label">
+            <posx>25</posx>
+            <posy>0</posy>
+            <width>300</width>
+            <height>40</height>
+            <font>font18</font>
+            <textcolor>white</textcolor>
+            <disabledcolor>grey2</disabledcolor>
+            <aligny>center</aligny>
+            <align>left</align>
+            <label>Every Day</label>
+            <enable>Control.HasFocus(4100) | SubString(Control.GetLabel(4100),*)</enable>
+          </control>
+          <control type="label">
+            <posx>300</posx>
+            <posy>0</posy>
+            <width>100</width>
+            <height>40</height>
+            <font>font18</font>
+            <textcolor>white</textcolor>
+            <aligny>center</aligny>
+            <align>left</align>
+            <label>*</label>
+            <visible>SubString(Control.GetLabel(4100),*)</visible>
+          </control>
+        </control>
+        
+        <!-- ##END## First Option -->
+        
+        <!-- Third Option -->
+        <control type="group">
+          <posx>0</posx>
+          <posy>50</posy>
+          <control type="radiobutton" id="4300">
+            <posx>0</posx>
+            <posy>0</posy>
+            <width>500</width>
+            <height>40</height>
+            <font>font13</font>
+            <label></label>
+            <textcolor>grey2</textcolor>
+            <focusedcolor>white</focusedcolor>
+            <texturefocus border="5">MenuItemFO.png</texturefocus>
+            <texturenofocus border="5">MenuItemNF.png</texturenofocus>
+            <onclick></onclick>
+            <selected></selected>
+            <onright></onright>
+            <onleft>1000</onleft>
+            <onup>4100</onup>
+            <ondown>4310</ondown>
+          </control>
+          <control type="image">
+            <posx>0</posx><posy>0</posy>
+            <width>500</width><height>40</height>
+            <aligny>center</aligny>
+            <texture border="5">MenuItemFO.png</texture>
+            <visible>Control.HasFocus(4314) | Control.HasFocus(4315) | Control.HasFocus(4320) | Control.HasFocus(4321) | Control.HasFocus(4330)</visible>
+          </control>
+          <control type="label">
+            <posx>25</posx>
+            <posy>0</posy>
+            <width>300</width>
+            <height>40</height>
+            <font>font18</font>
+            <textcolor>white</textcolor>
+            <disabledcolor>grey2</disabledcolor>
+            <aligny>center</aligny>
+            <align>left</align>
+            <label>Only Selected Days</label>
+            <enable>Control.HasFocus(4300) | SubString(Control.GetLabel(4300),*)</enable>
+          </control>
+          <control type="label" id="4301">
+            <posx>300</posx>
+            <posy>0</posy>
+            <width>140</width>
+            <height>40</height>
+            <font>font18</font>
+            <textcolor>white</textcolor>
+            <aligny>center</aligny>
+            <align>left</align>
+            <scroll>true</scroll>
+            <scrollspeed>30</scrollspeed>
+            <label></label>
+            <visible>SubString(Control.GetLabel(4300),*)</visible>
+          </control>
+          
+          <control type="group" id="4310">
+            <description>Selection Box</description>
+            <posx>175</posx><posy>55</posy>
+            <defaultcontrol>4313</defaultcontrol>
+            <!-- Faux SpinControl -->
+            <control type="group" id="4313">
+              <posx>-8</posx><posy>40</posy>
+              <control type="button" id="4314">
+                <description>Down Arrow button</description>
+                <posx>0</posx><posy>0</posy>
+                <onup>4300</onup><ondown>4314</ondown><onright>4315</onright><onleft>4319</onleft>
+                <enable>SubString(Control.GetLabel(4300),*)</enable>
+                <posx>0</posx><posy>0</posy><width>33</width><height>22</height>
+                <font>font18</font><pulseonselect>True</pulseonselect>
+                <texturefocus>scroll-down-focus-2.png</texturefocus><texturenofocus>scroll-down-2.png</texturenofocus>
+              </control>
+              <control type="button" id="4315">
+                <description>Up Arrow button</description>
+                <posx>33</posx><posy>0</posy>
+                <onup>4300</onup><ondown>4315</ondown><onleft>4314</onleft><onright>4319</onright>
+                <enable>SubString(Control.GetLabel(4300),*)</enable>
+                <posx>0</posx><posy>0</posy><width>33</width><height>22</height>
+                <texturefocus>scroll-up-focus-2.png</texturefocus><texturenofocus>scroll-up-2.png</texturenofocus>
+                <font>font18</font><pulseonselect>True</pulseonselect>
+              </control>
+            </control>
+            <!-- ## END ## Faux SpinControl -->
+            
+            <!-- ## END ## Label for SpinControl -->
+            <control type="image">
+              <posx>-20</posx>
+              <posy>0</posy>
+              <width>75</width>
+              <height>30</height>
+              <aligny>center</aligny>
+              <texture border="5">button-nofocus.png</texture>
+            </control>
+            <control type="label" id="4316">
+              <posx>-25</posx><posy>0</posy>
+              <width>75</width><height>30</height>
+              <font>font18</font><textcolor>white</textcolor>
+              <aligny>center</aligny><align>center</align>
+              <label></label>
+              <number>59</number>
+              <enable>SubString(Control.GetLabel(4300),*)</enable>
+            </control>
+            <!-- ## END ## Label for SpinControl -->
+            
+            <control type="group" id="4319">
+              <posx>65</posx><posy>0</posy>
+              <control type="button" id="4320">
+                <onleft>4313</onleft><onright>4330</onright><onup>4300</onup><ondown>4321</ondown>
+                <posx>0</posx><posy>0</posy>
+                <width>75</width><height>30</height>
+                <label>Add</label><align>center</align>
+                <font>font14</font><textcolor>white</textcolor>
+                <colordiffuse>white</colordiffuse><pulseonselect>True</pulseonselect>
+                <enable>SubString(Control.GetLabel(4300),*)</enable>
+              </control>
+              <control type="button" id="4321">
+                <onleft>4313</onleft><onright>4330</onright><onup>4320</onup><ondown>4321</ondown>
+                <posx>0</posx><posy>35</posy><width>75</width><height>30</height>
+                <label>Del</label><align>center</align>
+                <font>font14</font><textcolor>white</textcolor>
+                <colordiffuse>white</colordiffuse><pulseonselect>True</pulseonselect>
+                <enable>SubString(Control.GetLabel(4300),*)</enable>
+              </control>
+              
+              <control type="group">
+                <posx>100</posx>
+                <posy>0</posy>
+                <control type="image">
+                  <posx>-5</posx><posy>-5</posy><width>160</width><height>210</height>
+                  <aligny>center</aligny><texture border="5">button-nofocus.png</texture>
+                </control>
+                <control type="scrollbar" id="4331">
+                  <description>scroll bar indicator for lists</description>
+                  <posx>145</posx>
+                  <posy>0</posy>
+                  <width>6</width>
+                  <height>200</height>
+                  <texturesliderbackground>default-scroll_back.png</texturesliderbackground>
+                  <texturesliderbar>default-scroll_mid.png</texturesliderbar>
+                  <texturesliderbarfocus>default-scroll_mid.png</texturesliderbarfocus>
+                  <textureslidernib>-</textureslidernib>
+                  <textureslidernibfocus>-</textureslidernibfocus>
+                  <orientation>vertical</orientation>
+                  <showonepage>false</showonepage>
+                  <visible>Control.IsVisible(4330)</visible>
+                  <enable>SubString(Control.GetLabel(4300),*)</enable>
+                </control>
+                <control type="list" id="4330">
+                  <posx>0</posx><posy>0</posy><width>150</width><height>200</height>
+                  <onleft>4320</onleft><onright>4330</onright><onup>4300</onup><ondown>4330</ondown>
+                  <viewtype label="535">list</viewtype>
+                  <pagecontrol>4331</pagecontrol>
+                  <scrolltime>200</scrolltime>
+                  <enable>SubString(Control.GetLabel(4300),*)</enable>
+                  <itemlayout height="38">
+                    <control type="image">
+                      <posx>0</posx><posy>36</posy><width>150</width><height>2</height>
+                      <texture border="5">MenuItemNF.png</texture>
+                    </control>
+                    <control type="label">
+                      <posx>75</posx><posy>0</posy><width>150</width><height>38</height>
+                      <font>font16</font><aligny>center</aligny>
+                      <textcolor>white</textcolor><selectedcolor>green</selectedcolor>
+                      <align>center</align><info>ListItem.Label</info>
+                      <visible>SubString(Control.GetLabel(4300),*)</visible>
+                    </control>
+                    <control type="label">
+                      <posx>75</posx><posy>0</posy><width>150</width><height>38</height>
+                      <font>font16</font><aligny>center</aligny>
+                      <textcolor>grey2</textcolor><selectedcolor>green</selectedcolor>
+                      <align>center</align><info>ListItem.Label</info>
+                      <visible>!SubString(Control.GetLabel(4300),*)</visible>
+                    </control>
+                  </itemlayout>
+                  <focusedlayout height="38">
+                    <control type="image">
+                      <posx>0</posx><posy>0</posy><width>150</width><height>38</height>
+                      <texture border="5">MenuItemFO.png</texture>
+                      <visible>Control.HasFocus(4330)</visible>
+                    </control>
+                    <control type="image">
+                      <posx>0</posx><posy>36</posy><width>150</width><height>2</height>
+                      <texture border="5">MenuItemNF.png</texture>
+                      <visible>!Control.HasFocus(4330)</visible>
+                    </control>
+                    <control type="label">
+                      <posx>75</posx><posy>0</posy><width>150</width><height>38</height>
+                      <font>font16</font><aligny>center</aligny>
+                      <textcolor>white</textcolor><selectedcolor>green</selectedcolor>
+                      <align>center</align><info>ListItem.Label</info>
+                      <visible>SubString(Control.GetLabel(4300),*)</visible>
+                    </control>
+                    <control type="label">
+                      <posx>75</posx><posy>0</posy><width>150</width><height>38</height>
+                      <font>font16</font><aligny>center</aligny>
+                      <textcolor>grey2</textcolor><selectedcolor>green</selectedcolor>
+                      <align>center</align><info>ListItem.Label</info>
+                      <visible>!SubString(Control.GetLabel(4300),*)</visible>
+                    </control>
+                  </focusedlayout>
+                </control>
+              </control>
+            </control>
+          </control>
+          <!-- ## END ## Selection Box -->
+        </control>
+        <!-- ##END## Third Option -->
+      </control>
+      <!-- ## END ## Days Group -->
+      
+      <!-- Month Group -->
+      <control type="group" id="5000">
+        <description>Month Group</description>
+        <posx>0</posx>
+        <posy>0</posy>
+        <visible>SubString(Skin.String(focusMenu),mon)</visible>
+        <!-- First Option -->
+        <control type="group">
+          <posx>0</posx>
+          <posy>0</posy>
+          <control type="radiobutton" id="5100">
+            <posx>0</posx>
+            <posy>0</posy>
+            <width>500</width>
+            <height>40</height>
+            <font>font13</font>
+            <label></label>
+            <textcolor>grey2</textcolor>
+            <focusedcolor>white</focusedcolor>
+            <texturefocus border="5">MenuItemFO.png</texturefocus>
+            <texturenofocus border="5">MenuItemNF.png</texturenofocus>
+            <onclick></onclick>
+            <selected></selected>
+            <onright></onright>
+            <onleft>1000</onleft>
+            <onup></onup>
+            <ondown>5300</ondown>
+          </control>
+          <control type="label">
+            <posx>25</posx>
+            <posy>0</posy>
+            <width>300</width>
+            <height>40</height>
+            <font>font18</font>
+            <textcolor>white</textcolor>
+            <disabledcolor>grey2</disabledcolor>
+            <aligny>center</aligny>
+            <align>left</align>
+            <label>Every Month</label>
+            <enable>Control.HasFocus(5100) | SubString(Control.GetLabel(5100),*)</enable>
+          </control>
+          <control type="label">
+            <posx>300</posx>
+            <posy>0</posy>
+            <width>100</width>
+            <height>40</height>
+            <font>font18</font>
+            <textcolor>white</textcolor>
+            <aligny>center</aligny>
+            <align>left</align>
+            <label>*</label>
+            <visible>SubString(Control.GetLabel(5100),*)</visible>
+          </control>
+        </control>
+        
+        <!-- ##END## First Option -->
+        
+        <!-- Third Option -->
+        <control type="group">
+          <posx>0</posx>
+          <posy>50</posy>
+          <control type="radiobutton" id="5300">
+            <posx>0</posx>
+            <posy>0</posy>
+            <width>500</width>
+            <height>40</height>
+            <font>font13</font>
+            <label></label>
+            <textcolor>grey2</textcolor>
+            <focusedcolor>white</focusedcolor>
+            <texturefocus border="5">MenuItemFO.png</texturefocus>
+            <texturenofocus border="5">MenuItemNF.png</texturenofocus>
+            <onclick></onclick>
+            <selected></selected>
+            <onright></onright>
+            <onleft>1000</onleft>
+            <onup>5100</onup>
+            <ondown>5310</ondown>
+          </control>
+          <control type="image">
+            <posx>0</posx><posy>0</posy>
+            <width>500</width><height>40</height>
+            <aligny>center</aligny>
+            <texture border="5">MenuItemFO.png</texture>
+            <visible>Control.HasFocus(5314) | Control.HasFocus(5315) | Control.HasFocus(5320) | Control.HasFocus(5321) | Control.HasFocus(5330)</visible>
+          </control>
+          <control type="label">
+            <posx>25</posx>
+            <posy>0</posy>
+            <width>300</width>
+            <height>40</height>
+            <font>font18</font>
+            <textcolor>white</textcolor>
+            <disabledcolor>grey2</disabledcolor>
+            <aligny>center</aligny>
+            <align>left</align>
+            <label>Only Selected Months</label>
+            <enable>Control.HasFocus(5300) | SubString(Control.GetLabel(5300),*)</enable>
+          </control>
+          <control type="label" id="5301">
+            <posx>300</posx>
+            <posy>0</posy>
+            <width>140</width>
+            <height>40</height>
+            <font>font18</font>
+            <textcolor>white</textcolor>
+            <aligny>center</aligny>
+            <align>left</align>
+            <scroll>true</scroll>
+            <scrollspeed>30</scrollspeed>
+            <label></label>
+            <visible>SubString(Control.GetLabel(5300),*)</visible>
+          </control>
+          
+          <control type="group" id="5310">
+            <description>Selection Box</description>
+            <posx>175</posx><posy>55</posy>
+            <posx>175</posx><posy>55</posy>
+            <defaultcontrol>5313</defaultcontrol>
+            <!-- Faux SpinControl -->
+            <control type="group" id="5313">
+              <posx>-8</posx><posy>40</posy>
+              <control type="button" id="5314">
+                <description>Down Arrow button</description>
+                <posx>0</posx><posy>0</posy>
+                <onup>5300</onup><ondown>5314</ondown><onright>5315</onright><onleft>5319</onleft>
+                <enable>SubString(Control.GetLabel(5300),*)</enable>
+                <posx>0</posx><posy>0</posy><width>33</width><height>22</height>
+                <font>font18</font><pulseonselect>True</pulseonselect>
+                <texturefocus>scroll-down-focus-2.png</texturefocus><texturenofocus>scroll-down-2.png</texturenofocus>
+              </control>
+              <control type="button" id="5315">
+                <description>Up Arrow button</description>
+                <posx>33</posx><posy>0</posy>
+                <onup>5300</onup><ondown>5315</ondown><onleft>5314</onleft><onright>5319</onright>
+                <enable>SubString(Control.GetLabel(5300),*)</enable>
+                <posx>0</posx><posy>0</posy><width>33</width><height>22</height>
+                <texturefocus>scroll-up-focus-2.png</texturefocus><texturenofocus>scroll-up-2.png</texturenofocus>
+                <font>font18</font><pulseonselect>True</pulseonselect>
+              </control>
+            </control>
+            <!-- ## END ## Faux SpinControl -->
+            
+            <!-- ## END ## Label for SpinControl -->
+            <control type="image">
+              <posx>-70</posx>
+              <posy>0</posy>
+              <width>125</width>
+              <height>30</height>
+              <aligny>center</aligny>
+              <texture border="5">button-nofocus.png</texture>
+            </control>
+            <control type="label" id="5316">
+              <posx>-65</posx><posy>0</posy>
+              <width>115</width><height>30</height>
+              <font>font18</font><textcolor>white</textcolor>
+              <aligny>center</aligny><align>center</align>
+              <label></label>
+              <number>59</number>
+              <enable>SubString(Control.GetLabel(5300),*)</enable>
+            </control>
+            <!-- ## END ## Label for SpinControl -->
+            
+            <control type="group" id="5319">
+              <posx>65</posx><posy>0</posy>
+              <control type="button" id="5320">
+                <onleft>5313</onleft><onright>5330</onright><onup>5300</onup><ondown>5321</ondown>
+                <posx>0</posx><posy>0</posy>
+                <width>75</width><height>30</height>
+                <label>Add</label><align>center</align>
+                <font>font14</font><textcolor>white</textcolor>
+                <colordiffuse>white</colordiffuse><pulseonselect>True</pulseonselect>
+                <enable>SubString(Control.GetLabel(5300),*)</enable>
+              </control>
+              <control type="button" id="5321">
+                <onleft>5313</onleft><onright>5330</onright><onup>5320</onup><ondown>5321</ondown>
+                <posx>0</posx><posy>35</posy><width>75</width><height>30</height>
+                <label>Del</label><align>center</align>
+                <font>font14</font><textcolor>white</textcolor>
+                <colordiffuse>white</colordiffuse><pulseonselect>True</pulseonselect>
+                <enable>SubString(Control.GetLabel(5300),*)</enable>
+              </control>
+              
+              <control type="group">
+                <posx>100</posx>
+                <posy>0</posy>
+                <control type="image">
+                  <posx>-5</posx><posy>-5</posy><width>160</width><height>210</height>
+                  <aligny>center</aligny><texture border="5">button-nofocus.png</texture>
+                </control>
+                <control type="scrollbar" id="5331">
+                  <description>scroll bar indicator for lists</description>
+                  <posx>145</posx>
+                  <posy>0</posy>
+                  <width>6</width>
+                  <height>200</height>
+                  <texturesliderbackground>default-scroll_back.png</texturesliderbackground>
+                  <texturesliderbar>default-scroll_mid.png</texturesliderbar>
+                  <texturesliderbarfocus>default-scroll_mid.png</texturesliderbarfocus>
+                  <textureslidernib>-</textureslidernib>
+                  <textureslidernibfocus>-</textureslidernibfocus>
+                  <orientation>vertical</orientation>
+                  <showonepage>false</showonepage>
+                  <visible>Control.IsVisible(5330)</visible>
+                  <enable>SubString(Control.GetLabel(5300),*)</enable>
+                </control>
+                <control type="list" id="5330">
+                  <posx>0</posx><posy>0</posy><width>150</width><height>200</height>
+                  <onleft>5320</onleft><onright>5330</onright><onup>5300</onup><ondown>5330</ondown>
+                  <viewtype label="535">list</viewtype>
+                  <pagecontrol>5331</pagecontrol>
+                  <scrolltime>200</scrolltime>
+                  <enable>SubString(Control.GetLabel(5300),*)</enable>
+                  <itemlayout height="38">
+                    <control type="image">
+                      <posx>0</posx><posy>36</posy><width>150</width><height>2</height>
+                      <texture border="5">MenuItemNF.png</texture>
+                    </control>
+                    <control type="label">
+                      <posx>75</posx><posy>0</posy><width>150</width><height>38</height>
+                      <font>font16</font><aligny>center</aligny>
+                      <textcolor>white</textcolor><selectedcolor>green</selectedcolor>
+                      <align>center</align><info>ListItem.Label</info>
+                      <visible>SubString(Control.GetLabel(5300),*)</visible>
+                    </control>
+                    <control type="label">
+                      <posx>75</posx><posy>0</posy><width>150</width><height>38</height>
+                      <font>font16</font><aligny>center</aligny>
+                      <textcolor>grey2</textcolor><selectedcolor>green</selectedcolor>
+                      <align>center</align><info>ListItem.Label</info>
+                      <visible>!SubString(Control.GetLabel(5300),*)</visible>
+                    </control>
+                  </itemlayout>
+                  <focusedlayout height="38">
+                    <control type="image">
+                      <posx>0</posx><posy>0</posy><width>150</width><height>38</height>
+                      <texture border="5">MenuItemFO.png</texture>
+                      <visible>Control.HasFocus(5330)</visible>
+                    </control>
+                    <control type="image">
+                      <posx>0</posx><posy>36</posy><width>150</width><height>2</height>
+                      <texture border="5">MenuItemNF.png</texture>
+                      <visible>!Control.HasFocus(5330)</visible>
+                    </control>
+                    <control type="label">
+                      <posx>75</posx><posy>0</posy><width>150</width><height>38</height>
+                      <font>font16</font><aligny>center</aligny>
+                      <textcolor>white</textcolor><selectedcolor>green</selectedcolor>
+                      <align>center</align><info>ListItem.Label</info>
+                      <visible>SubString(Control.GetLabel(5300),*)</visible>
+                    </control>
+                    <control type="label">
+                      <posx>75</posx><posy>0</posy><width>150</width><height>38</height>
+                      <font>font16</font><aligny>center</aligny>
+                      <textcolor>grey2</textcolor><selectedcolor>green</selectedcolor>
+                      <align>center</align><info>ListItem.Label</info>
+                      <visible>!SubString(Control.GetLabel(5300),*)</visible>
+                    </control>
+                  </focusedlayout>
+                </control>
+              </control>
+            </control>
+          </control>
+          <!-- ## END ## Selection Box -->
+        </control>
+        <!-- ##END## Third Option -->
+      </control>
+      <!-- ## END ## Months Group -->
+      
+      <!-- WeekDays Group -->
+      <control type="group" id="6000">
+        <description>Day of Week Group</description>
+        <posx>0</posx>
+        <posy>0</posy>
+        <visible>SubString(Skin.String(focusMenu),week)</visible>
+        <!-- First Option -->
+        <control type="group">
+          <posx>0</posx>
+          <posy>0</posy>
+          <control type="radiobutton" id="6100">
+            <posx>0</posx>
+            <posy>0</posy>
+            <width>500</width>
+            <height>40</height>
+            <font>font13</font>
+            <label></label>
+            <textcolor>grey2</textcolor>
+            <focusedcolor>white</focusedcolor>
+            <texturefocus border="5">MenuItemFO.png</texturefocus>
+            <texturenofocus border="5">MenuItemNF.png</texturenofocus>
+            <onclick></onclick>
+            <selected></selected>
+            <onright></onright>
+            <onleft>1000</onleft>
+            <onup></onup>
+            <ondown>6300</ondown>
+          </control>
+          <control type="label">
+            <posx>25</posx>
+            <posy>0</posy>
+            <width>300</width>
+            <height>40</height>
+            <font>font18</font>
+            <textcolor>white</textcolor>
+            <disabledcolor>grey2</disabledcolor>
+            <aligny>center</aligny>
+            <align>left</align>
+            <label>Every Weekday</label>
+            <enable>Control.HasFocus(6100) | SubString(Control.GetLabel(6100),*)</enable>
+          </control>
+          <control type="label">
+            <posx>300</posx>
+            <posy>0</posy>
+            <width>100</width>
+            <height>40</height>
+            <font>font18</font>
+            <textcolor>white</textcolor>
+            <aligny>center</aligny>
+            <align>left</align>
+            <label>*</label>
+            <visible>SubString(Control.GetLabel(6100),*)</visible>
+          </control>
+        </control>
+        
+        <!-- ##END## First Option -->
+        
+        <!-- Third Option -->
+        <control type="group">
+          <posx>0</posx>
+          <posy>50</posy>
+          <control type="radiobutton" id="6300">
+            <posx>0</posx>
+            <posy>0</posy>
+            <width>500</width>
+            <height>40</height>
+            <font>font13</font>
+            <label></label>
+            <textcolor>grey2</textcolor>
+            <focusedcolor>white</focusedcolor>
+            <texturefocus border="5">MenuItemFO.png</texturefocus>
+            <texturenofocus border="5">MenuItemNF.png</texturenofocus>
+            <onclick></onclick>
+            <selected></selected>
+            <onright></onright>
+            <onleft>1000</onleft>
+            <onup>6100</onup>
+            <ondown>6310</ondown>
+          </control>
+          <control type="image">
+            <posx>0</posx><posy>0</posy>
+            <width>500</width><height>40</height>
+            <aligny>center</aligny>
+            <texture border="5">MenuItemFO.png</texture>
+            <visible>Control.HasFocus(6314) | Control.HasFocus(6315) | Control.HasFocus(6320) | Control.HasFocus(6321) | Control.HasFocus(6330)</visible>
+          </control>
+          <control type="label">
+            <posx>25</posx>
+            <posy>0</posy>
+            <width>300</width>
+            <height>40</height>
+            <font>font18</font>
+            <textcolor>white</textcolor>
+            <disabledcolor>grey2</disabledcolor>
+            <aligny>center</aligny>
+            <align>left</align>
+            <label>Only Selected Weekdays</label>
+            <enable>Control.HasFocus(6300) | SubString(Control.GetLabel(6300),*)</enable>
+          </control>
+          <control type="label" id="6301">
+            <posx>300</posx>
+            <posy>0</posy>
+            <width>140</width>
+            <height>40</height>
+            <font>font18</font>
+            <textcolor>white</textcolor>
+            <aligny>center</aligny>
+            <align>left</align>
+            <scroll>true</scroll>
+            <scrollspeed>30</scrollspeed>
+            <label></label>
+            <visible>SubString(Control.GetLabel(6300),*)</visible>
+          </control>
+          
+          <control type="group" id="6310">
+            <description>Selection Box</description>
+            <posx>175</posx><posy>55</posy>
+            <posx>175</posx><posy>55</posy>
+            <defaultcontrol>6313</defaultcontrol>
+            <!-- Faux SpinControl -->
+            <control type="group" id="6313">
+              <posx>-8</posx><posy>40</posy>
+              <control type="button" id="6314">
+                <description>Down Arrow button</description>
+                <posx>0</posx><posy>0</posy>
+                <onup>6300</onup><ondown>6314</ondown><onright>6315</onright><onleft>6319</onleft>
+                <enable>SubString(Control.GetLabel(6300),*)</enable>
+                <posx>0</posx><posy>0</posy><width>33</width><height>22</height>
+                <font>font18</font><pulseonselect>True</pulseonselect>
+                <texturefocus>scroll-down-focus-2.png</texturefocus><texturenofocus>scroll-down-2.png</texturenofocus>
+              </control>
+              <control type="button" id="6315">
+                <description>Up Arrow button</description>
+                <posx>33</posx><posy>0</posy>
+                <onup>6300</onup><ondown>6315</ondown><onleft>6314</onleft><onright>6319</onright>
+                <enable>SubString(Control.GetLabel(6300),*)</enable>
+                <posx>0</posx><posy>0</posy><width>33</width><height>22</height>
+                <texturefocus>scroll-up-focus-2.png</texturefocus><texturenofocus>scroll-up-2.png</texturenofocus>
+                <font>font18</font><pulseonselect>True</pulseonselect>
+              </control>
+            </control>
+            <!-- ## END ## Faux SpinControl -->
+            
+            <!-- ## END ## Label for SpinControl -->
+            <control type="image">
+              <posx>-70</posx>
+              <posy>0</posy>
+              <width>125</width>
+              <height>30</height>
+              <aligny>center</aligny>
+              <texture border="5">button-nofocus.png</texture>
+            </control>
+            <control type="label" id="6316">
+              <posx>-65</posx><posy>0</posy>
+              <width>115</width><height>30</height>
+              <font>font18</font><textcolor>white</textcolor>
+              <aligny>center</aligny><align>center</align>
+              <label></label>
+              <number>59</number>
+              <enable>SubString(Control.GetLabel(6300),*)</enable>
+            </control>
+            <!-- ## END ## Label for SpinControl -->
+            
+            <control type="group" id="6319">
+              <posx>65</posx><posy>0</posy>
+              <control type="button" id="6320">
+                <onleft>6313</onleft><onright>6330</onright><onup>6300</onup><ondown>6321</ondown>
+                <posx>0</posx><posy>0</posy>
+                <width>75</width><height>30</height>
+                <label>Add</label><align>center</align>
+                <font>font14</font><textcolor>white</textcolor>
+                <colordiffuse>white</colordiffuse><pulseonselect>True</pulseonselect>
+                <enable>SubString(Control.GetLabel(6300),*)</enable>
+              </control>
+              <control type="button" id="6321">
+                <onleft>6313</onleft><onright>6330</onright><onup>6320</onup><ondown>6321</ondown>
+                <posx>0</posx><posy>35</posy><width>75</width><height>30</height>
+                <label>Del</label><align>center</align>
+                <font>font14</font><textcolor>white</textcolor>
+                <colordiffuse>white</colordiffuse><pulseonselect>True</pulseonselect>
+                <enable>SubString(Control.GetLabel(6300),*)</enable>
+              </control>
+              
+              <control type="group">
+                <posx>100</posx>
+                <posy>0</posy>
+                <control type="image">
+                  <posx>-5</posx><posy>-5</posy><width>160</width><height>210</height>
+                  <aligny>center</aligny><texture border="5">button-nofocus.png</texture>
+                </control>
+                <control type="scrollbar" id="6331">
+                  <description>scroll bar indicator for lists</description>
+                  <posx>145</posx>
+                  <posy>0</posy>
+                  <width>6</width>
+                  <height>200</height>
+                  <texturesliderbackground>default-scroll_back.png</texturesliderbackground>
+                  <texturesliderbar>default-scroll_mid.png</texturesliderbar>
+                  <texturesliderbarfocus>default-scroll_mid.png</texturesliderbarfocus>
+                  <textureslidernib>-</textureslidernib>
+                  <textureslidernibfocus>-</textureslidernibfocus>
+                  <orientation>vertical</orientation>
+                  <showonepage>false</showonepage>
+                  <visible>Control.IsVisible(6330)</visible>
+                  <enable>SubString(Control.GetLabel(6300),*)</enable>
+                </control>
+                <control type="list" id="6330">
+                  <posx>0</posx><posy>0</posy><width>150</width><height>200</height>
+                  <onleft>6320</onleft><onright>6330</onright><onup>6300</onup><ondown>6330</ondown>
+                  <viewtype label="535">list</viewtype>
+                  <pagecontrol>6331</pagecontrol>
+                  <scrolltime>200</scrolltime>
+                  <enable>SubString(Control.GetLabel(6300),*)</enable>
+                  <itemlayout height="38">
+                    <control type="image">
+                      <posx>0</posx><posy>36</posy><width>150</width><height>2</height>
+                      <texture border="5">MenuItemNF.png</texture>
+                    </control>
+                    <control type="label">
+                      <posx>75</posx><posy>0</posy><width>150</width><height>38</height>
+                      <font>font16</font><aligny>center</aligny>
+                      <textcolor>white</textcolor><selectedcolor>green</selectedcolor>
+                      <align>center</align><info>ListItem.Label</info>
+                      <visible>SubString(Control.GetLabel(6300),*)</visible>
+                    </control>
+                    <control type="label">
+                      <posx>75</posx><posy>0</posy><width>150</width><height>38</height>
+                      <font>font16</font><aligny>center</aligny>
+                      <textcolor>grey2</textcolor><selectedcolor>green</selectedcolor>
+                      <align>center</align><info>ListItem.Label</info>
+                      <visible>!SubString(Control.GetLabel(6300),*)</visible>
+                    </control>
+                  </itemlayout>
+                  <focusedlayout height="38">
+                    <control type="image">
+                      <posx>0</posx><posy>0</posy><width>150</width><height>38</height>
+                      <texture border="5">MenuItemFO.png</texture>
+                      <visible>Control.HasFocus(6330)</visible>
+                    </control>
+                    <control type="image">
+                      <posx>0</posx><posy>36</posy><width>150</width><height>2</height>
+                      <texture border="5">MenuItemNF.png</texture>
+                      <visible>!Control.HasFocus(6330)</visible>
+                    </control>
+                    <control type="label">
+                      <posx>75</posx><posy>0</posy><width>150</width><height>38</height>
+                      <font>font16</font><aligny>center</aligny>
+                      <textcolor>white</textcolor><selectedcolor>green</selectedcolor>
+                      <align>center</align><info>ListItem.Label</info>
+                      <visible>SubString(Control.GetLabel(6300),*)</visible>
+                    </control>
+                    <control type="label">
+                      <posx>75</posx><posy>0</posy><width>150</width><height>38</height>
+                      <font>font16</font><aligny>center</aligny>
+                      <textcolor>grey2</textcolor><selectedcolor>green</selectedcolor>
+                      <align>center</align><info>ListItem.Label</info>
+                      <visible>!SubString(Control.GetLabel(6300),*)</visible>
+                    </control>
+                  </focusedlayout>
+                </control>
+              </control>
+            </control>
+          </control>
+          <!-- ## END ## Selection Box -->
+        </control>
+        <!-- ##END## Third Option -->
+      </control>
+      <!-- ## END ## WeekDays Group -->
+      
+    </control>
+    <!-- ## END ## Right Side -->
+  </controls>
+</window>
