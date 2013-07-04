@@ -69,14 +69,13 @@ class CronXbmc:
         adv_jobs = []
         try:
             doc = xml.dom.minidom.parse(xbmc.translatePath(self.datadir + "cron.xml"))
-
             for node in doc.getElementsByTagName("job"):
                 tempJob = CronJob()
                 tempJob.name = str(node.getAttribute("name"))
                 tempJob.command = str(node.getAttribute("command"))
                 tempJob.expression = str(node.getAttribute("expression"))
                 tempJob.show_notification = str(node.getAttribute("show_notification"))
-                
+                tempJob.id = str(len(adv_jobs))
                 adv_jobs.append(tempJob)
 
         except IOError:
@@ -91,7 +90,14 @@ class CronXbmc:
             
 
         return adv_jobs
-
+    def deleteJob(self,iID):
+        doc = xml.dom.minidom.parse(xbmc.translatePath(self.datadir + "cron.xml"))
+        rootNode = doc.getElementsByTagName("cron")[0]
+        oldJob = rootNode.getElementsByTagName("job")[iID]
+        rootNode.removeChild(oldJob)
+        f = open(xbmc.translatePath(self.datadir + "cron.xml"),"w")
+        doc.writexml(f,"   ")
+        f.close()
     def writeCronFile(self,job,overwrite=-1):
         #read in the cron file
         try:
