@@ -1,12 +1,4 @@
-******************************************************************************************
-** THIS ADDON IS UNFINISHED **
-
-The intended features of the plugin part of this addon have not been finished. You will need to manually configure your own cron expressions in the cron.xml file that will be created in the addon_data directory of your user profile. The file should have the following layout:
-
-<cron>
- <job name="Job Name" command="XBMC_Command()" expression="* * * * *" show_notification="true/false" />
-</cron>
-*********************************************************************************************
+** Thanks for the work of Kr0nZ this addon now has a useable GUI Window system! **
 
 Cron Xbmc
 
@@ -23,6 +15,17 @@ Set XBMC Volume
 Update Music/Video Libraries
 
 Additionally you can specify your timer to display an XBMC notification when they run. 
+
+
+Manually Editing the cron.xml file: 
+
+If you need to you can bypass the GUI and write the cron.xml file yourself, or via a script.  
+
+The file should have the following layout:
+
+<cron>
+ <job name="Job Name" command="XBMC_Command()" expression="* * * * *" show_notification="true/false" />
+</cron>
 
 
 Using Cron:
