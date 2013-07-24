@@ -1,7 +1,11 @@
+Version 0.0.3
+
+should use xbmc.sleep
+
 Version 0.0.2
 
-- merged in GUI windows created by Kr0nZ
+merged in GUI windows created by Kr0nZ
 
 Version 0.0.1
 
-- Addon created
+Addon created

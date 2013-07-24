@@ -18,7 +18,7 @@ class CronXbmc:
     Addon = xbmcaddon.Addon(addon_id)
     datadir = Addon.getAddonInfo('profile')
     addondir = Addon.getAddonInfo('path')
-    sleep_time = 10
+    sleep_time = 500
     last_check = -1
     
     def runProgram(self):
@@ -44,13 +44,8 @@ class CronXbmc:
                     if(runTime <= now):
                         self.runJob(command)
                         self.log(command.name + " will run again on " + datetime.datetime.fromtimestamp(cron_exp.get_next(float)).strftime('%m-%d-%Y %H:%M'))
-
-            #get as close to the top of each minute as we can
-            self.sleep_time = 10 - (time.time() % 60 % 10)
-            if(int(self.sleep_time) == 0):
-                self.sleep_time = 10
                 
-            time.sleep(self.sleep_time)
+            xbmc.sleep(self.sleep_time)
 
     def runJob(self,cronJob,override_notification = False):
         self.log("running command " + cronJob.name)
