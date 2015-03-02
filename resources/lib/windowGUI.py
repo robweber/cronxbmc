@@ -1,7 +1,7 @@
 import xbmcgui
 import xbmcaddon
 import traceback
-from service import CronManager, CronJob
+from cron import CronManager, CronJob
 from operator import itemgetter
 
 # Skin ID's
