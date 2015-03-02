@@ -1,8 +1,7 @@
-import xbmc
-import xbmcgui
+
 import xbmcaddon
 from resources.lib.windowGUI import WindowGUI
-from service import CronXbmc, CronJob
+from service import CronService,CronManager, CronJob
 
 __addon_id__ = "service.cronxbmc"
 __Addon__ = xbmcaddon.Addon(__addon_id__)
@@ -15,10 +14,10 @@ def updateJobs():
 
 def runJob(jobNum):
     #get the current jobs
-    cron_jobs = CronXbmc().readCronFile()
+    cron_jobs = CronManager().getJobs()
 
     selected = cron_jobs[jobNum]
-    CronXbmc().runJob(selected,True)
+    CronService().runJob(selected,True)
 
 updateJobs()
 

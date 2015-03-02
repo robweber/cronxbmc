@@ -1,10 +1,7 @@
-import sys
-import os
-import xbmc
 import xbmcgui
 import xbmcaddon
 import traceback
-from service import CronXbmc, CronJob
+from service import CronManager, CronJob
 from operator import itemgetter
 
 # Skin ID's
@@ -284,7 +281,7 @@ class ControlObject:
 
 class CommonWindow( xbmcgui.WindowXMLDialog ):
   def __init__( self, *args, **kwargs ):
-    self.cronxbmc = CronXbmc()
+    self.cronxbmc = CronManager()
     self.updated = {}
     self.glblObjs = []
     self.id2ObjMap = {}
@@ -308,7 +305,9 @@ class CommonWindow( xbmcgui.WindowXMLDialog ):
   def onClick( self, controlId ):
     print 'click'
     control = self.findControl(controlId)
-    control.click()
+    
+    if(not isinstance(control,(bool))):
+        control.click()
     
   def addAsInput(self, control, validator=None):
     self.controlInputs.append({'objId' : control.getObjectId(), 'validator' : validator})
@@ -429,7 +428,7 @@ class MainWindow( CommonWindow ):
     })
     
   def fillCronTab(self, control):
-    cron_jobs = self.cronxbmc.readCronFile()
+    cron_jobs = self.cronxbmc.getJobs()
     for i in cron_jobs:
       try:
         title = i.name
@@ -438,7 +437,7 @@ class MainWindow( CommonWindow ):
         listitem.setProperty( "command", i.command )
         listitem.setProperty( "cronExpre", i.expression )
         listitem.setProperty( "notification", i.show_notification )
-        listitem.setProperty( "iID", i.id )
+        listitem.setProperty( "iID", str(i.id) )
         control.addListItem(listitem)
       except:
         traceback.print_exc()
@@ -509,10 +508,7 @@ class MainWindow( CommonWindow ):
           newJob.show_notification = "False"
     if addJob:
       jobId = control.getDefaultOption('jobId')
-      if (len(jobId) > 0):
-        self.cronxbmc.writeCronFile(newJob, int(jobId))
-      else:
-        self.cronxbmc.writeCronFile(newJob)
+      self.cronxbmc.addJob(newJob)
       self.resetControls()
     else:
       dialog = xbmcgui.Dialog()
@@ -521,7 +517,7 @@ class MainWindow( CommonWindow ):
 
 class CronExpre( CommonWindow ):
   def __init__( self, *args, **kwargs ):
-    self.cronxbmc = CronXbmc()
+    self.cronxbmc = CronManager()
     self.updated = {}
     self.glblObjs = []
     self.id2ObjMap = {}
