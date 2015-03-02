@@ -128,7 +128,7 @@ class CronManager:
             doc.appendChild(rootNode)
             
             for aJob in self.jobs:
-                utils.log(aJob.name)
+                
                 #create the child
                 newChild = doc.createElement("job")
                 newChild.setAttribute("name",aJob.name)
@@ -136,7 +136,7 @@ class CronManager:
                 newChild.setAttribute("command",aJob.command)
                 newChild.setAttribute("show_notification",aJob.show_notification)
 
-            rootNode.appendChild(newChild)
+                rootNode.appendChild(newChild)
 
             #write the file
             f = open(xbmc.translatePath(utils.data_dir() + "cron.xml"),"w")
