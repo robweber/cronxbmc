@@ -22,12 +22,13 @@ class CronXbmc:
     last_check = -1
     
     def runProgram(self):
-        #run until XBMC quits
-        while(not xbmc.abortRequested):
+        monitor = xbmc.Monitor()
+        
+        #run until abort requested
+        while(True):
 
             structTime = time.localtime()
             now = time.time()
-            
             #only do all this if we are in a new minute
             if(structTime[4] != self.last_check):
                 self.last_check = structTime[4]
@@ -38,21 +39,22 @@ class CronXbmc:
                 for command in cron_jobs:
                     #create a cron expression for this command
                     cron_exp = croniter(command.expression,datetime.datetime.fromtimestamp(now - 60))
-                    self.nextRun(command)
+                    
                     runTime = cron_exp.get_next(float);
                     #if this command should run then run it
                     if(runTime <= now):
                         self.runJob(command)
                         self.log(command.name + " will run again on " + datetime.datetime.fromtimestamp(cron_exp.get_next(float)).strftime('%m-%d-%Y %H:%M'))
                 
-            xbmc.sleep(self.sleep_time)
+            if(monitor.waitForAbort(10)):
+                break;
 
     def runJob(self,cronJob,override_notification = False):
         self.log("running command " + cronJob.name)
 
         if(cronJob.show_notification == "true" or override_notification):
             #show a notification that this command is running
-            xbmc.executebuiltin("Notification(Cron XBMC," + cronJob.name + " is executing,2000," + xbmc.translatePath(self.addondir + "/icon.png") + ")")
+            xbmc.executebuiltin("Notification(Cron," + cronJob.name + " is executing,2000," + xbmc.translatePath(self.addondir + "/icon.png") + ")")
 
         #run the command                    
         xbmc.executebuiltin(cronJob.command)
@@ -85,6 +87,7 @@ class CronXbmc:
             
 
         return adv_jobs
+    
     def deleteJob(self,iID):
         doc = xml.dom.minidom.parse(xbmc.translatePath(self.datadir + "cron.xml"))
         rootNode = doc.getElementsByTagName("cron")[0]
@@ -93,6 +96,7 @@ class CronXbmc:
         f = open(xbmc.translatePath(self.datadir + "cron.xml"),"w")
         doc.writexml(f,"   ")
         f.close()
+        
     def writeCronFile(self,job,overwrite=-1):
         #read in the cron file
         try:
