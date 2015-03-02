@@ -50,6 +50,34 @@ class CronManager:
         
         return self.jobs
     
+    def nextRun(self,cronJob):
+        #create a cron expression
+        cron_exp = croniter(cronJob.expression,datetime.datetime.fromtimestamp(time.time()))
+
+        #compare now with next date
+        nextRun = cron_exp.get_next(float)
+        cronDiff = nextRun - time.time()
+        hours = int((cronDiff / 60) / 60)
+        minutes = int(cronDiff / 60 - hours * 60)
+
+        #we always have at least one minute
+        if minutes == 0:
+            minutes = 1
+
+        result = str(hours) + " h " + str(minutes) + " m"
+
+        if hours == 0:
+            result = str(minutes) + " m"
+        elif hours > 36:
+            #just show the date instead
+            result = datetime.datetime.fromtimestamp(nextRun).strftime('%m/%d %I:%M%p')
+        elif hours > 24:
+            days = int(hours / 24)
+            hours = hours - days * 24
+            result = str(days) + " d " + str(hours) + " h " + str(minutes) + " m"
+        
+        return result
+    
     def _refreshJobs(self):
         
         #check if we should read in a new files list
@@ -100,12 +128,15 @@ class CronManager:
             doc.appendChild(rootNode)
             
             for aJob in self.jobs:
+                utils.log(aJob.name)
                 #create the child
                 newChild = doc.createElement("job")
                 newChild.setAttribute("name",aJob.name)
                 newChild.setAttribute("expression",aJob.expression)
                 newChild.setAttribute("command",aJob.command)
                 newChild.setAttribute("show_notification",aJob.show_notification)
+
+            rootNode.appendChild(newChild)
 
             #write the file
             f = open(xbmc.translatePath(utils.data_dir() + "cron.xml"),"w")
@@ -159,34 +190,6 @@ class CronService:
 
         #run the command                    
         xbmc.executebuiltin(cronJob.command)
-
-    def nextRun(self,cronJob):
-        #create a cron expression
-        cron_exp = croniter(cronJob.expression,datetime.datetime.fromtimestamp(time.time()))
-
-        #compare now with next date
-        nextRun = cron_exp.get_next(float)
-        cronDiff = nextRun - time.time()
-        hours = int((cronDiff / 60) / 60)
-        minutes = int(cronDiff / 60 - hours * 60)
-
-        #we always have at least one minute
-        if minutes == 0:
-            minutes = 1
-
-        result = str(hours) + " h " + str(minutes) + " m"
-
-        if hours == 0:
-            result = str(minutes) + " m"
-        elif hours > 36:
-            #just show the date instead
-            result = datetime.datetime.fromtimestamp(nextRun).strftime('%m/%d %I:%M%p')
-        elif hours > 24:
-            days = int(hours / 24)
-            hours = hours - days * 24
-            result = str(days) + " d " + str(hours) + " h " + str(minutes) + " m"
-        
-        return result
         
 #run the program
 utils.log("Cron for Kodi service starting....")
