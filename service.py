@@ -156,6 +156,6 @@ class CronXbmc:
         xbmc.log('service.cronxbmc: ' + message)
         
 #run the program
-xbmc.log("Cron XBMC service starting....")
+xbmc.log("Cron for Kodi service starting....")
 CronXbmc().runProgram()
 

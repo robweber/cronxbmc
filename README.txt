@@ -1,20 +1,20 @@
 ** Thanks for the work of Kr0nZ this addon now has a useable GUI Window system! **
 
-Cron Xbmc
+Cron for Kodi
 
-This addon consists of a plugin and a service that will let you schedule various XBMC functions to be run on timers of your choosing. Functions to run can basically be anything from the list of built in XBMC functions (http://wiki.xbmc.org/index.php?title=List_of_built-in_functions). Examples include: 
+This addon consists of a plugin and a service that will let you schedule various Kodi functions to be run on timers of your choosing. Functions to run can basically be anything from the list of built in Kodi functions (http://kodi.wiki/view/List_of_built-in_functions). Examples include: 
 
 Rebooting
-Restart XBMC
+Restart Kodi
 Take a Screenshot
 Run another Addon or Script
 Play Media
 Refresh RSS
 Send a Notification
-Set XBMC Volume
+Set Volume
 Update Music/Video Libraries
 
-Additionally you can specify your timer to display an XBMC notification when they run. 
+Additionally you can specify your timer to display a notification when they run. 
 
 
 Manually Editing the cron.xml file: 
@@ -24,13 +24,13 @@ If you need to you can bypass the GUI and write the cron.xml file yourself, or v
 The file should have the following layout:
 
 <cron>
- <job name="Job Name" command="XBMC_Command()" expression="* * * * *" show_notification="true/false" />
+ <job name="Job Name" command="Kodi_Command()" expression="* * * * *" show_notification="true/false" />
 </cron>
 
 
 Using Cron:
 
-A Cron expression is made up for 5 parts (see below). Read up on cro(http://en.wikipedia.org/wiki/Cron) for more information on how to create these expressions.
+A Cron expression is made up for 5 parts (see below). Read up on cron(http://en.wikipedia.org/wiki/Cron) for more information on how to create these expressions.
 
     .--------------- minute (0 - 59)
     |   .------------ hour (0 - 23)

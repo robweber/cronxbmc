@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <strings>
-  <string id="30000">Cron XBMC</string>
+  <string id="30000">Cron</string>
   
   <!-- 30001-30050 reserved for gui -->
   
-  <!-- xbmc function help starts here -->
+  <!-- kodi function help starts here -->
 	<string id="30051">RunScript(script[,args])</string>
 	<string id="30052">RunAddon(id)</string>
 	<string id="30053">RestartApp</string>
