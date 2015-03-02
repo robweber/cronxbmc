@@ -154,4 +154,8 @@ class CronXbmc:
     
     def log(self,message):
         xbmc.log('service.cronxbmc: ' + message)
+        
+#run the program
+xbmc.log("Cron XBMC service starting....")
+CronXbmc().runProgram()
 
