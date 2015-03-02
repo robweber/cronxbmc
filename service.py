@@ -1,5 +1,6 @@
 import time
 import xbmc
+import xbmcvfs
 import xml.dom.minidom
 import datetime
 import os
@@ -16,11 +17,13 @@ class CronJob:
 
 class CronManager:
     jobs = list()
+    last_read = time.time()
     
     def __init__(self):
         self.jobs = self._readCronFile()
     
     def addJob(self,job):
+        self._refreshJobs()
         
         if(job.id > 0):
             #replace existing job
@@ -33,6 +36,8 @@ class CronManager:
         self._writeCronFile()
     
     def deleteJob(self,jId):
+        self._refreshJobs()
+        
         #delete the job with this id
         removeJob = self.jobs[jId]
         
@@ -41,7 +46,20 @@ class CronManager:
         self._writeCronFile()
     
     def getJobs(self):
+        self._refreshJobs()
+        
         return self.jobs
+    
+    def _refreshJobs(self):
+        
+        #check if we should read in a new files list
+        stat_file = xbmcvfs.Stat(xbmc.translatePath(utils.data_dir() + "cron.xml"))
+        
+        if(stat_file.st_mtime() > self.last_read):
+
+            #update the file
+            self.jobs = self._readCronFile();
+            self.last_read = time.time()
     
     def _readCronFile(self):
         if(not os.path.exists(xbmc.translatePath(utils.data_dir()))):
@@ -97,7 +115,7 @@ class CronManager:
         except IOError:
             self.log("error writing cron file")
 
-class CronXbmc:
+class CronService:
     last_check = -1
     manager = None
     
@@ -172,5 +190,5 @@ class CronXbmc:
         
 #run the program
 utils.log("Cron for Kodi service starting....")
-CronXbmc().runProgram()
+CronService().runProgram()
 
