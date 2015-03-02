@@ -17,6 +17,42 @@ Update Music/Video Libraries
 Additionally you can specify your timer to display a notification when they run. 
 
 
+Using as a module:
+
+If you want to schedule something as part of your own addon you can import the CronManager class as an Kodi addon module. To do this first add the following to your addon.xml file: 
+
+<import addon="service.cronxbmc" version="Current.Version.Number" />
+
+From within your addon import the required classes using:
+
+from cron import CronManager,CronJob
+
+You can then get a list of cron jobs, add a new job, or delete existing jobs. Here is the syntax: 
+
+manager = CronManager()
+
+#get jobs
+jobs = manager.getJobs()
+
+#delete a job
+manager.deleteJob(job.id)
+
+#add a job
+job = CronJob()
+job.name = "name"
+job.command = "Shutdown"
+job.expression = "0 0 * * *"
+job.show_notification = "false"
+
+manager.addJob(job)
+
+Please be aware that adding or removing a job will change the job list (and change job ids) so please refresh your job list each time by using:
+
+jobs = manager.getJobs()
+
+This will also pull in any new jobs that may have been added via other methods
+
+
 Manually Editing the cron.xml file: 
 
 If you need to you can bypass the GUI and write the cron.xml file yourself, or via a script.  

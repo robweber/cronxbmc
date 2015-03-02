@@ -1,3 +1,9 @@
+Version 0.0.4
+
+updated to Helix only python version
+created CronManager class to handle CronJob functions
+add module extension point for inclusion in other addons
+
 Version 0.0.3
 
 should use xbmc.sleep
