@@ -8,13 +8,101 @@ import resources.lib.utils as utils
 
 class CronJob:
     def __init__( self):
+        self.id = 0
         self.name = ""
         self.command = ""
         self.expression = []
         self.show_notification = "false"
+
+class CronManager:
+    jobs = list()
+    
+    def __init__(self):
+        self.jobs = self._readCronFile()
+    
+    def addJob(self,job):
         
+        if(job.id > 0):
+            #replace existing job
+            self.jobs[job.id] = job
+        else:
+            #add a new job
+            self.jobs.append(job)
+            
+        #write the file
+        self._writeCronFile()
+    
+    def deleteJob(self,jId):
+        #delete the job with this id
+        removeJob = self.jobs[jId]
+        
+        self.jobs.remove(removeJob)
+        
+        self._writeCronFile()
+    
+    def getJobs(self):
+        return self.jobs
+    
+    def _readCronFile(self):
+        if(not os.path.exists(xbmc.translatePath(utils.data_dir()))):
+            os.makedirs(xbmc.translatePath(utils.data_dir()))
+
+        adv_jobs = []
+        try:
+            doc = xml.dom.minidom.parse(xbmc.translatePath(utils.data_dir() + "cron.xml"))
+            
+            for node in doc.getElementsByTagName("job"):
+                tempJob = CronJob()
+                tempJob.name = str(node.getAttribute("name"))
+                tempJob.command = str(node.getAttribute("command"))
+                tempJob.expression = str(node.getAttribute("expression"))
+                tempJob.show_notification = str(node.getAttribute("show_notification"))
+                tempJob.id = len(adv_jobs)
+                adv_jobs.append(tempJob)
+
+        except IOError:
+            #the file doesn't exist, return empty array
+            doc = xml.dom.minidom.Document()
+            rootNode = doc.createElement("cron")
+            doc.appendChild(rootNode)
+            #write the file
+            f = open(xbmc.translatePath(utils.data_dir() + "cron.xml"),"w")
+            doc.writexml(f,"   ")
+            f.close()
+            
+
+        return adv_jobs
+    
+    def _writeCronFile(self):
+        
+        #write the cron file in full
+        try:
+            doc = xml.dom.minidom.Document()
+            rootNode = doc.createElement("cron")
+            doc.appendChild(rootNode)
+            
+            for aJob in self.jobs:
+                #create the child
+                newChild = doc.createElement("job")
+                newChild.setAttribute("name",aJob.name)
+                newChild.setAttribute("expression",aJob.expression)
+                newChild.setAttribute("command",aJob.command)
+                newChild.setAttribute("show_notification",aJob.show_notification)
+
+            #write the file
+            f = open(xbmc.translatePath(utils.data_dir() + "cron.xml"),"w")
+            doc.writexml(f,"   ")
+            f.close()
+                                        
+        except IOError:
+            self.log("error writing cron file")
+
 class CronXbmc:
     last_check = -1
+    manager = None
+    
+    def __init__(self):
+        self.manager = CronManager()
     
     def runProgram(self):
         monitor = xbmc.Monitor()
@@ -29,7 +117,7 @@ class CronXbmc:
                 self.last_check = structTime[4]
 
                 #get a list of all the cron jobs
-                cron_jobs = self.readCronFile()
+                cron_jobs = self.manager.getJobs()
 
                 for command in cron_jobs:
                     #create a cron expression for this command
@@ -53,74 +141,6 @@ class CronXbmc:
 
         #run the command                    
         xbmc.executebuiltin(cronJob.command)
-        
-    def readCronFile(self):
-        if(not os.path.exists(xbmc.translatePath(utils.data_dir()))):
-            os.makedirs(xbmc.translatePath(utils.data_dir()))
-
-        adv_jobs = []
-        try:
-            doc = xml.dom.minidom.parse(xbmc.translatePath(utils.data_dir() + "cron.xml"))
-            for node in doc.getElementsByTagName("job"):
-                tempJob = CronJob()
-                tempJob.name = str(node.getAttribute("name"))
-                tempJob.command = str(node.getAttribute("command"))
-                tempJob.expression = str(node.getAttribute("expression"))
-                tempJob.show_notification = str(node.getAttribute("show_notification"))
-                tempJob.id = str(len(adv_jobs))
-                adv_jobs.append(tempJob)
-
-        except IOError:
-            #the file doesn't exist, return empty array
-            doc = xml.dom.minidom.Document()
-            rootNode = doc.createElement("cron")
-            doc.appendChild(rootNode)
-            #write the file
-            f = open(xbmc.translatePath(utils.data_dir() + "cron.xml"),"w")
-            doc.writexml(f,"   ")
-            f.close()
-            
-
-        return adv_jobs
-    
-    def deleteJob(self,iID):
-        doc = xml.dom.minidom.parse(xbmc.translatePath(utils.data_dir() + "cron.xml"))
-        rootNode = doc.getElementsByTagName("cron")[0]
-        oldJob = rootNode.getElementsByTagName("job")[iID]
-        rootNode.removeChild(oldJob)
-        f = open(xbmc.translatePath(utils.data_dir() + "cron.xml"),"w")
-        doc.writexml(f,"   ")
-        f.close()
-        
-    def writeCronFile(self,job,overwrite=-1):
-        #read in the cron file
-        try:
-            doc = xml.dom.minidom.parse(xbmc.translatePath(utils.data_dir() + "cron.xml"))
-            rootNode = doc.getElementsByTagName("cron")[0]
-            
-            #create the child
-            newChild = doc.createElement("job")
-            newChild.setAttribute("name",job.name)
-            newChild.setAttribute("expression",job.expression)
-            newChild.setAttribute("command",job.command)
-            newChild.setAttribute("show_notification",job.show_notification)
-        
-            if overwrite >= 0:
-                #we are modifying an existing job
-                oldJob = rootNode.getElementsByTagName("job")[overwrite]
-                rootNode.replaceChild(newChild,oldJob)
-
-            else:
-                #we are writing a new job
-                rootNode.appendChild(newChild)
-
-            #write the file
-            f = open(xbmc.translatePath(utils.data_dir() + "cron.xml"),"w")
-            doc.writexml(f,"   ")
-            f.close()
-                                        
-        except IOError:
-            self.log("error writing cron file")
 
     def nextRun(self,cronJob):
         #create a cron expression
