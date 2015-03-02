@@ -1,10 +1,10 @@
 import time
 import xbmc
-import xbmcaddon
 import xml.dom.minidom
 import datetime
 import os
 from resources.lib.croniter import croniter
+import resources.lib.utils as utils
 
 class CronJob:
     def __init__( self):
@@ -14,11 +14,6 @@ class CronJob:
         self.show_notification = "false"
         
 class CronXbmc:
-    addon_id = "service.cronxbmc"
-    Addon = xbmcaddon.Addon(addon_id)
-    datadir = Addon.getAddonInfo('profile')
-    addondir = Addon.getAddonInfo('path')
-    sleep_time = 500
     last_check = -1
     
     def runProgram(self):
@@ -44,28 +39,28 @@ class CronXbmc:
                     #if this command should run then run it
                     if(runTime <= now):
                         self.runJob(command)
-                        self.log(command.name + " will run again on " + datetime.datetime.fromtimestamp(cron_exp.get_next(float)).strftime('%m-%d-%Y %H:%M'))
+                        utils.log(command.name + " will run again on " + datetime.datetime.fromtimestamp(cron_exp.get_next(float)).strftime('%m-%d-%Y %H:%M'))
                 
             if(monitor.waitForAbort(10)):
                 break;
 
     def runJob(self,cronJob,override_notification = False):
-        self.log("running command " + cronJob.name)
+        utils.log("running command " + cronJob.name)
 
         if(cronJob.show_notification == "true" or override_notification):
             #show a notification that this command is running
-            xbmc.executebuiltin("Notification(Cron," + cronJob.name + " is executing,2000," + xbmc.translatePath(self.addondir + "/icon.png") + ")")
+            utils.showNotification("Cron", cronJob.name + " is executing")
 
         #run the command                    
         xbmc.executebuiltin(cronJob.command)
         
     def readCronFile(self):
-        if(not os.path.exists(xbmc.translatePath(self.datadir))):
-            os.makedirs(xbmc.translatePath(self.datadir))
+        if(not os.path.exists(xbmc.translatePath(utils.data_dir()))):
+            os.makedirs(xbmc.translatePath(utils.data_dir()))
 
         adv_jobs = []
         try:
-            doc = xml.dom.minidom.parse(xbmc.translatePath(self.datadir + "cron.xml"))
+            doc = xml.dom.minidom.parse(xbmc.translatePath(utils.data_dir() + "cron.xml"))
             for node in doc.getElementsByTagName("job"):
                 tempJob = CronJob()
                 tempJob.name = str(node.getAttribute("name"))
@@ -81,7 +76,7 @@ class CronXbmc:
             rootNode = doc.createElement("cron")
             doc.appendChild(rootNode)
             #write the file
-            f = open(xbmc.translatePath(self.datadir + "cron.xml"),"w")
+            f = open(xbmc.translatePath(utils.data_dir() + "cron.xml"),"w")
             doc.writexml(f,"   ")
             f.close()
             
@@ -89,18 +84,18 @@ class CronXbmc:
         return adv_jobs
     
     def deleteJob(self,iID):
-        doc = xml.dom.minidom.parse(xbmc.translatePath(self.datadir + "cron.xml"))
+        doc = xml.dom.minidom.parse(xbmc.translatePath(utils.data_dir() + "cron.xml"))
         rootNode = doc.getElementsByTagName("cron")[0]
         oldJob = rootNode.getElementsByTagName("job")[iID]
         rootNode.removeChild(oldJob)
-        f = open(xbmc.translatePath(self.datadir + "cron.xml"),"w")
+        f = open(xbmc.translatePath(utils.data_dir() + "cron.xml"),"w")
         doc.writexml(f,"   ")
         f.close()
         
     def writeCronFile(self,job,overwrite=-1):
         #read in the cron file
         try:
-            doc = xml.dom.minidom.parse(xbmc.translatePath(self.datadir + "cron.xml"))
+            doc = xml.dom.minidom.parse(xbmc.translatePath(utils.data_dir() + "cron.xml"))
             rootNode = doc.getElementsByTagName("cron")[0]
             
             #create the child
@@ -120,7 +115,7 @@ class CronXbmc:
                 rootNode.appendChild(newChild)
 
             #write the file
-            f = open(xbmc.translatePath(self.datadir + "cron.xml"),"w")
+            f = open(xbmc.translatePath(utils.data_dir() + "cron.xml"),"w")
             doc.writexml(f,"   ")
             f.close()
                                         
@@ -155,11 +150,7 @@ class CronXbmc:
         
         return result
         
-    
-    def log(self,message):
-        xbmc.log('service.cronxbmc: ' + message)
-        
 #run the program
-xbmc.log("Cron for Kodi service starting....")
+utils.log("Cron for Kodi service starting....")
 CronXbmc().runProgram()
 
