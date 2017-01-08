@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <strings>
   <string id="30000">Cron</string>
+  <string id="30001">Add Job</string>
   
   <!-- 30001-30050 reserved for gui -->
   
