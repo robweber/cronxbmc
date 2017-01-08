@@ -2,6 +2,16 @@
 <strings>
   <string id="30000">Cron</string>
   <string id="30001">Add Job</string>
+  <string id="30002">Job Name</string>
+  <string id="30003">Kodi Command</string>
+  <string id="30004">Cron Expression</string>
+  <string id="30005">Show Notification</string>
+  <string id="30006">Update</string>
+  <string id="30007">Delete</string>
+  <string id="30008">Details</string>
+  <string id="30009">Delete job</string>
+  <string id="30010">Show a notification when this task runs?</string>
+  <string id="30011">Next Run</string>
   
   <!-- 30001-30050 reserved for gui -->
   

@@ -19,28 +19,28 @@ class CronGUI:
         newJob = CronJob()
         
         #get the name, command, expression and notification setting
-        name = xbmcgui.Dialog().input(heading="Job Name")
+        name = xbmcgui.Dialog().input(heading=utils.getString(30002))
 
         if(name == ""):
             return
         else:
             newJob.name = name
 
-        command = xbmcgui.Dialog().input(heading="Kodi Command")
+        command = xbmcgui.Dialog().input(heading=utils.getString(30003))
 
         if(command == ""):
             return
         else:
             newJob.command = command
 
-        expression = xbmcgui.Dialog().input("Cron Expression","0 0 * * *")
+        expression = xbmcgui.Dialog().input(utils.getString(30004),"0 0 * * *")
 
         if(expression == ""):
             return
         else:
             newJob.expression = expression
 
-        if(xbmcgui.Dialog().yesno('Show Notification', "Show a notification when this task runs?")):
+        if(xbmcgui.Dialog().yesno(utils.getString(30005), utils.getString(30010))):
             newJob.show_notification = "true"
         else:
             newJob.show_notification = "false"
@@ -57,7 +57,7 @@ class CronGUI:
         elif(command == 2):
             jobs = self.cron.getJobs()
             aJob = jobs[int(self.params['job'])]
-            confirm = xbmcgui.Dialog().yesno("Delete","Delete job " + aJob.name)
+            confirm = xbmcgui.Dialog().yesno(utils.getString(30007),utils.getString(30009) + " " + aJob.name)
 
             if(confirm):
                 #delete the job
@@ -67,7 +67,7 @@ class CronGUI:
             jobs = self.cron.getJobs()
             aJob = jobs[int(self.params['job'])]
 
-            aJob.name = xbmcgui.Dialog().input("Update Job Name",aJob.name)
+            aJob.name = xbmcgui.Dialog().input(utils.getString(30006) + " " + utils.getString(30002),aJob.name)
             self.cron.addJob(aJob)
             
         elif(command == 4):
@@ -75,7 +75,7 @@ class CronGUI:
             jobs = self.cron.getJobs()
             aJob = jobs[int(self.params['job'])]
 
-            aJob.command = xbmcgui.Dialog().input("Update Command",aJob.command)
+            aJob.command = xbmcgui.Dialog().input(utils.getString(30006) + " " + utils.getString(30003),aJob.command)
             self.cron.addJob(aJob)
             
         elif(command == 5):
@@ -83,7 +83,7 @@ class CronGUI:
             jobs = self.cron.getJobs()
             aJob = jobs[int(self.params['job'])]
 
-            aJob.expression = xbmcgui.Dialog().input("Update Cron Expression",aJob.expression)
+            aJob.expression = xbmcgui.Dialog().input(utils.getString(30006) + " " + utils.getString(30004),aJob.expression)
             self.cron.addJob(aJob)
 
         elif(command == 6):
@@ -91,7 +91,7 @@ class CronGUI:
             jobs = self.cron.getJobs()
             aJob = jobs[int(self.params['job'])]
 
-            if(xbmcgui.Dialog().yesno('Show Notification', "Show a notification when this task runs?")):
+            if(xbmcgui.Dialog().yesno(utils.getString(30005), utils.getString(30010))):
                 aJob.show_notification = "true"
             else:
                 aJob.show_notification = "false"
@@ -110,27 +110,27 @@ class CronGUI:
            
             for j in jobs:
                 #list each job
-                cronItem = xbmcgui.ListItem(j.name + " - Next Run: " + self.cron.nextRun(j))
-                cronItem.addContextMenuItems([("Details",self.plugin_url % (sys.argv[0],'command=0&window=1&job=' + str(j.id))),("Delete",self.plugin_url % (sys.argv[0],'command=2&window=0&job=' + str(j.id)))])
+                cronItem = xbmcgui.ListItem(j.name + " - " + utils.getString(30011) + ": " + self.cron.nextRun(j))
+                cronItem.addContextMenuItems([(utils.getString(30008),self.plugin_url % (sys.argv[0],'command=0&window=1&job=' + str(j.id))),(utils.getString(30007),self.plugin_url % (sys.argv[0],'command=2&window=0&job=' + str(j.id)))])
                 xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=self.context_url % (sys.argv[0],'command=0&window=1&job=' + str(j.id)),listitem=cronItem,isFolder=True)
         elif(window == 1):
             #list the details of this job
             aJob = jobs[int(self.params['job'])]
 
-            name = xbmcgui.ListItem("Name: " + aJob.name)
+            name = xbmcgui.ListItem(utils.getString(30002) + ": " + aJob.name)
             xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=self.context_url % (sys.argv[0],'command=3&window=1&job=' + str(aJob.id)),listitem=name,isFolder=False)
            
-            command = xbmcgui.ListItem("Command: " + aJob.command)
+            command = xbmcgui.ListItem(utils.getString(30003) + ": " + aJob.command)
             xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=self.context_url % (sys.argv[0],'command=4&window=1&job=' + str(aJob.id)),listitem=command,isFolder=False)
 
-            expression = xbmcgui.ListItem("Cron Expression: " + aJob.expression)
+            expression = xbmcgui.ListItem(utils.getString(30004) + ": " + aJob.expression)
             xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=self.context_url % (sys.argv[0],'command=5&window=1&job=' + str(aJob.id)),listitem=expression,isFolder=False)
 
             showNotification = 'No'
             if(aJob.show_notification == 'true'):
                 showNotification = 'Yes'
 
-            notification = xbmcgui.ListItem('Notification: ' + showNotification)
+            notification = xbmcgui.ListItem(utils.getString(30005) + ": " + showNotification)
             xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=self.context_url % (sys.argv[0],'command=6&window=1&job=' + str(aJob.id)),listitem=notification,isFolder=False)
 
         xbmcplugin.endOfDirectory(int(sys.argv[1]),cacheToDisc=False)
