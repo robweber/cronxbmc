@@ -9,7 +9,7 @@ import utils as utils
 
 class CronJob:
     def __init__( self):
-        self.id = 0
+        self.id = -1
         self.name = ""
         self.command = ""
         self.expression = []
@@ -25,7 +25,7 @@ class CronManager:
     def addJob(self,job):
         self._refreshJobs()
         
-        if(job.id > 0):
+        if(job.id >= 0):
             #replace existing job
             self.jobs[job.id] = job
         else:
@@ -84,7 +84,7 @@ class CronManager:
         stat_file = xbmcvfs.Stat(xbmc.translatePath(utils.data_dir() + "cron.xml"))
         
         if(stat_file.st_mtime() > self.last_read):
-            utils.log("File update, loading new jobs")
+            utils.log("File update, loading new jobs",xbmc.LOGDEBUG)
             #update the file
             self.jobs = self._readCronFile();
             self.last_read = time.time()
@@ -105,7 +105,7 @@ class CronManager:
                 tempJob.show_notification = str(node.getAttribute("show_notification"))
                 tempJob.id = len(adv_jobs)
                 
-                utils.log(tempJob.name + " " + tempJob.expression + " loaded")
+                utils.log(tempJob.name + " " + tempJob.expression + " loaded",xbmc.LOGDEBUG)
                 adv_jobs.append(tempJob)
 
         except IOError:
@@ -146,7 +146,7 @@ class CronManager:
             f.close()
                                         
         except IOError:
-            self.log("error writing cron file")
+            utils.log("error writing cron file",xbmc.LOGERROR)
 
 class CronService:
     last_check = -1
