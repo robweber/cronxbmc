@@ -9,7 +9,7 @@ import utils as utils
 
 class CronJob:
     def __init__( self):
-        self.id = 0
+        self.id = -1
         self.name = ""
         self.command = ""
         self.expression = []
@@ -25,7 +25,7 @@ class CronManager:
     def addJob(self,job):
         self._refreshJobs()
         
-        if(job.id > 0):
+        if(job.id >= 0):
             #replace existing job
             self.jobs[job.id] = job
         else:
