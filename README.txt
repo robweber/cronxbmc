@@ -1,5 +1,3 @@
-** Thanks for the work of Kr0nZ this addon now has a useable GUI Window system! **
-
 Cron for Kodi
 
 This addon consists of a plugin and a service that will let you schedule various Kodi functions to be run on timers of your choosing. Functions to run can basically be anything from the list of built in Kodi functions (http://kodi.wiki/view/List_of_built-in_functions). Examples include: 
