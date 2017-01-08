@@ -1,16 +1,8 @@
+import xbmcgui
+import resources.lib.utils as utils
 
-import xbmcaddon
-from resources.lib.windowGUI import WindowGUI
 
-__addon_id__ = "service.cronxbmc"
-__Addon__ = xbmcaddon.Addon(__addon_id__)
-__cwd__        = __Addon__.getAddonInfo('path')
-
-def updateJobs():
-    ui = WindowGUI( __cwd__)
-    del ui
-
-updateJobs()
+xbmcgui.Dialog().ok(utils.getString(30000),"No GUI at this time")
 
     
 
