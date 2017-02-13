@@ -1,3 +1,7 @@
+Version 0.0.6
+
+remove python os file code and replace with xbmcvfs module
+
 Version 0.0.5
 
 removed old gui code and replace with new one
