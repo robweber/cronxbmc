@@ -3,7 +3,6 @@ import xbmc
 import xbmcvfs
 import xml.dom.minidom
 import datetime
-import os
 from croniter import croniter
 import utils as utils
 
@@ -90,8 +89,8 @@ class CronManager:
             self.last_read = time.time()
     
     def _readCronFile(self):
-        if(not os.path.exists(xbmc.translatePath(utils.data_dir()))):
-            os.makedirs(xbmc.translatePath(utils.data_dir()))
+        if(not xbmcvfs.exists(xbmc.translatePath(utils.data_dir()))):
+            xbmcvfs.makedir(xbmc.translatePath(utils.data_dir()))
 
         adv_jobs = []
         try:
@@ -114,7 +113,7 @@ class CronManager:
             rootNode = doc.createElement("cron")
             doc.appendChild(rootNode)
             #write the file
-            f = open(xbmc.translatePath(utils.data_dir() + "cron.xml"),"w")
+            f = xbmcvfs.File(xbmc.translatePath(utils.data_dir() + "cron.xml"),"w")
             doc.writexml(f,"   ")
             f.close()
             
@@ -141,7 +140,7 @@ class CronManager:
                 rootNode.appendChild(newChild)
 
             #write the file
-            f = open(xbmc.translatePath(utils.data_dir() + "cron.xml"),"w")
+            f = xbmcvfs.File(xbmc.translatePath(utils.data_dir() + "cron.xml"),"w")
             doc.writexml(f,"   ")
             f.close()
                                         
