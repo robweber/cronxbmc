@@ -2,7 +2,7 @@
 <addon id="service.cronxbmc"
     name="Cron" version="0.0.6" provider-name="robweber">
   <requires>
-    <import addon="xbmc.python" version="2.24.0"/>
+    <import addon="xbmc.python" version="2.25.0"/>
   </requires>
   <extension point="xbmc.python.pluginsource" library="gui.py"> 
      <provides>executable</provides> 
@@ -13,5 +13,11 @@
     <summary lang="en">A customizable Cron timer for Kodi. </summary>
     <description lang="en">Create cron timers for Kodi functions. This addon can schedule and run any built-in Kodi functions. No more reliance on add-on developers to allow for "timer" functionality, no more scripts running on other machines to send commands to your HTPC. All of your timers can now be handled directly within Kodi. It can also display notifications when your tasks run if configured to do so.</description>
     <platform>all</platform>
+	<news>
+		remove python os file code and replace with xbmcvfs module
+	</news>
+	<assets>
+		<icon>resources/images/icon.png</icon>
+	</assets>
   </extension>
 </addon>
