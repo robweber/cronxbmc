@@ -90,7 +90,7 @@ class CronManager:
     
     def _readCronFile(self):
         if(not xbmcvfs.exists(xbmc.translatePath(utils.data_dir()))):
-            xbmcvfs.makedir(xbmc.translatePath(utils.data_dir()))
+            xbmcvfs.mkdir(xbmc.translatePath(utils.data_dir()))
 
         adv_jobs = []
         try:
