@@ -1,3 +1,7 @@
+Version 0.0.7
+
+added sytanx check when adding cron job
+
 Version 0.0.6
 
 remove python os file code and replace with xbmcvfs module
