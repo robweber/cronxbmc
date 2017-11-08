@@ -22,6 +22,14 @@ class CronManager:
         self.jobs = self._readCronFile()
     
     def addJob(self,job):
+
+        try:
+            #verify the cron expression here, throws ValueError if wrong
+            croniter(job.expression)
+        except:
+            #didn't work
+            return False
+        
         self._refreshJobs()
         
         if(job.id >= 0):
@@ -33,6 +41,8 @@ class CronManager:
             
         #write the file
         self._writeCronFile()
+
+        return True
     
     def deleteJob(self,jId):
         self._refreshJobs()

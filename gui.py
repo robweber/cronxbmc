@@ -45,7 +45,8 @@ class CronGUI:
         else:
             newJob.show_notification = "false"
 
-        self.cron.addJob(newJob)
+        if(not self.cron.addJob(newJob)):
+            xbmcgui.Dialog().ok(utils.getString(30000),'Job not added, cron expression error')
 
     def run(self):
         command = int(self.params['command'])
@@ -69,7 +70,6 @@ class CronGUI:
 
             aJob.name = xbmcgui.Dialog().input(utils.getString(30006) + " " + utils.getString(30002),aJob.name)
             self.cron.addJob(aJob)
-            
         elif(command == 4):
             #udpate the command
             jobs = self.cron.getJobs()
@@ -84,7 +84,9 @@ class CronGUI:
             aJob = jobs[int(self.params['job'])]
 
             aJob.expression = xbmcgui.Dialog().input(utils.getString(30006) + " " + utils.getString(30004),aJob.expression)
-            self.cron.addJob(aJob)
+
+            if(not self.cron.addJob(aJob)):
+                xbmcgui.Dialog().ok(utils.getString(30000),'Job not added, cron expression error')
 
         elif(command == 6):
             #update the notification setting
