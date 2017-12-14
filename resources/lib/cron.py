@@ -123,7 +123,7 @@ class CronManager:
             rootNode = doc.createElement("cron")
             doc.appendChild(rootNode)
             #write the file
-            f = xbmcvfs.File(xbmc.translatePath(utils.data_dir() + "cron.xml"),"w")
+            f = xbmcvfs.File('special://profile/addon_data/service.cronxbmc/cron.xml'),"w")
             doc.writexml(f,"   ")
             f.close()
             
@@ -150,7 +150,7 @@ class CronManager:
                 rootNode.appendChild(newChild)
 
             #write the file
-            f = xbmcvfs.File(xbmc.translatePath(utils.data_dir() + "cron.xml"),"w")
+            f = xbmcvfs.File('special://profile/addon_data/service.cronxbmc/cron.xml'),"w")
             doc.writexml(f,"   ")
             f.close()
                                         
