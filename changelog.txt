@@ -1,3 +1,7 @@
+Version 0.0.8
+
+hardcode path so it doesn't modify when scripting - thanks shnabz
+
 Version 0.0.7
 
 added sytanx check when adding cron job
