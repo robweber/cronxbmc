@@ -15,6 +15,7 @@ class CronJob:
         self.show_notification = "false"
 
 class CronManager:
+    CRONFILE = 'special://profile/addon_data/service.cronxbmc/cron.xml'
     jobs = list()
     last_read = time.time()
     
@@ -90,7 +91,7 @@ class CronManager:
     def _refreshJobs(self):
         
         #check if we should read in a new files list
-        stat_file = xbmcvfs.Stat(xbmc.translatePath(utils.data_dir() + "cron.xml"))
+        stat_file = xbmcvfs.Stat(xbmc.translatePath(self.CRONFILE))
         
         if(stat_file.st_mtime() > self.last_read):
             utils.log("File update, loading new jobs",xbmc.LOGDEBUG)
@@ -99,12 +100,12 @@ class CronManager:
             self.last_read = time.time()
     
     def _readCronFile(self):
-        if(not xbmcvfs.exists(xbmc.translatePath(utils.data_dir()))):
-            xbmcvfs.mkdir(xbmc.translatePath(utils.data_dir()))
+        if(not xbmcvfs.exists(xbmc.translatePath('special://profile/addon_data/service.cronxbmc/'))):
+            xbmcvfs.mkdir(xbmc.translatePath('special://profile/addon_data/service.cronxbmc/'))
 
         adv_jobs = []
         try:
-            doc = xml.dom.minidom.parse(xbmc.translatePath(utils.data_dir() + "cron.xml"))
+            doc = xml.dom.minidom.parse(xbmc.translatePath(self.CRONFILE))
             
             for node in doc.getElementsByTagName("job"):
                 tempJob = CronJob()
@@ -123,7 +124,7 @@ class CronManager:
             rootNode = doc.createElement("cron")
             doc.appendChild(rootNode)
             #write the file
-            f = xbmcvfs.File('special://profile/addon_data/service.cronxbmc/cron.xml'),"w")
+            f = xbmcvfs.File(xbmc.translatePath(self.CRONFILE),"w")
             doc.writexml(f,"   ")
             f.close()
             
@@ -150,7 +151,7 @@ class CronManager:
                 rootNode.appendChild(newChild)
 
             #write the file
-            f = xbmcvfs.File('special://profile/addon_data/service.cronxbmc/cron.xml'),"w")
+            f = xbmcvfs.File(xbmc.translatePath(self.CRONFILE),"w")
             doc.writexml(f,"   ")
             f.close()
                                         
