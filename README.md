@@ -19,9 +19,11 @@ Additionally you can specify your timer to display a notification when they run.
 
 You can run the addon directly to bring up a GUI. The __Add Job__ option will let you create a job, setting its name, command, and cron schedule. Clicking on an existing job will allow you to edit it's properties. Finally bringing up the context menu on a selected job will let you delete it. 
 
+By default the GUI will only show cron jobs created within the GUI. To edit jobs created anywhere on the system you can toggle the "show all" setting before loading the script. 
+
 ### Using as import in another addon
 
-If you want to schedule something as part of your own addon you can import the CronManager class as an Kodi addon module. To do this first add the following to your addon.xml file: 
+If you want to schedule something as part of your own addon you can import the CronManager class as an Kodi addon module. This will only load jobs created by your specific addon. To do this first add the following to your addon.xml file: 
 
 ```xml 
 <import addon="service.cronxbmc" version="Current.Version.Number" />
