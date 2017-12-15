@@ -124,8 +124,10 @@ class CronManager:
                 tempJob.id = len(adv_jobs)
 
                 #catch for older cron.xml files
-                if(node.getAttribute('addon') != None):
+                if(node.getAttribute('addon') != ''):
                     tempJob.addon = str(node.getAttribute('addon'))
+                else:
+                    tempJob.addon = utils.__addon_id__
                 
                 utils.log(tempJob.name + " " + tempJob.expression + " loaded",xbmc.LOGDEBUG)
                 adv_jobs.append(tempJob)
@@ -207,7 +209,7 @@ class CronService:
                 break;
 
     def runJob(self,cronJob,override_notification = False):
-        utils.log("running command " + cronJob.name)
+        utils.log("running command " + cronJob.name + " for addon " + cronJob.addon)
 
         if(cronJob.show_notification == "true" or override_notification):
             #show a notification that this command is running
