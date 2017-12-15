@@ -25,7 +25,7 @@ def setSetting(name,value):
 
 def getSetting(name):
     return __Addon.getSetting(name)
-    
+
 def getString(string_id):
     return __Addon.getLocalizedString(string_id)
 

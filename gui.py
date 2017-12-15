@@ -56,7 +56,7 @@ class CronGUI:
             #we want to create a job
             self._createJob()
         elif(command == 2):
-            jobs = self.cron.getJobs()
+            jobs = self.cron.getJobs(utils.getSetting('show_all'))
             aJob = jobs[int(self.params['job'])]
             confirm = xbmcgui.Dialog().yesno(utils.getString(30007),utils.getString(30009) + " " + aJob.name)
 
@@ -65,14 +65,14 @@ class CronGUI:
                 self.cron.deleteJob(aJob.id)
         elif(command == 3):
             #update the name
-            jobs = self.cron.getJobs()
+            jobs = self.cron.getJobs(utils.getSetting('show_all'))
             aJob = jobs[int(self.params['job'])]
 
             aJob.name = xbmcgui.Dialog().input(utils.getString(30006) + " " + utils.getString(30002),aJob.name)
             self.cron.addJob(aJob)
         elif(command == 4):
             #udpate the command
-            jobs = self.cron.getJobs()
+            jobs = self.cron.getJobs(utils.getSetting('show_all'))
             aJob = jobs[int(self.params['job'])]
 
             aJob.command = xbmcgui.Dialog().input(utils.getString(30006) + " " + utils.getString(30003),aJob.command)
@@ -80,7 +80,7 @@ class CronGUI:
             
         elif(command == 5):
             #update the expression
-            jobs = self.cron.getJobs()
+            jobs = self.cron.getJobs(utils.getSetting('show_all'))
             aJob = jobs[int(self.params['job'])]
 
             aJob.expression = xbmcgui.Dialog().input(utils.getString(30006) + " " + utils.getString(30004),aJob.expression)
@@ -90,7 +90,7 @@ class CronGUI:
 
         elif(command == 6):
             #update the notification setting
-            jobs = self.cron.getJobs()
+            jobs = self.cron.getJobs(utils.getSetting('show_all'))
             aJob = jobs[int(self.params['job'])]
 
             if(xbmcgui.Dialog().yesno(utils.getString(30005), utils.getString(30010))):
@@ -104,7 +104,7 @@ class CronGUI:
             #always refresh after command
             xbmc.executebuiltin('Container.Refresh')
 
-        jobs = self.cron.getJobs()
+        jobs = self.cron.getJobs(utils.getSetting('show_all'))
         if(window == 0):
             #create the default window
             addItem = xbmcgui.ListItem(utils.getString(30001))

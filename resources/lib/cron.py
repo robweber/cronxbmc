@@ -60,11 +60,14 @@ class CronManager:
         
         self._writeCronFile()
     
-    def getJobs(self):
+    def getJobs(self,show_all=False):
         self._refreshJobs()
-
-        #filter on this addon
-        result = list(filter(lambda x: x.addon == utils.addon_id(),self.jobs))
+ 
+        if(show_all != 'true'):
+            #filter on currently loaded addon
+            result = list(filter(lambda x: x.addon == utils.addon_id(),self.jobs))
+        else:
+            result = self.jobs
         
         return result
     
