@@ -3,7 +3,10 @@ import xbmcgui
 import xbmcaddon
     
 __addon_id__= 'service.cronxbmc'
-__Addon = xbmcaddon.Addon(__addon_id__)
+__Addon = xbmcaddon.Addon()
+
+def addon_id():
+    return __Addon.getAddonInfo('id')
 
 def data_dir():
     return __Addon.getAddonInfo('profile')

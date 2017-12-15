@@ -7,12 +7,13 @@ from croniter import croniter
 import utils as utils
 
 class CronJob:
-    def __init__( self):
+    def __init__(self):
         self.id = -1
         self.name = ""
         self.command = ""
         self.expression = []
         self.show_notification = "false"
+        self.addon = None
 
 class CronManager:
     CRONFILE = 'special://profile/addon_data/service.cronxbmc/cron.xml'
@@ -30,6 +31,10 @@ class CronManager:
         except:
             #didn't work
             return False
+
+        #set the addon id if there isn't one
+        if(job.addon == None):
+            job.addon = utils.addon_id()
         
         self._refreshJobs()
         
@@ -57,8 +62,11 @@ class CronManager:
     
     def getJobs(self):
         self._refreshJobs()
+
+        #filter on this addon
+        result = list(filter(lambda x: x.addon == utils.addon_id(),self.jobs))
         
-        return self.jobs
+        return result
     
     def nextRun(self,cronJob):
         #create a cron expression
@@ -114,6 +122,10 @@ class CronManager:
                 tempJob.expression = str(node.getAttribute("expression"))
                 tempJob.show_notification = str(node.getAttribute("show_notification"))
                 tempJob.id = len(adv_jobs)
+
+                #catch for older cron.xml files
+                if(node.getAttribute('addon') != None):
+                    tempJob.addon = str(node.getAttribute('addon'))
                 
                 utils.log(tempJob.name + " " + tempJob.expression + " loaded",xbmc.LOGDEBUG)
                 adv_jobs.append(tempJob)
@@ -147,7 +159,8 @@ class CronManager:
                 newChild.setAttribute("expression",aJob.expression)
                 newChild.setAttribute("command",aJob.command)
                 newChild.setAttribute("show_notification",aJob.show_notification)
-
+                newChild.setAttribute("addon",aJob.addon)
+                
                 rootNode.appendChild(newChild)
 
             #write the file
