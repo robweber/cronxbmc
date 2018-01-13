@@ -59,8 +59,8 @@ manager.deleteJob(jobId)
 
 ```
 ### Important Note 
-Now job Id did not change, you can keep it for reusing later (delete or update)
-Now If you try to add a job than have same expression and command than another addon have added before, it did not add again, it's ressources-consumming to add same cron
+Now job Id did not change, you can keep it for reusing later (delete or update)  
+Now If you try to add a job than have same expression and command than another addon have added before, it did not add again, it's ressources-consumming to add same cron  
 It can avoid to fill cron file with same cron if addon caller have bad implementation of addingJob at each launch
 
 ### Manually Editing the cron.xml file
