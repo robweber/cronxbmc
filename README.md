@@ -49,13 +49,8 @@ job.show_notification = "false"
 
 jobId = manager.addJob(job)
 
-# changing of mind and change the previously defined job
-job.id = jobId
-job.show_notification = "true"
-
-#delete a job
+#delete the previously defined job
 manager.deleteJob(jobId)
-
 
 ```
 ### Important Note 
