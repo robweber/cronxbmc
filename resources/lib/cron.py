@@ -30,20 +30,16 @@ class CronManager:
             croniter(job.expression)
         except:
             #didn't work
-            return False
+            raise ValueError('Wrong expression')
 
         #set the addon id if there isn't one
         if(job.addon == None):
             job.addon = utils.addon_id()
         
         self._refreshJobs()
-        
 
         if(job.id >= 0):
-            #replace existing job
-            indices = [i for i, x in enumerate(self.jobs) if x.id == str(job.id)]
-            self.jobs[indices[0]] = job
-
+            raise ValueError('job.id should be -1')
         else:
             # check if expression and command already exist no need to define it twice
             if self._exist(job):
@@ -58,6 +54,32 @@ class CronManager:
         #write the file
         self._writeCronFile()
         return job.id
+
+    def updateJob(self,job):
+        try:
+            #verify the cron expression here, throws ValueError if wrong
+            croniter(job.expression)
+        except:
+            raise ValueError('Wrong expression')
+
+        #set the addon id if there isn't one
+        if(job.addon == None):
+            job.addon = utils.addon_id()
+
+        self._refreshJobs()
+
+        if(job.id >= 0):
+            #replace existing job
+            indices = [i for i, x in enumerate(self.jobs) if x.id == str(job.id)]
+            self.jobs[indices[0]] = job
+        else:
+            raise ValueError('Must provide target job.id')
+
+        #write the file
+        self._writeCronFile()
+        return job.id
+
+
     
     #check if another addon has already defined exactly the same job but with another id/name
     def _exist(self,job):
