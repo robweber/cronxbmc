@@ -49,6 +49,11 @@ job.show_notification = "false"
 
 jobId = manager.addJob(job)
 
+#updating/replace the job
+job.id = jobId
+job.show_notification = "true"
+manager.updateJob(job)
+
 #delete the previously defined job
 manager.deleteJob(jobId)
 
