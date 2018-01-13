@@ -38,20 +38,41 @@ class CronManager:
         
         self._refreshJobs()
         
+
         if(job.id >= 0):
             #replace existing job
             self.jobs[job.id] = job
         else:
+            # check if expression and command already exist no need to define it twice
+            if self._exist(job):
+                xbmc.executebuiltin('Notification(Job Already exist, doing nothing)')
+                xbmc.log('[service.cronxbmc] Job already exist, doing nothing', xbmc.LOGWARNING)
+                return False
+            #calcul the new job.id
+            job.id = self._getLastId()+1
             #add a new job
             self.jobs.append(job)
             
         #write the file
         self._writeCronFile()
-
-        return self.jobs[job.id]
+        return job.id
     
+    #check if another addon has already defined exactly the same job but with another id/name
+    def _exist(self,job):
+        lJobs = self.getJobs(True)
+        if any(c.command == job.command and c.expression == job.expression for c in lJobs):
+            return True
+        return False
+
+    def _getLastId(self):
+        lJobs = self.getJobs(True)
+        nbRows = len(lJobs)
+        if nbRows > 0:
+            return int(lJobs[nbRows].id)-1
+        else:
+            return 0
+
     def deleteJob(self,jId):
-        self._refreshJobs()
         
         #delete the job with this id
         removeJob = self.jobs[jId]
@@ -121,10 +142,10 @@ class CronManager:
             for node in doc.getElementsByTagName("job"):
                 tempJob = CronJob()
                 tempJob.name = str(node.getAttribute("name"))
+                tempJob.id = str(node.getAttribute("id"))
                 tempJob.command = str(node.getAttribute("command"))
                 tempJob.expression = str(node.getAttribute("expression"))
                 tempJob.show_notification = str(node.getAttribute("show_notification"))
-                tempJob.id = len(adv_jobs)
 
                 #catch for older cron.xml files
                 if(node.getAttribute('addon') != ''):
@@ -161,6 +182,7 @@ class CronManager:
                 #create the child
                 newChild = doc.createElement("job")
                 newChild.setAttribute("name",aJob.name)
+                newChild.setAttribute("id",str(aJob.id))
                 newChild.setAttribute("expression",aJob.expression)
                 newChild.setAttribute("command",aJob.command)
                 newChild.setAttribute("show_notification",aJob.show_notification)
@@ -170,7 +192,7 @@ class CronManager:
 
             #write the file
             f = xbmcvfs.File(xbmc.translatePath(self.CRONFILE),"w")
-            doc.writexml(f,"   ")
+            doc.writexml(f,"   ","    ","\r\n")
             f.close()
                                         
         except IOError:
