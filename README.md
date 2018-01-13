@@ -40,9 +40,6 @@ manager = CronManager()
 #get jobs
 jobs = manager.getJobs()
 
-#delete a job
-manager.deleteJob(job.id)
-
 #add a job
 job = CronJob()
 job.name = "name"
@@ -50,11 +47,21 @@ job.command = "Shutdown"
 job.expression = "0 0 * * *"
 job.show_notification = "false"
 
-manager.addJob(job)
+jobId = manager.addJob(job)
+
+# changing of mind and change the previously defined job
+job.id = jobId
+job.show_notification = "true"
+
+#delete a job
+manager.deleteJob(jobId)
+
+
 ```
-
-Please be aware that adding or removing a job will change the job list (and change job ids) so please refresh your job list each time by using ```jobs = manager.getJobs()``` This will also pull in any new jobs that may have been added via other methods. 
-
+### Important Note 
+Now job Id did not change, you can keep it for reusing later (delete or update)
+Now If you try to add a job than have same expression and command than another addon have added before, it did not add again, it's ressources-consumming to add same cron
+It can avoid to fill cron file with same cron if addon caller have bad implementation of addingJob at each launch
 
 ### Manually Editing the cron.xml file
 
@@ -64,7 +71,7 @@ The file should have the following layout:
 
 ```xml 
 <cron>
- <job name="Job Name" command="Kodi_Command()" expression="* * * * *" show_notification="true/false" />
+ <job id="job id" name="Job Name" command="Kodi_Command()" expression="* * * * *" show_notification="true/false" />
 </cron>
 ```
 
