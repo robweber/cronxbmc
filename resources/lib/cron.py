@@ -41,18 +41,20 @@ class CronManager:
 
         if(job.id >= 0):
             #replace existing job
-            self.jobs[job.id] = job
+            indices = [i for i, x in enumerate(self.jobs) if x.id == str(job.id)]
+            self.jobs[indices[0]] = job
+
         else:
             # check if expression and command already exist no need to define it twice
             if self._exist(job):
                 xbmc.executebuiltin('Notification(Job Already exist, doing nothing)')
                 xbmc.log('[service.cronxbmc] Job already exist, doing nothing', xbmc.LOGWARNING)
-                return False
+                return job.id
             #calcul the new job.id
             job.id = self._getLastId()+1
             #add a new job
             self.jobs.append(job)
-            
+        
         #write the file
         self._writeCronFile()
         return job.id
@@ -68,7 +70,7 @@ class CronManager:
         lJobs = self.getJobs(True)
         nbRows = len(lJobs)
         if nbRows > 0:
-            return int(lJobs[nbRows].id)-1
+            return int(lJobs[nbRows-1].id)
         else:
             return 0
 
@@ -153,7 +155,7 @@ class CronManager:
                 else:
                     tempJob.addon = utils.__addon_id__
                 
-                xbmc.log(tempJob.name + " " + tempJob.expression + " loaded",xbmc.LOGDEBUG)
+                xbmc.log('[service.cronxbmc]'+tempJob.name + " " + tempJob.expression + " loaded",xbmc.LOGDEBUG)
                 adv_jobs.append(tempJob)
 
         except IOError:
