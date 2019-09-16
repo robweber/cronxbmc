@@ -1,5 +1,9 @@
 ## Cron for Kodi
 
+[![Build Status](https://travis-ci.org/robweber/cronxbmc.svg?branch=master)](https://travis-ci.org/robweber/cronxbmc)
+
+__Kodi Version Compatibility:__ Kodi 16.x (Jarvis) and greater
+
 This addon consists of a plugin and a service that will let you schedule various Kodi functions to be run on timers of your choosing. Functions to run can basically be anything from the list of built in Kodi functions (http://kodi.wiki/view/List_of_built-in_functions). Examples include: 
 
 * Rebooting
@@ -68,7 +72,7 @@ The file should have the following layout:
 </cron>
 ```
 
-Using Cron:
+### Using Cron
 
 A Cron expression is made up for 5 parts (see below). Read up on cron(http://en.wikipedia.org/wiki/Cron) for more information on how to create these expressions.
 
