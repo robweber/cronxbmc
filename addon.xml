@@ -21,7 +21,11 @@
     <assets>
     	<icon>resources/images/icon.png</icon>
     </assets>
-    <news>Version 0.1.0 Updated for Krypton
+    <news>Version 0.1.0
+- use dateutil import
+- updated for krypton
+- calculate sleep time better
+- show regional timestamp
     </news>
   </extension>
 </addon>
