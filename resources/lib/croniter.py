@@ -4,7 +4,7 @@
 import re
 from time import time, mktime
 from datetime import datetime, date
-from relativedelta import relativedelta
+from dateutil.relativedelta import relativedelta
 
 search_re = re.compile(r'^([^-]+)-([^-/]+)(/(.*))?$')
 only_int_re = re.compile(r'^\d+$')
@@ -299,10 +299,3 @@ class croniter(object):
             return True
         else:
             return False
-
-if __name__ == '__main__':
-
-    base = datetime(2010, 1, 25)
-    itr = croniter('0 0 1 * *', base)
-    n1 = itr.get_next(datetime)
-    print n1
