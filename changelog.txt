@@ -1,6 +1,9 @@
 Version 0.1.0
 
 use dateutil import
+updated for krypton
+calculate sleep time better
+show regional timestamp
 
 Version 0.0.9
 
