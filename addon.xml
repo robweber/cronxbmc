@@ -11,8 +11,17 @@
   <extension point="xbmc.service" library="service.py" start="login" />
   <extension point="xbmc.python.module" library="resources/lib" />
   <extension point="xbmc.addon.metadata">
-    <summary lang="en">A customizable Cron timer for Kodi. </summary>
-    <description lang="en">Create cron timers for Kodi functions. This addon can schedule and run any built-in Kodi functions. No more reliance on add-on developers to allow for "timer" functionality, no more scripts running on other machines to send commands to your HTPC. All of your timers can now be handled directly within Kodi. It can also display notifications when your tasks run if configured to do so.</description>
+    <summary lang="en_GB">A customizable Cron timer for Kodi. </summary>
+    <description lang="en_GB">Create cron timers for Kodi functions. This addon can schedule and run any built-in Kodi functions. No more reliance on add-on developers to allow for "timer" functionality, no more scripts running on other machines to send commands to your HTPC. All of your timers can now be handled directly within Kodi. It can also display notifications when your tasks run if configured to do so.</description>
     <platform>all</platform>
+    <language></language>
+    <license>The MIT License</license>
+    <forum>https://forum.kodi.tv/showthread.php?tid=124888</forum>
+    <source>https://github.com/robweber/cronxbmc</source>
+    <assets>
+    	<icon>resources/images/icon.png</icon>
+    </assets>
+    <news>Version 0.1.0 Updated for Krypton
+    </news>
   </extension>
 </addon>
