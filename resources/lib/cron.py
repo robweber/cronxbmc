@@ -207,8 +207,10 @@ class CronService:
                     if(runTime <= now):
                         self.runJob(command)
                         utils.log(command.name + " will run again on " + datetime.datetime.fromtimestamp(cron_exp.get_next(float)).strftime('%m-%d-%Y %H:%M'))
-                
-            if(monitor.waitForAbort(10)):
+            
+            #calculate the sleep time (next minute)
+            currentSec = datetime.datetime.now()
+            if(monitor.waitForAbort(60-currentSec.second)):
                 break;
 
     def runJob(self,cronJob,override_notification = False):
