@@ -91,7 +91,7 @@ class CronManager:
             result = str(minutes) + " m"
         elif hours > 36:
             #just show the date instead
-            result = datetime.datetime.fromtimestamp(nextRun).strftime('%m/%d %I:%M%p')
+            result =  utils.getRegionalTimestamp(datetime.datetime.fromtimestamp(nextRun),['dateshort','time'])
         elif hours > 24:
             days = int(hours / 24)
             hours = hours - days * 24
@@ -206,7 +206,7 @@ class CronService:
                     #if this command should run then run it
                     if(runTime <= now):
                         self.runJob(command)
-                        utils.log(command.name + " will run again on " + datetime.datetime.fromtimestamp(cron_exp.get_next(float)).strftime('%m-%d-%Y %H:%M'))
+                        utils.log(command.name + " will run again on " +  utils.getRegionalTimestamp(datetime.datetime.fromtimestamp(cron_exp.get_next(float)),['dateshort','time']))
             
             #calculate the sleep time (next minute)
             currentSec = datetime.datetime.now()
