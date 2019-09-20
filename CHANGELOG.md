@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ## [Unreleased](https://github.com/robweber/cronxbmc/compare/krypton-0.1.0...HEAD)
 
-## [Version 0.1.0](https://github.com/robweber/cronxbmc/compare/73362e5...robweber:krypton-0.1.0)
+## [Version 0.1.0](https://github.com/robweber/cronxbmc/compare/jarvis-0.0.9...robweber:krypton-0.1.0)
 
 ### Added
 - use dateutil import
