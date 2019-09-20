@@ -17,7 +17,7 @@ class CronJob:
 
 class CronManager:
     CRONFILE = 'special://profile/addon_data/service.cronxbmc/cron.xml'
-    jobs = list()
+    jobs = {} #format {job_id:job_obj}
     last_read = time.time()
     
     def __init__(self):
@@ -42,8 +42,11 @@ class CronManager:
             #replace existing job
             self.jobs[job.id] = job
         else:
+            #set the job id
+            job.id = self._nextId()
+        
             #add a new job
-            self.jobs.append(job)
+            self.jobs[job.id] = job
             
         #write the file
         self._writeCronFile()
@@ -53,10 +56,7 @@ class CronManager:
     def deleteJob(self,jId):
         self._refreshJobs()
         
-        #delete the job with this id
-        removeJob = self.jobs[jId]
-        
-        self.jobs.remove(removeJob)
+        self.jobs.pop(jId)
         
         self._writeCronFile()
     
@@ -65,11 +65,16 @@ class CronManager:
  
         if(show_all != 'true'):
             #filter on currently loaded addon
-            result = list(filter(lambda x: x.addon == utils.addon_id(),self.jobs))
+            result = list(filter(lambda x: x.addon == utils.addon_id(),self.jobs.values()))
         else:
-            result = self.jobs
+            result = self.jobs.values()
         
         return result
+    
+    def getJob(self,jId):
+        self._refreshJobs()
+        
+        return self.jobs[jId]
     
     def nextRun(self,cronJob):
         #create a cron expression
@@ -99,13 +104,23 @@ class CronManager:
         
         return result
     
+    def _nextId(self):
+        result = 0
+        
+        #find the next largest id
+        for k in self.jobs.keys():
+            if(k >= result):
+                result = k + 1  
+        
+        return result
+    
     def _refreshJobs(self):
         
         #check if we should read in a new files list
         stat_file = xbmcvfs.Stat(xbmc.translatePath(self.CRONFILE))
         
         if(stat_file.st_mtime() > self.last_read):
-            utils.log("File update, loading new jobs",xbmc.LOGDEBUG)
+            utils.log("File update, loading new jobs")
             #update the file
             self.jobs = self._readCronFile();
             self.last_read = time.time()
@@ -114,7 +129,7 @@ class CronManager:
         if(not xbmcvfs.exists(xbmc.translatePath('special://profile/addon_data/service.cronxbmc/'))):
             xbmcvfs.mkdir(xbmc.translatePath('special://profile/addon_data/service.cronxbmc/'))
 
-        adv_jobs = []
+        adv_jobs = {}
         try:
             doc = xml.dom.minidom.parse(xbmc.translatePath(self.CRONFILE))
             
@@ -124,7 +139,12 @@ class CronManager:
                 tempJob.command = str(node.getAttribute("command"))
                 tempJob.expression = str(node.getAttribute("expression"))
                 tempJob.show_notification = str(node.getAttribute("show_notification"))
-                tempJob.id = len(adv_jobs)
+                
+                #catch for older cron.xml where no id was saved
+                if(node.getAttribute('id') == ''):
+                    tempJob.id = len(adv_jobs)
+                else:
+                    tempJob.id = int(node.getAttribute('id'))
 
                 #catch for older cron.xml files
                 if(node.getAttribute('addon') != ''):
@@ -132,8 +152,8 @@ class CronManager:
                 else:
                     tempJob.addon = utils.__addon_id__
                 
-                utils.log(tempJob.name + " " + tempJob.expression + " loaded",xbmc.LOGDEBUG)
-                adv_jobs.append(tempJob)
+                utils.log(tempJob.name + " " + tempJob.expression + " loaded")
+                adv_jobs[tempJob.id] = tempJob
 
         except IOError:
             #the file doesn't exist, return empty array
@@ -156,10 +176,11 @@ class CronManager:
             rootNode = doc.createElement("cron")
             doc.appendChild(rootNode)
             
-            for aJob in self.jobs:
+            for aJob in self.jobs.values():
                 
                 #create the child
                 newChild = doc.createElement("job")
+                newChild.setAttribute('id',str(aJob.id))
                 newChild.setAttribute("name",aJob.name)
                 newChild.setAttribute("expression",aJob.expression)
                 newChild.setAttribute("command",aJob.command)
