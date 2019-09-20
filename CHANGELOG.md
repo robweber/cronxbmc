@@ -4,17 +4,26 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
-## [Unreleased](https://github.com/robweber/cronxbmc/compare/73362e5...HEAD)
+## [Unreleased](https://github.com/robweber/cronxbmc/compare/krypton-0.1.0...HEAD)
+
+## [Version 0.1.0](https://github.com/robweber/cronxbmc/compare/73362e5...robweber:krypton-0.1.0)
 
 ### Added
 - use dateutil import
 - updated for krypton
+- use strings.po file for language
 - show regional timestamp
 - moved changelog.txt to new format based on keepachangelog
 
 ### Changed
 
 - calculate sleep time better
+- log function is always DEBUG level by default (Kodi best practice). Previous was NOTICE.
+- the job id now follows the job as soon as it's created until it's removed. No more changing based on it's position in the file. 
+
+### Removed
+
+- removed old strings.xml language file
 
 ## Version 0.0.9
 

@@ -26,6 +26,7 @@
 - updated for krypton
 - calculate sleep time better
 - show regional timestamp
+- change job id handling
     </news>
   </extension>
 </addon>
