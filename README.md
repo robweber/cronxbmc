@@ -1,4 +1,4 @@
-## Cron for Kodi
+# Cron for Kodi
 
 [![Build Status](https://travis-ci.org/robweber/cronxbmc.svg?branch=master)](https://travis-ci.org/robweber/cronxbmc)
 
@@ -19,13 +19,13 @@ This addon consists of a plugin and a service that will let you schedule various
 Additionally you can specify your timer to display a notification when they run. 
 
 
-### Running the addon
+## Running the addon
 
-You can run the addon directly to bring up a GUI. The __Add Job__ option will let you create a job, setting its name, command, and cron schedule. Clicking on an existing job will allow you to edit it's properties. Finally bringing up the context menu on a selected job will let you delete it. 
+You can run the addon directly to bring up a GUI. The __Add Job__ option will let you create a job, setting its name, command, and cron schedule. Clicking on an existing job will allow you to edit it's properties. Bringing up the context menu on a selected job will let you delete it. 
 
 By default the GUI will only show cron jobs created within the GUI. To edit jobs created anywhere on the system you can toggle the "show all" setting before loading the script. 
 
-### Using as import in another addon
+## Using as import in another addon
 
 If you want to schedule something as part of your own addon you can import the CronManager class as an Kodi addon module. This will only load jobs created by your specific addon. To do this first add the following to your addon.xml file: 
 
@@ -44,6 +44,9 @@ manager = CronManager()
 #get jobs
 jobs = manager.getJobs()
 
+#get a specific job with a known id
+job = manager.getJob(id)
+
 #delete a job
 manager.deleteJob(job.id)
 
@@ -54,13 +57,14 @@ job.command = "Shutdown"
 job.expression = "0 0 * * *"
 job.show_notification = "false"
 
-manager.addJob(job)
+manager.addJob(job) #call this to create new or update an existing job
+
 ```
 
-Please be aware that adding or removing a job will change the job list (and change job ids) so please refresh your job list each time by using ```jobs = manager.getJobs()``` This will also pull in any new jobs that may have been added via other methods. 
+Do not attempt to assign a job ID manually. For a new job leave the ID as is, for a current job just call ```manager.addJob()``` and the id will be used to update the correct entry. Refresh jobs ```jobs = manager.getJobs()``` will pull in any new jobs that may have been added via other methods. 
 
 
-### Manually Editing the cron.xml file
+## Manually Editing the cron.xml file
 
 If you need to you can bypass the GUI and write the cron.xml file yourself, or via a script.  
 
@@ -68,11 +72,13 @@ The file should have the following layout:
 
 ```xml 
 <cron>
- <job name="Job Name" command="Kodi_Command()" expression="* * * * *" show_notification="true/false" />
+ <job name="Job Name" command="Kodi_Command()" expression="* * * * *" show_notification="true/false" id="5" />
 </cron>
 ```
 
-### Using Cron
+If editing the file directly make sure you set a job id that is different than any other in the file (typically just a higher integer than any other job). 
+
+## Using Cron
 
 A Cron expression is made up for 5 parts (see below). Read up on cron(http://en.wikipedia.org/wiki/Cron) for more information on how to create these expressions.
 
