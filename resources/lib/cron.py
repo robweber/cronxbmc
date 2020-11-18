@@ -7,47 +7,74 @@ from croniter import croniter
 import utils as utils
 
 class CronJob:
-    def __init__( self):
+    def __init__(self):
         self.id = -1
         self.name = ""
         self.command = ""
         self.expression = []
         self.show_notification = "false"
+        self.addon = None
 
 class CronManager:
-    jobs = list()
+    CRONFILE = 'special://profile/addon_data/service.cronxbmc/cron.xml'
+    jobs = {} #format {job_id:job_obj}
     last_read = time.time()
     
     def __init__(self):
         self.jobs = self._readCronFile()
     
     def addJob(self,job):
+
+        try:
+            #verify the cron expression here, throws ValueError if wrong
+            croniter(job.expression)
+        except:
+            #didn't work
+            return False
+
+        #set the addon id if there isn't one
+        if(job.addon == None):
+            job.addon = utils.addon_id()
+        
         self._refreshJobs()
         
         if(job.id >= 0):
             #replace existing job
             self.jobs[job.id] = job
         else:
+            #set the job id
+            job.id = self._nextId()
+        
             #add a new job
-            self.jobs.append(job)
+            self.jobs[job.id] = job
             
         #write the file
         self._writeCronFile()
+
+        return True
     
     def deleteJob(self,jId):
         self._refreshJobs()
         
-        #delete the job with this id
-        removeJob = self.jobs[jId]
-        
-        self.jobs.remove(removeJob)
+        self.jobs.pop(jId)
         
         self._writeCronFile()
     
-    def getJobs(self):
+    def getJobs(self,show_all=False):
+        self._refreshJobs()
+ 
+        if(show_all != 'true'):
+            #filter on currently loaded addon
+            result = list(filter(lambda x: x.addon == utils.addon_id(),self.jobs.values()))
+        else:
+            result = self.jobs.values()
+        
+        return result
+    
+    def getJob(self,jId):
         self._refreshJobs()
         
-        return self.jobs
+        return self.jobs[jId]
     
     def nextRun(self,cronJob):
         #create a cron expression
@@ -69,7 +96,7 @@ class CronManager:
             result = str(minutes) + " m"
         elif hours > 36:
             #just show the date instead
-            result = datetime.datetime.fromtimestamp(nextRun).strftime('%m/%d %I:%M%p')
+            result =  utils.getRegionalTimestamp(datetime.datetime.fromtimestamp(nextRun),['dateshort','time'])
         elif hours > 24:
             days = int(hours / 24)
             hours = hours - days * 24
@@ -77,24 +104,34 @@ class CronManager:
         
         return result
     
+    def _nextId(self):
+        result = 0
+        
+        #find the next largest id
+        for k in self.jobs.keys():
+            if(k >= result):
+                result = k + 1  
+        
+        return result
+    
     def _refreshJobs(self):
         
         #check if we should read in a new files list
-        stat_file = xbmcvfs.Stat(xbmc.translatePath(utils.data_dir() + "cron.xml"))
+        stat_file = xbmcvfs.Stat(xbmc.translatePath(self.CRONFILE))
         
         if(stat_file.st_mtime() > self.last_read):
-            utils.log("File update, loading new jobs",xbmc.LOGDEBUG)
+            utils.log("File update, loading new jobs")
             #update the file
             self.jobs = self._readCronFile();
             self.last_read = time.time()
     
     def _readCronFile(self):
-        if(not xbmcvfs.exists(xbmc.translatePath(utils.data_dir()))):
-            xbmcvfs.mkdir(xbmc.translatePath(utils.data_dir()))
+        if(not xbmcvfs.exists(xbmc.translatePath('special://profile/addon_data/service.cronxbmc/'))):
+            xbmcvfs.mkdir(xbmc.translatePath('special://profile/addon_data/service.cronxbmc/'))
 
-        adv_jobs = []
+        adv_jobs = {}
         try:
-            doc = xml.dom.minidom.parse(xbmc.translatePath(utils.data_dir() + "cron.xml"))
+            doc = xml.dom.minidom.parse(xbmc.translatePath(self.CRONFILE))
             
             for node in doc.getElementsByTagName("job"):
                 tempJob = CronJob()
@@ -102,10 +139,21 @@ class CronManager:
                 tempJob.command = str(node.getAttribute("command"))
                 tempJob.expression = str(node.getAttribute("expression"))
                 tempJob.show_notification = str(node.getAttribute("show_notification"))
-                tempJob.id = len(adv_jobs)
                 
-                utils.log(tempJob.name + " " + tempJob.expression + " loaded",xbmc.LOGDEBUG)
-                adv_jobs.append(tempJob)
+                #catch for older cron.xml where no id was saved
+                if(node.getAttribute('id') == ''):
+                    tempJob.id = len(adv_jobs)
+                else:
+                    tempJob.id = int(node.getAttribute('id'))
+
+                #catch for older cron.xml files
+                if(node.getAttribute('addon') != ''):
+                    tempJob.addon = str(node.getAttribute('addon'))
+                else:
+                    tempJob.addon = utils.__addon_id__
+                
+                utils.log(tempJob.name + " " + tempJob.expression + " loaded")
+                adv_jobs[tempJob.id] = tempJob
 
         except IOError:
             #the file doesn't exist, return empty array
@@ -113,7 +161,7 @@ class CronManager:
             rootNode = doc.createElement("cron")
             doc.appendChild(rootNode)
             #write the file
-            f = xbmcvfs.File(xbmc.translatePath(utils.data_dir() + "cron.xml"),"w")
+            f = xbmcvfs.File(xbmc.translatePath(self.CRONFILE),"w")
             doc.writexml(f,"   ")
             f.close()
             
@@ -128,19 +176,21 @@ class CronManager:
             rootNode = doc.createElement("cron")
             doc.appendChild(rootNode)
             
-            for aJob in self.jobs:
+            for aJob in self.jobs.values():
                 
                 #create the child
                 newChild = doc.createElement("job")
+                newChild.setAttribute('id',str(aJob.id))
                 newChild.setAttribute("name",aJob.name)
                 newChild.setAttribute("expression",aJob.expression)
                 newChild.setAttribute("command",aJob.command)
                 newChild.setAttribute("show_notification",aJob.show_notification)
-
+                newChild.setAttribute("addon",aJob.addon)
+                
                 rootNode.appendChild(newChild)
 
             #write the file
-            f = xbmcvfs.File(xbmc.translatePath(utils.data_dir() + "cron.xml"),"w")
+            f = xbmcvfs.File(xbmc.translatePath(self.CRONFILE),"w")
             doc.writexml(f,"   ")
             f.close()
                                         
@@ -177,13 +227,15 @@ class CronService:
                     #if this command should run then run it
                     if(runTime <= now):
                         self.runJob(command)
-                        utils.log(command.name + " will run again on " + datetime.datetime.fromtimestamp(cron_exp.get_next(float)).strftime('%m-%d-%Y %H:%M'))
-                
-            if(monitor.waitForAbort(10)):
+                        utils.log(command.name + " will run again on " +  utils.getRegionalTimestamp(datetime.datetime.fromtimestamp(cron_exp.get_next(float)),['dateshort','time']))
+            
+            #calculate the sleep time (next minute)
+            currentSec = datetime.datetime.now()
+            if(monitor.waitForAbort(60-currentSec.second)):
                 break;
 
     def runJob(self,cronJob,override_notification = False):
-        utils.log("running command " + cronJob.name)
+        utils.log("running command " + cronJob.name + " for addon " + cronJob.addon)
 
         if(cronJob.show_notification == "true" or override_notification):
             #show a notification that this command is running

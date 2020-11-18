@@ -1,0 +1,122 @@
+# Kodi Media Center language file
+# Addon Name: Toggle Local
+# Addon id: service.cronxbmc
+# Addon Provider: robweber
+msgid ""
+msgstr ""
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgctxt "Addon Summary"
+msgid ""
+"A customizable Cron timer for Kodi. "
+msgstr "A customizable Cron timer for Kodi. "
+
+msgctxt "Addon Description"
+msgid ""
+"Create cron timers for Kodi functions. This addon can schedule and run any built-in Kodi functions. No more reliance on add-on developers to allow for timer functionality, no more scripts running on other machines to send commands to your HTPC. All of your timers can now be handled directly within Kodi. It can also display notifications when your tasks run if configured to do so."
+msgstr "Create cron timers for Kodi functions. This addon can schedule and run any built-in Kodi functions. No more reliance on add-on developers to allow for timer functionality, no more scripts running on other machines to send commands to your HTPC. All of your timers can now be handled directly within Kodi. It can also display notifications when your tasks run if configured to do so."
+
+msgctxt "#30000"
+msgid "Cron"
+msgstr "Cron"
+
+msgctxt "#30001"
+msgid "Add Job"
+msgstr "Add Job"
+
+msgctxt "#30002"
+msgid "Job Name"
+msgstr "Job Name"
+
+msgctxt "#30003"
+msgid "Kodi Command"
+msgstr "Kodi Command"
+
+msgctxt "#30004"
+msgid "Cron Expression"
+msgstr "Cron Expression"
+
+msgctxt "#30005"
+msgid "Show Notification"
+msgstr "Show Notification"
+
+msgctxt "#30006"
+msgid "Update"
+msgstr "Update"
+
+msgctxt "#30007"
+msgid "Delete"
+msgstr "Delete"
+
+msgctxt "#30008"
+msgid "Details"
+msgstr "Details"
+
+msgctxt "#30009"
+msgid "Delete job"
+msgstr "Delete job"
+
+msgctxt "#30010"
+msgid "Show a notification when this task runs?"
+msgstr "Show a notification when this task runs?"
+
+msgctxt "#30011"
+msgid "Next Run"
+msgstr "Next Run"
+
+msgctxt "#30052"
+msgid "RunScript(script[,args])"
+msgstr "RunScript(script[,args])"
+
+msgctxt "#30053"
+msgid "RunAddon(id)"
+msgstr "RunAddon(id)"
+
+msgctxt "#30054"
+msgid "RestartApp"
+msgstr "RestartApp"
+
+msgctxt "#30055"
+msgid "PlayMedia(media[,isdir])"
+msgstr "PlayMedia(media[,isdir])"
+
+msgctxt "#30056"
+msgid "RefreshRSS"
+msgstr "RefreshRSS"
+
+msgctxt "#30057"
+msgid "PlayerControl([Play|Stop|Next|Previous])"
+msgstr "PlayerControl([Play|Stop|Next|Previous])"
+
+msgctxt "#30058"
+msgid "Notification(header,message,[,time,image])"
+msgstr "Notification(header,message,[,time,image])"
+
+msgctxt "#30059"
+msgid "SetVolume(percent)"
+msgstr "SetVolume(percent)"
+
+msgctxt "#30060"
+msgid "UpdateLibrary([music|video][,path])"
+msgstr "UpdateLibrary([music|video][,path])"
+
+msgctxt "#30061"
+msgid "CleanLibrary([music|video])"
+msgstr "CleanLibrary([music|video])"
+
+msgctxt "#30062"
+msgid "WakeOnLan(mac)"
+msgstr "WakeOnLan(mac)"
+
+msgctxt "#30063"
+msgid "UpdateLocalAddons"
+msgstr "UpdateLocalAddons"
+
+msgctxt "#30064"
+msgid "TakeScreenshot"
+msgstr "TakeScreenshot"
+
+msgctxt "#30065"
+msgid "System.Exec(shellCommand)"
+msgstr "System.Exec(shellCommand)"
