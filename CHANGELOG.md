@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Changed
 
 - updated badges in the README
+- updated code for Python3 (Kodi Matrix v19)
 
 ## [Version 0.1.0](https://github.com/robweber/cronxbmc/compare/jarvis-0.0.9...robweber:krypton-0.1.0)
 
