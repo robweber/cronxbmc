@@ -1,8 +1,7 @@
 # Cron for Kodi
 ![Kodi Version](https://img.shields.io/endpoint?url=https%3A%2F%2Fweberjr.com%2Fkodi-shield%2Fversion%2Frobweber%2Fcronxbmc%2Fmaster%2Ftrue%2Ftrue)
-[![Build Status](https://img.shields.io/travis/robweber/cronxbmc/master)](https://travis-ci.org/github/robweber/cronxbmc)
+[![Build Status](https://img.shields.io/travis/com/robweber/cronxbmc/master)](https://travis-ci.com/github/robweber/cronxbmc)
 [![License](https://img.shields.io/github/license/robweber/cronxbmc)](https://github.com/robweber/cronxbmc/blob/master/LICENSE.txt)
-[![Build Status](https://travis-ci.org/robweber/cronxbmc.svg?branch=master)](https://travis-ci.org/robweber/cronxbmc)
 
 This addon consists of a plugin and a service that will let you schedule various Kodi functions to be run on timers of your choosing. Functions to run can basically be anything from the list of built in Kodi functions (http://kodi.wiki/view/List_of_built-in_functions). Examples include: 
 
