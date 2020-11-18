@@ -1,6 +1,6 @@
 import xbmc,xbmcgui,xbmcplugin
 import sys
-import urlparse
+from urllib.parse import parse_qsl
 from resources.lib.cron import CronManager, CronJob
 import resources.lib.utils as utils
 
@@ -141,17 +141,17 @@ def get_params():
             args = i
             if(args.startswith('?')):
                 args = args[1:]
-            param.update(dict(urlparse.parse_qsl(args)))
+            param.update(dict(parse_qsl(args)))
     except:
         pass
     return param
 
 params = get_params()
 
-if(not params.has_key('window')):
+if(not 'window' in params):
     params['window'] = 0
 
-if(not params.has_key('command')):
+if(not 'command' in params):
     params['command'] = 0
 
 CronGUI(params).run()

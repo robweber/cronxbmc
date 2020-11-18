@@ -2,8 +2,8 @@
 <addon id="service.cronxbmc"
     name="Cron" version="0.1.0" provider-name="robweber">
   <requires>
-    <import addon="xbmc.python" version="2.25.0"/>
-    <import addon="script.module.dateutil" version="2.7.3" />
+    <import addon="xbmc.python" version="3.0.0"/>
+    <import addon="script.module.dateutil" version="2.8.1.1" />
   </requires>
   <extension point="xbmc.python.pluginsource" library="gui.py"> 
      <provides>executable</provides> 
