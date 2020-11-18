@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-__author__  = "Matsumoto Taichi"
+__author__ = "Matsumoto Taichi"
 __version__ = "0.2.7"
 __license__ = "MIT License"
 __doc__ = """
