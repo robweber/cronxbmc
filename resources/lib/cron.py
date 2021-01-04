@@ -80,11 +80,12 @@ class CronManager:
 
     def nextRun(self, cronJob):
         # create a cron expression
-        cron_exp = croniter(cronJob.expression, datetime.datetime.fromtimestamp(time.time()))
+        now = datetime.datetime.now()
+        cron_exp = croniter(cronJob.expression, now)
 
         # compare now with next date
-        nextRun = cron_exp.get_next(float)
-        cronDiff = nextRun - time.time()
+        nextRun = cron_exp.get_next(datetime.datetime)
+        cronDiff = (nextRun - now).total_seconds()
         hours = int((cronDiff / 60) / 60)
         minutes = int(cronDiff / 60 - hours * 60)
 
@@ -93,12 +94,11 @@ class CronManager:
             minutes = 1
 
         result = str(hours) + " h " + str(minutes) + " m"
-
         if hours == 0:
             result = str(minutes) + " m"
         elif hours > 36:
             # just show the date instead
-            result = utils.getRegionalTimestamp(datetime.datetime.fromtimestamp(nextRun), ['dateshort', 'time'])
+            result = utils.getRegionalTimestamp(nextRun, ['dateshort', 'time'])
         elif hours > 24:
             days = int(hours / 24)
             hours = hours - days * 24
@@ -213,7 +213,8 @@ class CronService:
         while(True):
 
             structTime = time.localtime()
-            now = time.time()
+            now = datetime.datetime.now()
+
             # only do all this if we are in a new minute
             if(structTime[4] != self.last_check):
                 self.last_check = structTime[4]
@@ -222,14 +223,14 @@ class CronService:
                 cron_jobs = self.manager.getJobs()
 
                 for command in cron_jobs:
-                    # create a cron expression for this command
-                    cron_exp = croniter(command.expression, datetime.datetime.fromtimestamp(now - 60))
+                    # create a cron expression for this command (using previous minute)
+                    cron_exp = croniter(command.expression, now - datetime.timedelta(seconds=60))
 
-                    runTime = cron_exp.get_next(float)
+                    runTime = cron_exp.get_next(datetime.datetime)
                     # if this command should run then run it
                     if(runTime <= now):
                         self.runJob(command)
-                        utils.log(command.name + " will run again on " + utils.getRegionalTimestamp(datetime.datetime.fromtimestamp(cron_exp.get_next(float)), ['dateshort', 'time']))
+                        utils.log(command.name + " will run again on " + utils.getRegionalTimestamp(cron_exp.get_next(datetime.datetime), ['dateshort', 'time']))
 
             # calculate the sleep time (next minute)
             currentSec = datetime.datetime.now()
