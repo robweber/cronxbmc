@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
+## [Version 0.1.3](https://github.com/robweber/cronxbmc/compare/matrix-0.1.2...robweber:matrix-0.1.3) - 2021-1-4
+
+### Changed
+
+- updated croniter lib to 0.3.31, this fixes #18
+
+### Fixes
+
+- fixed issue with timezones and calcuting the next run time
+
 ## [Version 0.1.2](https://github.com/robweber/cronxbmc/compare/krypton-0.1.1...robweber:matrix-0.1.2)
 
 ### Changed
