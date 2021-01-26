@@ -16,6 +16,7 @@ class CronJob:
         self.show_notification = "false"
         self.addon = None
         self.last_run = datetime.datetime.now().timestamp()
+        self.run_if_skipped = False
 
 
 class CronManager:
@@ -214,6 +215,7 @@ class CronService:
 
     def runProgram(self):
         monitor = xbmc.Monitor()
+        startup = True
 
         # run until abort requested
         while(True):
@@ -229,8 +231,9 @@ class CronService:
                 cron_jobs = self.manager.getJobs()
 
                 for command in cron_jobs:
-                    # create a cron expression for this command (using previous minute)
-                    cron_exp = croniter(command.expression, now - datetime.timedelta(seconds=60))
+                    # create a cron expression for this command (on startup use last_run if we care about skipped runs otherwise use previous minute)
+                    start_time = command.last_run if (startup and command.run_if_skipped) else (now - datetime.timedelta(seconds=60))
+                    cron_exp = croniter(command.expression, start_time)
 
                     runTime = cron_exp.get_next(datetime.datetime)
                     # if this command should run then run it
@@ -238,6 +241,8 @@ class CronService:
                         command.last_run = now.timestamp()
                         self.runJob(command)
                         utils.log(command.name + " will run again on " + utils.getRegionalTimestamp(cron_exp.get_next(datetime.datetime), ['dateshort', 'time']))
+
+            startup = False
 
             # calculate the sleep time (next minute)
             currentSec = datetime.datetime.now()
