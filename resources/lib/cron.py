@@ -15,6 +15,7 @@ class CronJob:
         self.expression = []
         self.show_notification = "false"
         self.addon = None
+        self.last_run = datetime.datetime.now().timestamp()
 
 
 class CronManager:
@@ -154,6 +155,10 @@ class CronManager:
                 else:
                     tempJob.addon = utils.__addon_id__
 
+                # catch for older cron.xml files
+                if(node.getAttribute('last_run') != ''):
+                    tempJob.last_run = float(node.getAttribute('last_run'))
+
                 utils.log(tempJob.name + " " + tempJob.expression + " loaded")
                 adv_jobs[tempJob.id] = tempJob
 
@@ -187,6 +192,7 @@ class CronManager:
                 newChild.setAttribute("command", aJob.command)
                 newChild.setAttribute("show_notification", aJob.show_notification)
                 newChild.setAttribute("addon", aJob.addon)
+                newChild.setAttribute("last_run", str(aJob.last_run))
 
                 rootNode.appendChild(newChild)
 
@@ -229,6 +235,7 @@ class CronService:
                     runTime = cron_exp.get_next(datetime.datetime)
                     # if this command should run then run it
                     if(runTime <= now):
+                        command.last_run = now.timestamp()
                         self.runJob(command)
                         utils.log(command.name + " will run again on " + utils.getRegionalTimestamp(cron_exp.get_next(datetime.datetime), ['dateshort', 'time']))
 
@@ -246,3 +253,6 @@ class CronService:
 
         # run the command
         xbmc.executebuiltin(cronJob.command)
+
+        # save the last run time
+        self.manager.addJob(cronJob)
