@@ -10,7 +10,7 @@ import resources.lib.utils as utils
 class CronGUI:
     params = {}
     context_url = "%s?%s"
-    plugin_url = 'Xbmc.RunPlugin(%s?%s)'
+    plugin_url = 'RunPlugin(%s?%s)'
     cron = None
 
     def __init__(self, params):
@@ -111,7 +111,7 @@ class CronGUI:
             for j in jobs:
                 # list each job
                 cronItem = xbmcgui.ListItem(j.name + " - " + utils.getString(30011) + ": " + self.cron.nextRun(j))
-                cronItem.addContextMenuItems([(utils.getString(30008), self.plugin_url % (sys.argv[0], 'command=0&window=1&job=' + str(j.id))), (utils.getString(30007), self.plugin_url % (sys.argv[0], 'command=2&window=0&job=' + str(j.id)))])
+                cronItem.addContextMenuItems([(utils.getString(30007), self.plugin_url % (sys.argv[0], 'command=2&window=0&job=' + str(j.id)))])
                 xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=self.context_url % (sys.argv[0], 'command=0&window=1&job=' + str(j.id)), listitem=cronItem, isFolder=True)
         elif(window == 1):
             # list the details of this job
