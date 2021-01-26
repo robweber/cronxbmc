@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
+## [Unreleased](https://github.com/robweber/cronxbmc/compare/matrix-0.1.3...robweber:master)
+
+### Fixes
+
+- Fixed 'Delete' functionality not working. Was using wrong function call for Kodi v19
+
+### Removed
+
+- Removed 'Details' from context menu. Didn't work in Kodi v19 and wasn't really needed
+
 ## [Version 0.1.3](https://github.com/robweber/cronxbmc/compare/matrix-0.1.2...robweber:matrix-0.1.3) - 2021-1-4
 
 ### Changed
@@ -41,7 +51,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 - calculate sleep time better
 - log function is always DEBUG level by default (Kodi best practice). Previous was NOTICE.
-- the job id now follows the job as soon as it's created until it's removed. No more changing based on it's position in the file. 
+- the job id now follows the job as soon as it's created until it's removed. No more changing based on it's position in the file.
 
 ### Removed
 
@@ -70,7 +80,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ## Version 0.0.5
 
 ### Added
-- added new GUI 
+- added new GUI
 
 ### Changed
 - minor bug fixes
