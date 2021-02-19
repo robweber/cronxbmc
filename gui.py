@@ -47,6 +47,11 @@ class CronGUI:
         else:
             newJob.show_notification = "false"
 
+        if(xbmcgui.Dialog().yesno(utils.getString(30005), utils.getString(30066))):
+            newJob.run_if_skipped = "true"
+        else:
+            newJob.run_if_skipped = "false"
+
         if(not self.cron.addJob(newJob)):
             xbmcgui.Dialog().ok(utils.getString(30000), 'Job not added, cron expression error')
 
@@ -98,6 +103,17 @@ class CronGUI:
 
             self.cron.addJob(aJob)
 
+        elif(command == 7):
+            # update the notification setting
+            aJob = self.cron.getJob(int(self.params['job']))
+
+            if(xbmcgui.Dialog().yesno(utils.getString(30005), utils.getString(30066))):
+                aJob.run_if_skipped = "true"
+            else:
+                aJob.run_if_skipped = "false"
+
+            self.cron.addJob(aJob)
+
         if(command != 0):
             # always refresh after command
             xbmc.executebuiltin('Container.Refresh')
@@ -132,6 +148,13 @@ class CronGUI:
 
             notification = xbmcgui.ListItem(utils.getString(30005) + ": " + showNotification)
             xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=self.context_url % (sys.argv[0], 'command=6&window=1&job=' + str(aJob.id)), listitem=notification, isFolder=False)
+
+            runSkippedStatus = 'No'
+            if(aJob.run_if_skipped == 'true'):
+                runSkippedStatus = 'Yes'
+
+            runIfSkipped = xbmcgui.ListItem(utils.getString(30066) + ": " + runSkippedStatus)
+            xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=self.context_url % (sys.argv[0], 'command=7&window=1&job=' + str(aJob.id)), listitem=runIfSkipped, isFolder=False)
 
         xbmcplugin.endOfDirectory(int(sys.argv[1]), cacheToDisc=False)
 

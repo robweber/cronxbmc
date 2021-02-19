@@ -120,3 +120,7 @@ msgstr "TakeScreenshot"
 msgctxt "#30065"
 msgid "System.Exec(shellCommand)"
 msgstr "System.Exec(shellCommand)"
+
+msgctxt "#30066"
+msgid "Run job on startup if skipped?"
+msgstr "Run job on startup if skipped?"
