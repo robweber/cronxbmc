@@ -240,7 +240,6 @@ class CronService:
                     cron_exp = croniter(command.expression, start_time)
 
                     runTime = cron_exp.get_next(datetime.datetime)
-                    utils.log(str(runTime))
                     # if this command should run then run it
                     if(runTime <= now):
                         command.last_run = now.timestamp()
