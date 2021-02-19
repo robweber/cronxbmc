@@ -160,6 +160,9 @@ class CronManager:
                 if(node.getAttribute('last_run') != ''):
                     tempJob.last_run = float(node.getAttribute('last_run'))
 
+                if(node.getAttribute('run_if_skipped') != ''):
+                    tempJob.run_if_skipped = bool(node.getAttribute('run_if_skipped'))
+
                 utils.log(tempJob.name + " " + tempJob.expression + " loaded")
                 adv_jobs[tempJob.id] = tempJob
 
