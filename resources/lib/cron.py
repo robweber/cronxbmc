@@ -236,10 +236,11 @@ class CronService:
 
                 for command in cron_jobs:
                     # create a cron expression for this command (on startup use last_run if we care about skipped runs otherwise use previous minute)
-                    start_time = command.last_run if (startup and command.run_if_skipped == 'true') else (now - datetime.timedelta(seconds=60))
+                    start_time = datetime.datetime.fromtimestamp(command.last_run) if (startup and command.run_if_skipped == 'true') else (now - datetime.timedelta(seconds=60))
                     cron_exp = croniter(command.expression, start_time)
 
                     runTime = cron_exp.get_next(datetime.datetime)
+                    utils.log(str(runTime))
                     # if this command should run then run it
                     if(runTime <= now):
                         command.last_run = now.timestamp()
