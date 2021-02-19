@@ -16,7 +16,7 @@ class CronJob:
         self.show_notification = "false"
         self.addon = None
         self.last_run = datetime.datetime.now().timestamp()
-        self.run_if_skipped = False
+        self.run_if_skipped = "false"
 
 
 class CronManager:
@@ -161,7 +161,7 @@ class CronManager:
                     tempJob.last_run = float(node.getAttribute('last_run'))
 
                 if(node.getAttribute('run_if_skipped') != ''):
-                    tempJob.run_if_skipped = bool(node.getAttribute('run_if_skipped'))
+                    tempJob.run_if_skipped = str(node.getAttribute('run_if_skipped'))
 
                 utils.log(tempJob.name + " " + tempJob.expression + " loaded")
                 adv_jobs[tempJob.id] = tempJob
@@ -197,7 +197,7 @@ class CronManager:
                 newChild.setAttribute("show_notification", aJob.show_notification)
                 newChild.setAttribute("addon", aJob.addon)
                 newChild.setAttribute("last_run", str(aJob.last_run))
-                newChild.setAttribute('run_if_skipped', str(aJob.run_if_skipped))
+                newChild.setAttribute('run_if_skipped', aJob.run_if_skipped)
 
                 rootNode.appendChild(newChild)
 
@@ -236,7 +236,7 @@ class CronService:
 
                 for command in cron_jobs:
                     # create a cron expression for this command (on startup use last_run if we care about skipped runs otherwise use previous minute)
-                    start_time = command.last_run if (startup and command.run_if_skipped) else (now - datetime.timedelta(seconds=60))
+                    start_time = command.last_run if (startup and command.run_if_skipped == 'true') else (now - datetime.timedelta(seconds=60))
                     cron_exp = croniter(command.expression, start_time)
 
                     runTime = cron_exp.get_next(datetime.datetime)
