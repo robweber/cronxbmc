@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
+## [Version 0.1.4](https://github.com/robweber/cronxbmc/compare/matrix-0.1.2...robweber:matrix-0.1.3) - 2021-2-19
+
+### Added
+
+- support for a ```run_if_skipped``` attribute. This is false for existing jobs but can be toggled. When set to true will run a job if the execution time was skipped when Kodi is not running. 
+
 ## [Version 0.1.3](https://github.com/robweber/cronxbmc/compare/matrix-0.1.2...robweber:matrix-0.1.3) - 2021-1-4
 
 ### Changed
@@ -41,7 +47,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 - calculate sleep time better
 - log function is always DEBUG level by default (Kodi best practice). Previous was NOTICE.
-- the job id now follows the job as soon as it's created until it's removed. No more changing based on it's position in the file. 
+- the job id now follows the job as soon as it's created until it's removed. No more changing based on it's position in the file.
 
 ### Removed
 
@@ -70,7 +76,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ## Version 0.0.5
 
 ### Added
-- added new GUI 
+- added new GUI
 
 ### Changed
 - minor bug fixes
