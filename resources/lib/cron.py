@@ -197,6 +197,7 @@ class CronManager:
                 newChild.setAttribute("show_notification", aJob.show_notification)
                 newChild.setAttribute("addon", aJob.addon)
                 newChild.setAttribute("last_run", str(aJob.last_run))
+                newChild.setAttribute('run_if_skipped', str(aJob.run_if_skipped))
 
                 rootNode.appendChild(newChild)
 
