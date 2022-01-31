@@ -4,7 +4,7 @@
 [![License](https://img.shields.io/github/license/robweber/cronxbmc)](https://github.com/robweber/cronxbmc/blob/master/LICENSE.txt)
 [![PEP8](https://img.shields.io/badge/code%20style-pep8-orange.svg)](https://www.python.org/dev/peps/pep-0008/)
 
-This addon consists of a plugin and a service that will let you schedule various Kodi functions to be run on timers of your choosing. Functions to run can basically be anything from the list of built in Kodi functions (http://kodi.wiki/view/List_of_built-in_functions). Examples include:
+This addon consists of a plugin and a service that will let you schedule various Kodi functions to be run on timers of your choosing. Functions to run can basically be anything from the list of [built in](http://kodi.wiki/view/List_of_built-in_functions) Kodi functions or any [JSON-RPC methods](https://kodi.wiki/view/JSON-RPC_API/v12). Examples include:
 
 * Rebooting
 * Restart Kodi
@@ -15,13 +15,15 @@ This addon consists of a plugin and a service that will let you schedule various
 * Send a Notification
 * Set Volume
 * Update Music/Video Libraries
+* Playing specific video or audio file
+*
 
 Additionally you can specify your timer to display a notification when they run.
 
 
 ## Running the addon
 
-You can run the addon directly to bring up a GUI. The __Add Job__ option will let you create a job, setting its name, command, and cron schedule. Clicking on an existing job will allow you to edit it's properties. Bringing up the context menu on a selected job will let you delete it. All of the job attributes are pretty self-explanatory, with the exception of the Run If Skipped option. This is meant to ensure a job is run if it's run time is skipped due to Kodi not being on at that time. This is similar to the ```@reboot``` attribute in some cron daemons. At startup any skipped jobs where this is set to "true" will be executed. 
+You can run the addon directly to bring up a GUI. The __Add Job__ option will let you create a job, setting its name, type, command, and cron schedule. Clicking on an existing job will allow you to edit it's properties. Bringing up the context menu on a selected job will let you delete it. All of the job attributes are pretty self-explanatory, with the exception of the Run If Skipped option. This is meant to ensure a job is run if it's run time is skipped due to Kodi not being on at that time. This is similar to the ```@reboot``` attribute in some cron daemons. At startup any skipped jobs where this is set to "true" will be executed.
 
 By default the GUI will only show cron jobs created within the GUI. To edit jobs created anywhere on the system you can toggle the "show all" setting before loading the script.
 
@@ -53,7 +55,8 @@ manager.deleteJob(job.id)
 #add a job
 job = CronJob()
 job.name = "name"
-job.command = "Shutdown"
+job.command_type = "json"  # this is set to "built-in" by default
+job.command = '{"jsonrpc": "2.0", "id": 1, "method": "VideoLibrary.Clean", "params": {"showdialogs": true, "content": "movies"}}'
 job.expression = "0 0 * * *"
 job.show_notification = "false"
 
@@ -72,7 +75,7 @@ The file should have the following layout:
 
 ```xml
 <cron>
- <job name="Job Name" command="Kodi_Command()" expression="* * * * *" show_notification="true/false" id="5" run_if_skipped="false" last_run="0" />
+ <job name="Job Name" command_type="built-in" command="Kodi_Command()" expression="* * * * *" show_notification="true/false" id="5" run_if_skipped="false" last_run="0" />
 </cron>
 ```
 

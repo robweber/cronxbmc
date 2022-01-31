@@ -4,11 +4,21 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
-## [Version 0.1.4](https://github.com/robweber/cronxbmc/compare/matrix-0.1.2...robweber:matrix-0.1.3) - 2021-2-19
+## [Version 0.1.5](https://github.com/robweber/cronxbmc/compare/matrix-0.1.4...robweber:matrix-0.1.5) - 2021-2-19
 
 ### Added
 
-- support for a ```run_if_skipped``` attribute. This is false for existing jobs but can be toggled. When set to true will run a job if the execution time was skipped when Kodi is not running. 
+- added support for JSON RPC commands. The entire JSON string must be put into the command window [examples](https://kodi.wiki/view/JSON-RPC_API/Examples)
+
+### Changed
+
+- `cron.xml` file now contains a `command_type` attribute for each job. This contains either built-in or json depending on the command type
+
+## [Version 0.1.4](https://github.com/robweber/cronxbmc/compare/matrix-0.1.3...robweber:matrix-0.1.4) - 2021-2-19
+
+### Added
+
+- support for a ```run_if_skipped``` attribute. This is false for existing jobs but can be toggled. When set to true will run a job if the execution time was skipped when Kodi is not running.
 
 ## [Version 0.1.3](https://github.com/robweber/cronxbmc/compare/matrix-0.1.2...robweber:matrix-0.1.3) - 2021-1-4
 
