@@ -17,6 +17,12 @@ class CronJob:
         self.addon = None
         self.last_run = datetime.datetime.now().timestamp()
         self.run_if_skipped = "false"
+        self.command_type = 'built-in'
+
+    def getType(self):
+        types = {'built-in': 'Built-In Function', 'json': 'JSON Command'}
+
+        return types[self.command_type]
 
 
 class CronManager:
@@ -163,6 +169,10 @@ class CronManager:
                 if(node.getAttribute('run_if_skipped') != ''):
                     tempJob.run_if_skipped = str(node.getAttribute('run_if_skipped'))
 
+                # catch for prior versions where only built in methods were supported
+                if(node.getAttribute('command_type') != ''):
+                    tempJob.command_type = str(node.getAttribute('command_type'))
+
                 utils.log(tempJob.name + " " + tempJob.expression + " loaded")
                 adv_jobs[tempJob.id] = tempJob
 
@@ -192,6 +202,7 @@ class CronManager:
                 newChild = doc.createElement("job")
                 newChild.setAttribute('id', str(aJob.id))
                 newChild.setAttribute("name", aJob.name)
+                newChild.setAttribute('command_type', aJob.command_type)
                 newChild.setAttribute("expression", aJob.expression)
                 newChild.setAttribute("command", aJob.command)
                 newChild.setAttribute("show_notification", aJob.show_notification)
