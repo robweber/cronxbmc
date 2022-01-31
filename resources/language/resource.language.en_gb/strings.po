@@ -30,8 +30,8 @@ msgid "Job Name"
 msgstr "Job Name"
 
 msgctxt "#30003"
-msgid "Kodi Command"
-msgstr "Kodi Command"
+msgid "Command"
+msgstr "Command"
 
 msgctxt "#30004"
 msgid "Cron Expression"
@@ -124,3 +124,7 @@ msgstr "System.Exec(shellCommand)"
 msgctxt "#30066"
 msgid "Run job on startup if skipped?"
 msgstr "Run job on startup if skipped?"
+
+msgctxt "#30067"
+msgid "Command Type"
+msgstr "Command Type"

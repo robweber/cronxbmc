@@ -11,6 +11,7 @@ class CronGUI:
     params = {}
     context_url = "%s?%s"
     plugin_url = 'Xbmc.RunPlugin(%s?%s)'
+    commandTypes = ["built-in", "json"]
     cron = None
 
     def __init__(self, params):
@@ -27,6 +28,13 @@ class CronGUI:
             return
         else:
             newJob.name = name
+
+        type = xbmcgui.Dialog().select(utils.getString(30067), ["Built-in Function", "JSON Command"], preselect=0)
+
+        if(type == -1):
+            return
+        else:
+            newJob.command_type = self.commandTypes[type]
 
         command = xbmcgui.Dialog().input(heading=utils.getString(30003))
 
@@ -115,14 +123,13 @@ class CronGUI:
             self.cron.addJob(aJob)
 
         elif(command == 8):
-            commandTypes = ["built-in", "json"]
             aJob = self.cron.getJob(int(self.params['job']))
 
             # update the command type
-            type = xbmcgui.Dialog().select(utils.getString(30005), ["Built-In Function", "JSON Command"], preselect=commandTypes.index(aJob.command_type))
+            type = xbmcgui.Dialog().select(utils.getString(30067), ["Built-In Function", "JSON Command"], preselect=self.commandTypes.index(aJob.command_type))
 
             if(type >= 0):
-                aJob.command_type = commandTypes[type]
+                aJob.command_type = self.commandTypes[type]
 
                 self.cron.addJob(aJob)
 
