@@ -155,7 +155,7 @@ class CronGUI:
             name = xbmcgui.ListItem(utils.getString(30002) + ": " + aJob.name)
             xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=self.context_url % (sys.argv[0], 'command=3&window=1&job=' + str(aJob.id)), listitem=name, isFolder=False)
 
-            type = xbmcgui.ListItem("Type: " + aJob.getType())
+            type = xbmcgui.ListItem(utils.getString(30067) + ": " + aJob.getType())
             xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=self.context_url % (sys.argv[0], 'command=8&window=1&job=' + str(aJob.id)), listitem=type, isFolder=False)
 
             command = xbmcgui.ListItem(aJob.getType() + ": " + aJob.command)
