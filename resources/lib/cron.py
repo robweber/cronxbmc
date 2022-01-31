@@ -272,7 +272,10 @@ class CronService:
             utils.showNotification("Cron", cronJob.name + " is executing")
 
         # run the command
-        xbmc.executebuiltin(cronJob.command)
+        if(cronJob.command_type == 'built-in'):
+            xbmc.executebuiltin(cronJob.command)
+        else:
+            r = xbmc.executeJSONRPC(cronJob.command)
 
         # save the last run time
         self.manager.addJob(cronJob)
