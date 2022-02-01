@@ -275,7 +275,7 @@ class CronService:
         if(cronJob.command_type == 'built-in'):
             xbmc.executebuiltin(cronJob.command)
         else:
-            r = xbmc.executeJSONRPC(cronJob.command)
+            xbmc.executeJSONRPC(cronJob.command)
 
         # save the last run time
         self.manager.addJob(cronJob)
