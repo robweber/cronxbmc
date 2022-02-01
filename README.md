@@ -16,7 +16,6 @@ This addon consists of a plugin and a service that will let you schedule various
 * Set Volume
 * Update Music/Video Libraries
 * Playing specific video or audio file
-*
 
 Additionally you can specify your timer to display a notification when they run.
 
