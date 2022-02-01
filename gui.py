@@ -11,6 +11,7 @@ class CronGUI:
     params = {}
     context_url = "%s?%s"
     plugin_url = 'Xbmc.RunPlugin(%s?%s)'
+    commandTypes = ["built-in", "json"]
     cron = None
 
     def __init__(self, params):
@@ -27,6 +28,13 @@ class CronGUI:
             return
         else:
             newJob.name = name
+
+        type = xbmcgui.Dialog().select(utils.getString(30067), ["Built-in Function", "JSON Command"], preselect=0)
+
+        if(type == -1):
+            return
+        else:
+            newJob.command_type = self.commandTypes[type]
 
         command = xbmcgui.Dialog().input(heading=utils.getString(30003))
 
@@ -114,6 +122,17 @@ class CronGUI:
 
             self.cron.addJob(aJob)
 
+        elif(command == 8):
+            aJob = self.cron.getJob(int(self.params['job']))
+
+            # update the command type
+            type = xbmcgui.Dialog().select(utils.getString(30067), ["Built-In Function", "JSON Command"], preselect=self.commandTypes.index(aJob.command_type))
+
+            if(type >= 0):
+                aJob.command_type = self.commandTypes[type]
+
+                self.cron.addJob(aJob)
+
         if(command != 0):
             # always refresh after command
             xbmc.executebuiltin('Container.Refresh')
@@ -136,7 +155,10 @@ class CronGUI:
             name = xbmcgui.ListItem(utils.getString(30002) + ": " + aJob.name)
             xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=self.context_url % (sys.argv[0], 'command=3&window=1&job=' + str(aJob.id)), listitem=name, isFolder=False)
 
-            command = xbmcgui.ListItem(utils.getString(30003) + ": " + aJob.command)
+            type = xbmcgui.ListItem(utils.getString(30067) + ": " + aJob.getType())
+            xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=self.context_url % (sys.argv[0], 'command=8&window=1&job=' + str(aJob.id)), listitem=type, isFolder=False)
+
+            command = xbmcgui.ListItem(aJob.getType() + ": " + aJob.command)
             xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=self.context_url % (sys.argv[0], 'command=4&window=1&job=' + str(aJob.id)), listitem=command, isFolder=False)
 
             expression = xbmcgui.ListItem(utils.getString(30004) + ": " + aJob.expression)
