@@ -128,3 +128,15 @@ msgstr "Run job on startup if skipped?"
 msgctxt "#30067"
 msgid "Command Type"
 msgstr "Command Type"
+
+msgctxt "#30068"
+msgid "General"
+msgstr "General"
+
+msgctxt "#30069"
+msgid "Show All Jobs"
+msgstr "Show All Jobs"
+
+msgctxt "#30070"
+msgid "Display all jobs in the GUI, including those made by other addons"
+msgstr "Display all jobs in the GUI, including those made by other addons"
