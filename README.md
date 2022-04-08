@@ -3,6 +3,7 @@
 [![Build Status](https://img.shields.io/travis/com/robweber/cronxbmc/matrix)](https://app.travis-ci.com/github/robweber/cronxbmc)
 [![License](https://img.shields.io/github/license/robweber/cronxbmc)](https://github.com/robweber/cronxbmc/blob/master/LICENSE.txt)
 [![PEP8](https://img.shields.io/badge/code%20style-pep8-orange.svg)](https://www.python.org/dev/peps/pep-0008/)
+[![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg)](https://github.com/RichardLitt/standard-readme)
 
 This addon consists of a plugin and a service that will let you schedule various Kodi functions to be run on timers of your choosing. Functions to run can basically be anything from the list of [built in](http://kodi.wiki/view/List_of_built-in_functions) Kodi functions or any [JSON-RPC methods](https://kodi.wiki/view/JSON-RPC_API/v12). Examples include:
 
@@ -19,14 +20,19 @@ This addon consists of a plugin and a service that will let you schedule various
 
 Additionally you can specify your timer to display a notification when they run.
 
+## Install
 
-## Running the addon
+This can easily be installed in Kodi via [a zip file](https://github.com/robweber/cronxbmc/archive/refs/heads/matrix.zip).
+
+## Usage
+
+### Running the addon
 
 You can run the addon directly to bring up a GUI. The __Add Job__ option will let you create a job, setting its name, type, command, and cron schedule. Clicking on an existing job will allow you to edit it's properties. Bringing up the context menu on a selected job will let you delete it. All of the job attributes are pretty self-explanatory, with the exception of the Run If Skipped option. This is meant to ensure a job is run if it's run time is skipped due to Kodi not being on at that time. This is similar to the ```@reboot``` attribute in some cron daemons. At startup any skipped jobs where this is set to "true" will be executed.
 
 By default the GUI will only show cron jobs created within the GUI. To edit jobs created anywhere on the system you can toggle the "show all" setting before loading the script.
 
-## Using as import in another addon
+### Import Into Another Addon
 
 If you want to schedule something as part of your own addon you can import the CronManager class as an Kodi addon module. This will only load jobs created by your specific addon. To do this first add the following to your addon.xml file:
 
@@ -66,7 +72,7 @@ manager.addJob(job) #call this to create new or update an existing job
 Do not attempt to assign a job ID manually. For a new job leave the ID as is, for a current job just call ```manager.addJob()``` and the id will be used to update the correct entry. Refresh jobs ```jobs = manager.getJobs()``` will pull in any new jobs that may have been added via other methods.
 
 
-## Manually Editing the cron.xml file
+### Manually Editing the cron.xml file
 
 If you need to you can bypass the GUI and write the cron.xml file yourself, or via a script.  
 
@@ -80,7 +86,7 @@ The file should have the following layout:
 
 If editing the file directly make sure you set a job id that is different than any other in the file (typically just a higher integer than any other job). Also note that the ```last_run``` value will be automatically updated as the program executes. Make sure you don't touch this value if updating the file.
 
-## Using Cron
+### Using Cron
 
 A Cron expression is made up for 5 parts (see below). Read up on cron(http://en.wikipedia.org/wiki/Cron) for more information on how to create these expressions.
 
@@ -94,3 +100,11 @@ A Cron expression is made up for 5 parts (see below). Read up on cron(http://en.
 Example:
 	0 */5 ** 1-5 - runs every five hours Monday - Friday
 	0,15,30,45 0,15-18 * * * - runs every quarter hour during midnight hour and 3pm-6pm
+
+## Contributing
+
+Please use the [Issues area](https://github.com/robweber/cronxbmc/issues) of the repository to ask questions or submit bug reports. Pull Requests are accepted, please follow the normal [Github workflow](https://docs.github.com/en/get-started/quickstart/github-flow) for submitting PRs. 
+
+## License
+
+[MIT](/LICENSE)
