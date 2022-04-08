@@ -15,6 +15,6 @@ script:
 
 deploy:
   - provider: script
-    script: submit-addon -r repo-scripts -b matrix --push-branch script.cronxbmc
+    script: submit-addon -r repo-scripts -b matrix --push-branch service.cronxbmc
     on:
       tags: true
