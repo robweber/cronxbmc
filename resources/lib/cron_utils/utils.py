@@ -19,7 +19,7 @@ def addon_dir():
     return __Addon.getAddonInfo('path')
 
 
-def log(message, loglevel=xbmc.LOGDEBUG):
+def log(message, loglevel=xbmc.LOGINFO):
     xbmc.log(__addon_id__ + "-" + __Addon.getAddonInfo('version') + " : " + message, level=loglevel)
 
 
