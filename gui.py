@@ -138,7 +138,8 @@ class CronGUI:
             # always refresh after command
             xbmc.executebuiltin('Container.Refresh')
 
-        jobs = self.cron.getJobs(utils.getSetting('show_all'))
+        show_all = utils.getSetting('show_all') == 'true'
+        jobs = self.cron.getJobs(show_all)
         if(window == 0):
             # create the default window
             addItem = xbmcgui.ListItem(utils.getString(30001))

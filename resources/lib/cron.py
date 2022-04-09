@@ -70,14 +70,14 @@ class CronManager:
 
         self._writeCronFile()
 
-    def getJobs(self, show_all=False):
+    def getJobs(self, show_all=True):
         self._refreshJobs()
 
-        if(show_all != 'true'):
+        if show_all:
+            result = self.jobs.values()
+        else:
             # filter on currently loaded addon
             result = list(filter(lambda x: x.addon == utils.addon_id(), self.jobs.values()))
-        else:
-            result = self.jobs.values()
 
         return result
 
@@ -183,7 +183,7 @@ class CronManager:
             doc.appendChild(rootNode)
             # write the file
             f = xbmcvfs.File(xbmcvfs.translatePath(self.CRONFILE), "w")
-            doc.writexml(f, "   ")
+            doc.writexml(f, indent='', addindent='  ', newl='\n')
             f.close()
 
         return adv_jobs
@@ -214,7 +214,7 @@ class CronManager:
 
             # write the file
             f = xbmcvfs.File(xbmcvfs.translatePath(self.CRONFILE), "w")
-            doc.writexml(f, "   ")
+            doc.writexml(f, indent='', addindent='  ', newl='\n')
             f.close()
 
         except IOError:
