@@ -4,7 +4,7 @@ import xbmcplugin
 import sys
 from urllib.parse import parse_qsl
 from resources.lib.cron import CronManager, CronJob
-import resources.lib.utils as utils
+from resources.lib.cron_utils import utils
 
 
 class CronGUI:
@@ -126,7 +126,8 @@ class CronGUI:
             aJob = self.cron.getJob(int(self.params['job']))
 
             # update the command type
-            type = xbmcgui.Dialog().select(utils.getString(30067), ["Built-In Function", "JSON Command"], preselect=self.commandTypes.index(aJob.command_type))
+            type = xbmcgui.Dialog().select(utils.getString(
+                30067), ["Built-In Function", "JSON Command"], preselect=self.commandTypes.index(aJob.command_type))
 
             if(type >= 0):
                 aJob.command_type = self.commandTypes[type]
@@ -137,46 +138,56 @@ class CronGUI:
             # always refresh after command
             xbmc.executebuiltin('Container.Refresh')
 
-        jobs = self.cron.getJobs(utils.getSetting('show_all'))
+        show_all = utils.getSetting('show_all') == 'true'
+        jobs = self.cron.getJobs(show_all)
         if(window == 0):
             # create the default window
             addItem = xbmcgui.ListItem(utils.getString(30001))
-            xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=self.context_url % (sys.argv[0], 'command=1&window=0'), listitem=addItem, isFolder=False)
+            xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=self.context_url % (
+                sys.argv[0], 'command=1&window=0'), listitem=addItem, isFolder=False)
 
             for j in jobs:
                 # list each job
                 cronItem = xbmcgui.ListItem(j.name + " - " + utils.getString(30011) + ": " + self.cron.nextRun(j))
-                cronItem.addContextMenuItems([(utils.getString(30008), self.plugin_url % (sys.argv[0], 'command=0&window=1&job=' + str(j.id))), (utils.getString(30007), self.plugin_url % (sys.argv[0], 'command=2&window=0&job=' + str(j.id)))])
-                xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=self.context_url % (sys.argv[0], 'command=0&window=1&job=' + str(j.id)), listitem=cronItem, isFolder=True)
+                cronItem.addContextMenuItems([(utils.getString(30008), self.plugin_url % (sys.argv[0], 'command=0&window=1&job=' + str(
+                    j.id))), (utils.getString(30007), self.plugin_url % (sys.argv[0], 'command=2&window=0&job=' + str(j.id)))])
+                xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=self.context_url % (
+                    sys.argv[0], 'command=0&window=1&job=' + str(j.id)), listitem=cronItem, isFolder=True)
         elif(window == 1):
             # list the details of this job
             aJob = self.cron.getJob(int(self.params['job']))
 
             name = xbmcgui.ListItem(utils.getString(30002) + ": " + aJob.name)
-            xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=self.context_url % (sys.argv[0], 'command=3&window=1&job=' + str(aJob.id)), listitem=name, isFolder=False)
+            xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=self.context_url % (
+                sys.argv[0], 'command=3&window=1&job=' + str(aJob.id)), listitem=name, isFolder=False)
 
             type = xbmcgui.ListItem(utils.getString(30067) + ": " + aJob.getType())
-            xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=self.context_url % (sys.argv[0], 'command=8&window=1&job=' + str(aJob.id)), listitem=type, isFolder=False)
+            xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=self.context_url % (
+                sys.argv[0], 'command=8&window=1&job=' + str(aJob.id)), listitem=type, isFolder=False)
 
             command = xbmcgui.ListItem(aJob.getType() + ": " + aJob.command)
-            xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=self.context_url % (sys.argv[0], 'command=4&window=1&job=' + str(aJob.id)), listitem=command, isFolder=False)
+            xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=self.context_url % (
+                sys.argv[0], 'command=4&window=1&job=' + str(aJob.id)), listitem=command, isFolder=False)
 
             expression = xbmcgui.ListItem(utils.getString(30004) + ": " + aJob.expression)
-            xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=self.context_url % (sys.argv[0], 'command=5&window=1&job=' + str(aJob.id)), listitem=expression, isFolder=False)
+            xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=self.context_url % (
+                sys.argv[0], 'command=5&window=1&job=' + str(aJob.id)), listitem=expression, isFolder=False)
 
             showNotification = 'No'
             if(aJob.show_notification == 'true'):
                 showNotification = 'Yes'
 
             notification = xbmcgui.ListItem(utils.getString(30005) + ": " + showNotification)
-            xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=self.context_url % (sys.argv[0], 'command=6&window=1&job=' + str(aJob.id)), listitem=notification, isFolder=False)
+            xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=self.context_url % (
+                sys.argv[0], 'command=6&window=1&job=' + str(aJob.id)), listitem=notification, isFolder=False)
 
             runSkippedStatus = 'No'
             if(aJob.run_if_skipped == 'true'):
                 runSkippedStatus = 'Yes'
 
             runIfSkipped = xbmcgui.ListItem(utils.getString(30066) + ": " + runSkippedStatus)
-            xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=self.context_url % (sys.argv[0], 'command=7&window=1&job=' + str(aJob.id)), listitem=runIfSkipped, isFolder=False)
+            xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=self.context_url % (
+                sys.argv[0], 'command=7&window=1&job=' + str(aJob.id)), listitem=runIfSkipped, isFolder=False)
 
         xbmcplugin.endOfDirectory(int(sys.argv[1]), cacheToDisc=False)
 
