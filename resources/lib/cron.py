@@ -3,8 +3,8 @@ import xbmc
 import xbmcvfs
 import xml.dom.minidom
 import datetime
-from resources.lib.croniter import croniter
-from . import utils as utils
+from cron_utils import croniter
+from cron_utils import utils
 
 
 class CronJob:
@@ -37,7 +37,7 @@ class CronManager:
 
         try:
             # verify the cron expression here, throws ValueError if wrong
-            croniter(job.expression)
+            croniter.croniter(job.expression)
         except:
             # didn't work
             return False
@@ -70,14 +70,14 @@ class CronManager:
 
         self._writeCronFile()
 
-    def getJobs(self, show_all=False):
+    def getJobs(self, show_all=True):
         self._refreshJobs()
 
-        if(show_all != 'true'):
+        if show_all:
+            result = self.jobs.values()
+        else:
             # filter on currently loaded addon
             result = list(filter(lambda x: x.addon == utils.addon_id(), self.jobs.values()))
-        else:
-            result = self.jobs.values()
 
         return result
 
@@ -89,7 +89,7 @@ class CronManager:
     def nextRun(self, cronJob):
         # create a cron expression
         now = datetime.datetime.now()
-        cron_exp = croniter(cronJob.expression, now)
+        cron_exp = croniter.croniter(cronJob.expression, now)
 
         # compare now with next date
         nextRun = cron_exp.get_next(datetime.datetime)
@@ -183,7 +183,7 @@ class CronManager:
             doc.appendChild(rootNode)
             # write the file
             f = xbmcvfs.File(xbmcvfs.translatePath(self.CRONFILE), "w")
-            doc.writexml(f, "   ")
+            doc.writexml(f, indent='', addindent='  ', newl='\n')
             f.close()
 
         return adv_jobs
@@ -214,7 +214,7 @@ class CronManager:
 
             # write the file
             f = xbmcvfs.File(xbmcvfs.translatePath(self.CRONFILE), "w")
-            doc.writexml(f, "   ")
+            doc.writexml(f, indent='', addindent='  ', newl='\n')
             f.close()
 
         except IOError:
@@ -247,15 +247,17 @@ class CronService:
 
                 for command in cron_jobs:
                     # create a cron expression for this command (on startup use last_run if we care about skipped runs otherwise use previous minute)
-                    start_time = datetime.datetime.fromtimestamp(command.last_run) if (startup and command.run_if_skipped == 'true') else (now - datetime.timedelta(seconds=60))
-                    cron_exp = croniter(command.expression, start_time)
+                    start_time = datetime.datetime.fromtimestamp(command.last_run) if (
+                        startup and command.run_if_skipped == 'true') else (now - datetime.timedelta(seconds=60))
+                    cron_exp = croniter.croniter(command.expression, start_time)
 
                     runTime = cron_exp.get_next(datetime.datetime)
                     # if this command should run then run it
                     if(runTime <= now):
                         command.last_run = now.timestamp()
                         self.runJob(command)
-                        utils.log(command.name + " will run again on " + utils.getRegionalTimestamp(cron_exp.get_next(datetime.datetime), ['dateshort', 'time']))
+                        utils.log(command.name + " will run again on "
+                                  + utils.getRegionalTimestamp(cron_exp.get_next(datetime.datetime), ['dateshort', 'time']))
 
             startup = False
 

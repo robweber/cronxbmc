@@ -24,7 +24,8 @@ def log(message, loglevel=xbmc.LOGDEBUG):
 
 
 def showNotification(title, message):
-    xbmcgui.Dialog().notification(getString(30000), message, time=4000, icon=xbmcvfs.translatePath(__Addon.getAddonInfo('path') + "/resources/images/icon.png"), sound=False)
+    xbmcgui.Dialog().notification(getString(30000), message, time=4000, icon=xbmcvfs.translatePath(
+        __Addon.getAddonInfo('path') + "/resources/images/icon.png"), sound=False)
 
 
 def setSetting(name, value):
