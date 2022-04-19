@@ -256,8 +256,7 @@ class CronService:
                     if(runTime <= now):
                         command.last_run = now.timestamp()
                         self.runJob(command)
-                        utils.log(command.name + " will run again on " +
-                                  utils.getRegionalTimestamp(cron_exp.get_next(datetime.datetime), ['dateshort', 'time']))
+                        utils.log(command.name + " will run again on " + utils.getRegionalTimestamp(cron_exp.get_next(datetime.datetime), ['dateshort', 'time']))
 
             startup = False
 
