@@ -15,6 +15,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Fixed
 
 - the `msgstr` attribute of the default language file should be blank
+- fixed module for importing within other addons - thanks @TermeHansen 
 
 ### Removed
 
