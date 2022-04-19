@@ -4,6 +4,22 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
+## [Unreleased]
+
+### Changed
+
+- updated README with additional info
+- revamped Travis CI build procedure so this can be pushed to the Kodi repo
+- updated the settings to the new Kodi format
+
+### Fixed
+
+- the `msgstr` attribute of the default language file should be blank
+
+### Removed
+
+- removed `__init__.py` files as these aren't needed with Python 3
+
 ## [Version 0.1.5](https://github.com/robweber/cronxbmc/compare/matrix-0.1.4...robweber:matrix-0.1.5) - 2021-2-19
 
 ### Added
