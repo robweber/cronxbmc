@@ -11,6 +11,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - updated README with additional info
 - revamped Travis CI build procedure so this can be pushed to the Kodi repo
 - updated the settings to the new Kodi format
+- updated logo to remove "xbmc" from title
 
 ### Fixed
 
