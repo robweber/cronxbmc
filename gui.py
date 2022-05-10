@@ -3,8 +3,7 @@ import xbmcgui
 import xbmcplugin
 import sys
 from urllib.parse import parse_qsl
-from resources.lib.cron import CronManager, CronJob
-from resources.lib.cron_utils import utils
+from resources.lib.cron import utils, CronManager, CronJob
 
 
 class CronGUI:
