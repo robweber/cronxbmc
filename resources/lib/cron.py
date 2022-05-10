@@ -181,10 +181,10 @@ class CronManager:
             doc = xml.dom.minidom.Document()
             rootNode = doc.createElement("cron")
             doc.appendChild(rootNode)
+
             # write the file
-            f = xbmcvfs.File(xbmcvfs.translatePath(self.CRONFILE), "w")
-            doc.writexml(f, indent='', addindent='  ', newl='\n')
-            f.close()
+            with xbmcvfs.File(xbmcvfs.translatePath(self.CRONFILE), "w") as f:
+                doc.writexml(f, indent='', addindent='  ', newl='\n')
 
         return adv_jobs
 
@@ -213,9 +213,8 @@ class CronManager:
                 rootNode.appendChild(newChild)
 
             # write the file
-            f = xbmcvfs.File(xbmcvfs.translatePath(self.CRONFILE), "w")
-            doc.writexml(f, indent='', addindent='  ', newl='\n')
-            f.close()
+            with xbmcvfs.File(xbmcvfs.translatePath(self.CRONFILE), "w") as f:
+                doc.writexml(f, indent='', addindent='  ', newl='\n')
 
         except IOError:
             utils.log("error writing cron file", xbmc.LOGERROR)
