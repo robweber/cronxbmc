@@ -10,7 +10,7 @@ from resources.lib.cron_utils import utils
 class CronGUI:
     params = {}
     context_url = "%s?%s"
-    plugin_url = 'Xbmc.RunPlugin(%s?%s)'
+    plugin_url = 'RunPlugin(%s?%s)'
     commandTypes = ["built-in", "json"]
     cron = None
 
