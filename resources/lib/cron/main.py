@@ -3,8 +3,8 @@ import xbmc
 import xbmcvfs
 import xml.dom.minidom
 import datetime
-from cron_utils import croniter
-from cron_utils import utils
+from . import croniter
+from . import utils
 
 
 class CronJob:
