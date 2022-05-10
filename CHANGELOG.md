@@ -12,11 +12,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - revamped Travis CI build procedure so this can be pushed to the Kodi repo
 - updated the settings to the new Kodi format
 - updated logo to remove "xbmc" from title
+- `Xbmc.RunPlugin` is now just `RunPlugin`
 
 ### Fixed
 
 - the `msgstr` attribute of the default language file should be blank
 - fixed module for importing within other addons - thanks @TermeHansen 
+- fixed minor addon.xml formatting issues
 
 ### Removed
 
