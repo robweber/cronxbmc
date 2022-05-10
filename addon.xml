@@ -14,8 +14,7 @@
     <summary lang="en_GB">A customizable Cron timer for Kodi. </summary>
     <description lang="en_GB">Create cron timers for Kodi functions. This addon can schedule and run any built-in or JSON Kodi functions. No more reliance on add-on developers to allow for "timer" functionality, no more scripts running on other machines to send commands to your HTPC. All of your timers can now be handled directly within Kodi. It can also display notifications when your tasks run if configured to do so.</description>
     <platform>all</platform>
-    <language></language>
-    <license>The MIT License</license>
+    <license>MIT</license>
     <forum>https://forum.kodi.tv/showthread.php?tid=124888</forum>
     <source>https://github.com/robweber/cronxbmc</source>
     <assets>
