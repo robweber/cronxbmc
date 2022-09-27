@@ -28,7 +28,7 @@ class CronGUI:
         else:
             newJob.name = name
 
-        type = xbmcgui.Dialog().select(utils.getString(30067), ["Built-in Function", "JSON Command"], preselect=0)
+        type = xbmcgui.Dialog().select(utils.getString(30067), [utils.getString(30071), utils.getString(30072)], preselect=0)
 
         if(type == -1):
             return
@@ -60,7 +60,7 @@ class CronGUI:
             newJob.run_if_skipped = "false"
 
         if(not self.cron.addJob(newJob)):
-            xbmcgui.Dialog().ok(utils.getString(30000), 'Job not added, cron expression error')
+            xbmcgui.Dialog().ok(utils.getString(30000), utils.getString(30073))
 
     def run(self):
         command = int(self.params['command'])
@@ -97,7 +97,7 @@ class CronGUI:
             aJob.expression = xbmcgui.Dialog().input(utils.getString(30006) + " " + utils.getString(30004), aJob.expression)
 
             if(not self.cron.addJob(aJob)):
-                xbmcgui.Dialog().ok(utils.getString(30000), 'Job not added, cron expression error')
+                xbmcgui.Dialog().ok(utils.getString(30000), utils.getString(30073))
 
         elif(command == 6):
             # update the notification setting

@@ -138,3 +138,15 @@ msgstr ""
 msgctxt "#30070"
 msgid "Display all jobs in the GUI, including those made by other addons"
 msgstr ""
+
+msgctxt "#30071"
+msgid "Built-in Function"
+msgstr ""
+
+msgctxt "#30072"
+msgid "JSON Command"
+msgstr ""
+
+msgctxt "#30073"
+msgid "Job not added, cron expression error"
+msgstr ""
