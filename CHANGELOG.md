@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
+## Version 0.2.0
+
+### Changed
+
+- Kodi python lib now moved to Nexus compatible
+
 ## [Version 0.1.7](https://github.com/robweber/cronxbmc/compare/matrix-0.1.6...robweber:matrix-0.1.7) - 2023-3-02
 
 ### Fixed
@@ -23,7 +29,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Fixed
 
 - the `msgstr` attribute of the default language file should be blank
-- fixed module for importing within other addons - thanks @TermeHansen 
+- fixed module for importing within other addons - thanks @TermeHansen
 - fixed minor addon.xml formatting issues
 
 ### Removed
