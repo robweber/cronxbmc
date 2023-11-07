@@ -1,1 +1,1 @@
-from .main import CronJob, CronManager, CronService
+from .main import CronJob, CronManager, CronService  # noqa: F401

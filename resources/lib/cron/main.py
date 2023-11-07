@@ -38,7 +38,7 @@ class CronManager:
         try:
             # verify the cron expression here, throws ValueError if wrong
             croniter.croniter(job.expression)
-        except:
+        except ValueError:
             # didn't work
             return False
 
