@@ -209,7 +209,7 @@ def get_params():
             if(args.startswith('?')):
                 args = args[1:]
             param.update(dict(parse_qsl(args)))
-    except:
+    except ValueError:
         pass
     return param
 
