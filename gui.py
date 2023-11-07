@@ -23,7 +23,7 @@ class CronGUI:
         # get the name, command, expression and notification setting
         name = xbmcgui.Dialog().input(heading=utils.getString(30002))
 
-        if(name == ""):
+        if(not name):
             return
         else:
             newJob.name = name
@@ -37,14 +37,14 @@ class CronGUI:
 
         command = xbmcgui.Dialog().input(heading=utils.getString(30003))
 
-        if(command == ""):
+        if(not command):
             return
         else:
             newJob.command = command
 
         expression = xbmcgui.Dialog().input(utils.getString(30004), "0 0 * * *")
 
-        if(expression == ""):
+        if(not expression):
             return
         else:
             newJob.expression = expression
@@ -81,23 +81,32 @@ class CronGUI:
             # update the name
             aJob = self.cron.getJob(int(self.params['job']))
 
-            aJob.name = xbmcgui.Dialog().input(utils.getString(30006) + " " + utils.getString(30002), aJob.name)
-            self.cron.addJob(aJob)
+            tempInput = xbmcgui.Dialog().input(utils.getString(30006) + " " + utils.getString(30002), aJob.name)
+
+            if(tempInput):
+                aJob.name = tempInput
+                self.cron.addJob(aJob)
+
         elif(command == 4):
             # udpate the command
             aJob = self.cron.getJob(int(self.params['job']))
 
-            aJob.command = xbmcgui.Dialog().input(utils.getString(30006) + " " + utils.getString(30003), aJob.command)
-            self.cron.addJob(aJob)
+            tempInput = xbmcgui.Dialog().input(utils.getString(30006) + " " + utils.getString(30003), aJob.command)
+
+            if(tempInput):
+                aJob.command = tempInput
+                self.cron.addJob(aJob)
 
         elif(command == 5):
             # update the expression
             aJob = self.cron.getJob(int(self.params['job']))
 
-            aJob.expression = xbmcgui.Dialog().input(utils.getString(30006) + " " + utils.getString(30004), aJob.expression)
+            tempInput = xbmcgui.Dialog().input(utils.getString(30006) + " " + utils.getString(30004), aJob.expression)
 
-            if(not self.cron.addJob(aJob)):
-                xbmcgui.Dialog().ok(utils.getString(30000), utils.getString(30073))
+            if(tempInput):
+                aJob.expression = tempInput
+                if(not self.cron.addJob(aJob)):
+                    xbmcgui.Dialog().ok(utils.getString(30000), utils.getString(30073))
 
         elif(command == 6):
             # update the notification setting
