@@ -1,6 +1,5 @@
 # Cron for Kodi
 ![Kodi Version](https://img.shields.io/endpoint?url=https%3A%2F%2Fweberjr.com%2Fkodi-shield%2Fversion%2Frobweber%2Fcronxbmc%2Fmatrix%2Ftrue%2Ftrue)
-[![Build Status](https://img.shields.io/travis/com/robweber/cronxbmc/matrix)](https://app.travis-ci.com/github/robweber/cronxbmc)
 [![Build Status](https://img.shields.io/github/actions/workflow/status/robweber/cronxbmc/addon-checker.yml)](https://github.com/robweber/cronxbmc/actions/workflows/addon-checker.yml)
 [![License](https://img.shields.io/github/license/robweber/cronxbmc)](https://github.com/robweber/cronxbmc/blob/master/LICENSE.txt)
 [![PEP8](https://img.shields.io/badge/code%20style-pep8-orange.svg)](https://www.python.org/dev/peps/pep-0008/)
