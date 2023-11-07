@@ -1,6 +1,7 @@
 # Cron for Kodi
 ![Kodi Version](https://img.shields.io/endpoint?url=https%3A%2F%2Fweberjr.com%2Fkodi-shield%2Fversion%2Frobweber%2Fcronxbmc%2Fmatrix%2Ftrue%2Ftrue)
 [![Build Status](https://img.shields.io/travis/com/robweber/cronxbmc/matrix)](https://app.travis-ci.com/github/robweber/cronxbmc)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/robweber/cronxbmc/addon-checker.yml)](https://github.com/robweber/cronxbmc/actions/workflows/addon-checker.yml)
 [![License](https://img.shields.io/github/license/robweber/cronxbmc)](https://github.com/robweber/cronxbmc/blob/master/LICENSE.txt)
 [![PEP8](https://img.shields.io/badge/code%20style-pep8-orange.svg)](https://www.python.org/dev/peps/pep-0008/)
 [![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg)](https://github.com/RichardLitt/standard-readme)
@@ -19,6 +20,17 @@ This addon consists of a plugin and a service that will let you schedule various
 * Playing specific video or audio file
 
 Additionally you can specify your timer to display a notification when they run.
+
+## Table Of Contents
+
+- [Install](#install)
+- [Usage](#usage)
+  - [Running The Addon](#running-the-addon)
+  - [Import Into Another Addon](#import-into-another-addon)
+  - [Manual Editing](#manual-editing)
+  - [Using Cron](#using-cron)
+- [Contributing](#contributing)
+- [License](#license)
 
 ## Install
 
@@ -72,9 +84,9 @@ manager.addJob(job) #call this to create new or update an existing job
 Do not attempt to assign a job ID manually. For a new job leave the ID as is, for a current job just call ```manager.addJob()``` and the id will be used to update the correct entry. Refresh jobs ```jobs = manager.getJobs()``` will pull in any new jobs that may have been added via other methods.
 
 
-### Manually Editing the cron.xml file
+### Manual Editing
 
-If you need to you can bypass the GUI and write the cron.xml file yourself, or via a script.  
+If you need to you can bypass the GUI and write the `cron.xml` file yourself, or via a script.  
 
 The file should have the following layout:
 
@@ -103,7 +115,7 @@ Example:
 
 ## Contributing
 
-Please use the [Issues area](https://github.com/robweber/cronxbmc/issues) of the repository to ask questions or submit bug reports. Pull Requests are accepted, please follow the normal [Github workflow](https://docs.github.com/en/get-started/quickstart/github-flow) for submitting PRs. 
+Please use the [Issues area](https://github.com/robweber/cronxbmc/issues) of the repository to ask questions or submit bug reports. Pull Requests are accepted, please follow the normal [Github workflow](https://docs.github.com/en/get-started/quickstart/github-flow) for submitting PRs.
 
 ## License
 

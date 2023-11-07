@@ -6,9 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ## Version 0.2.0
 
+### Fixed
+
+- fixed bug where canceling dialogs would erase current setting - thanks @Shredder5262
+
 ### Changed
 
 - Kodi python lib now moved to Nexus compatible
+- workflows now use GitHub Actions instead of TravisCI
 
 ## [Version 0.1.7](https://github.com/robweber/cronxbmc/compare/matrix-0.1.6...robweber:matrix-0.1.7) - 2023-3-02
 
